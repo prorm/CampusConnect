@@ -1,16 +1,32 @@
-# React + Vite
+# CampusConnect frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A standalone React + Vite frontend for campus opportunity discovery. The animated glassmorphism landing leads into student, coordinator, and administrator demo workspaces.
 
-Currently, two official plugins are available:
+## Commands
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm ci
+npm run dev
+npm run build
+npm run preview
+npm run lint
+npm test
+```
 
-## React Compiler
+No backend, database, API key, or environment file is required. See the root README for the complete feature map and presentation walkthrough.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Implementation
 
-## Expanding the Oxlint configuration
+- React manages navigation, forms, shared event records, registrations, and attendance.
+- Canvas draws perspective-projected ribbons and ambient particles; CSS builds the orbital artwork and glass surfaces.
+- Space Grotesk and DM Sans variable fonts are bundled through Fontsource.
+- `src/data/campus.js` contains fixtures, timetable checks, date formatting, and calendar export.
+- `src/hooks/useCampus.js` persists the local demo state and reports storage failures.
+- Each workspace page is a React component under `src/pages/`.
+- Routes use URL fragments (`#today`, `#explore`, `#schedule`, `#poster`, `#passport`, `#communities`, `#organizer`, `#admin`, `#home`) and work on static hosts without route rewrites.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Demo boundaries
+
+The clock is fixed at 7 October 2026, 12:20 IST. Opportunity scores and attendance forecasts are illustrative. Poster extraction parses labeled pasted text; uploaded images are previewed only. The assistant uses scripted local-data answers. Role switching is a presentation aid rather than authentication. Certificates and resume exports describe local demo participation.
+
+State is kept in the browser under `campusconnect-opportunities-v1`. Use **Reset local demo** in the sidebar, or remove that localStorage entry, to restore the initial fixtures. Uploaded images are never transmitted. The existing backend is unused and unchanged.

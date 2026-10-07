@@ -1,379 +1,390 @@
-import React, { useState } from 'react';
-import Navbar from './components/Navbar';
-import Toast from './components/Toast';
-import AuthModal from './pages/AuthModal';
+import { useEffect, useRef, useState } from "react";
+import Landing from "./pages/Landing";
+import AppShell from "./components/AppShell";
+import EventDetails from "./components/EventDetails";
+import Assistant from "./components/Assistant";
+import Notice from "./components/Notice";
+import Dialog from "./components/Dialog";
+import { createDemoState } from "./data/createState";
+import Today from "./pages/Today";
+import Explore from "./pages/Explore";
+import Schedule from "./pages/Schedule";
+import Passport from "./pages/Passport";
+import Poster from "./pages/Poster";
+import Organizer from "./pages/Organizer";
+import Communities from "./pages/Communities";
+import CampusAdmin from "./pages/CampusAdmin";
+import useCampus from "./hooks/useCampus";
+import { feasibility } from "./data/campus";
+import "./App.css";
 
-// Pages
-import StudentDashboard from './pages/StudentDashboard';
-import CoordinatorDashboard from './pages/CoordinatorDashboard';
-import ClubsPage from './pages/ClubsPage';
-import EventsPage from './pages/EventsPage';
-import AnalyticsDashboard from './pages/AnalyticsDashboard';
-import AdminManagement from './pages/AdminManagement';
-
-// Mock Data
-import { 
-  initialUsers, 
-  initialClubs, 
-  initialEvents, 
-  initialRegistrations, 
-  initialFeedbacks, 
-  initialAiInsights 
-} from './data/mockData';
-
-import './App.css';
-
-// Main Application Component
-// Basic React application orchestrating state, role views, and modules.
+const validPages = [
+  "home",
+  "today",
+  "explore",
+  "schedule",
+  "passport",
+  "poster",
+  "organizer",
+  "communities",
+  "admin",
+];
+function pageFromHash() {
+  const page = location.hash.slice(1);
+  return validPages.includes(page) ? page : "home";
+}
 function App() {
-  // Application State
-  const [allUsers, setAllUsers] = useState(initialUsers);
-  const [currentUser, setCurrentUser] = useState(initialUsers[0]); // Default: Student (Pranav R Mane)
-  const [clubs, setClubs] = useState(initialClubs);
-  const [events, setEvents] = useState(initialEvents);
-  const [registrations, setRegistrations] = useState(initialRegistrations);
-  const [feedbacks, setFeedbacks] = useState(initialFeedbacks);
-  const [aiInsights, setAiInsights] = useState(initialAiInsights);
-  
-  // Navigation & UI State
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [joinedClubIds, setJoinedClubIds] = useState(['c1', 'c2']);
-  const [toastMessage, setToastMessage] = useState(null);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [collegeAnnouncement, setCollegeAnnouncement] = useState(
-    '📢 Welcome to the Fall 2026 Semester! Club recruitments and HackMatrix registrations are currently open.'
-  );
-
-  // Helper: Trigger floating toast notification
-  const triggerToast = (msg) => {
-    setToastMessage(msg);
-    setTimeout(() => {
-      setToastMessage((current) => (current === msg ? null : current));
-    }, 4500);
-  };
-
-  // 1. Role / User Switcher Handler
-  const handleSelectUser = (user) => {
-    setCurrentUser(user);
-    setActiveTab('dashboard');
-    triggerToast(`Switched active persona to ${user.name} (${user.role.toUpperCase()})`);
-  };
-
-  // 2. Register New User (Step 1 of Synopsis)
-  const handleRegisterNewUser = (newUser) => {
-    setAllUsers([...allUsers, newUser]);
-    setCurrentUser(newUser);
-    setActiveTab('dashboard');
-    triggerToast(`Welcome ${newUser.name}! Account registered successfully as ${newUser.role}.`);
-  };
-
-  // 3. Event Registration Handler (Step 4 of Synopsis)
-  const handleRegisterEvent = (event) => {
-    // Check if already registered
-    const alreadyRegistered = registrations.some(
-      r => r.eventId === event.id && r.studentId === currentUser.id
+  const [state, setState, storageError] = useCampus();
+  const [page, setPage] = useState(pageFromHash),
+    [role, setRole] = useState(() =>
+      pageFromHash() === "organizer"
+        ? "coordinator"
+        : pageFromHash() === "admin"
+          ? "admin"
+          : "student",
     );
-
-    if (alreadyRegistered) {
-      triggerToast('You are already registered for this event!');
-      return;
-    }
-
-    if (event.registeredCount >= event.capacity) {
-      triggerToast('Sorry, this event is already at full capacity!');
-      return;
-    }
-
-    // Create new registration record
-    const newReg = {
-      id: 'reg-' + (registrations.length + 1),
-      studentId: currentUser.id,
-      studentName: currentUser.name,
-      studentUsn: currentUser.usn,
-      department: currentUser.department,
-      eventId: event.id,
-      eventTitle: event.title,
-      clubName: event.clubName,
-      eventDate: event.date,
-      attended: false,
-      certificateIssued: false,
-      feedbackSubmitted: false
+  const [eventId, setEventId] = useState(null),
+    [assistant, setAssistant] = useState(false),
+    [message, setMessage] = useState(""),
+    [resetOpen, setResetOpen] = useState(false),
+    [free, setFree] = useState(false);
+  const toastTimer = useRef(null);
+  useEffect(() => {
+    const change = () => {
+      if (!validPages.includes(location.hash.slice(1))) return;
+      const target = pageFromHash();
+      setPage(target);
+      if (target === "organizer") setRole("coordinator");
+      if (target === "admin") setRole("admin");
+      setEventId(null);
+      setAssistant(false);
     };
-
-    setRegistrations([...registrations, newReg]);
-
-    // Increment registered count for the event
-    setEvents(events.map(ev => 
-      ev.id === event.id 
-        ? { ...ev, registeredCount: ev.registeredCount + 1 }
-        : ev
-    ));
-
-    triggerToast(`Successfully registered for "${event.title}"!`);
+    window.addEventListener("hashchange", change);
+    return () => {
+      window.removeEventListener("hashchange", change);
+      clearTimeout(toastTimer.current);
+    };
+  }, []);
+  const notify = (text) => {
+    clearTimeout(toastTimer.current);
+    setMessage(text);
+    toastTimer.current = setTimeout(() => setMessage(""), 4500);
   };
-
-  // 4. Join / Leave Club Handler (Step 2 of Synopsis)
-  const handleJoinClub = (clubId) => {
-    const isJoined = joinedClubIds.includes(clubId);
-    if (isJoined) {
-      // Leave club
-      setJoinedClubIds(joinedClubIds.filter(id => id !== clubId));
-      setClubs(clubs.map(c => c.id === clubId ? { ...c, membersCount: c.membersCount - 1 } : c));
-      triggerToast('You have left the club.');
-    } else {
-      // Join club
-      setJoinedClubIds([...joinedClubIds, clubId]);
-      setClubs(clubs.map(c => c.id === clubId ? { ...c, membersCount: c.membersCount + 1 } : c));
-      const club = clubs.find(c => c.id === clubId);
-      triggerToast(`Welcome to ${club ? club.name : 'the club'}!`);
+  const navigate = (target, options = {}) => {
+    setFree(!!options.free);
+    setPage(target);
+    location.hash = target;
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
+  const changeRole = (value) => {
+    setRole(value);
+    navigate(
+      value === "student"
+        ? "today"
+        : value === "coordinator"
+          ? "organizer"
+          : "admin",
+    );
+  };
+  const enter = (target) => {
+    setRole(target === "organizer" ? "coordinator" : "student");
+    navigate(target);
+  };
+  const register = (event) => {
+    if (state.registrations.some((r) => r.eventId === event.id)) {
+      notify("This opportunity is already in your plans.");
+      return;
     }
-  };
-
-  // 5. Create Event Handler (Step 3 of Synopsis - Coordinators)
-  const handleCreateEvent = (newEvent) => {
-    setEvents([newEvent, ...events]);
-    triggerToast(`Event "${newEvent.title}" created and published!`);
-  };
-
-  // 6. Toggle Attendance Handler (Step 4 & 5 of Synopsis - Coordinators)
-  const handleToggleAttendance = (registrationId) => {
-    setRegistrations(registrations.map(reg => {
-      if (reg.id === registrationId) {
-        const newAttended = !reg.attended;
-        return {
-          ...reg,
-          attended: newAttended,
-          // If marked attended, automatically unlock verifiable certificate
-          certificateIssued: newAttended
-        };
-      }
-      return reg;
+    if (!feasibility(event, state.registrations, state.events).ok) {
+      notify("This opportunity does not fit your schedule. Try another time.");
+      return;
+    }
+    const full = event.registered >= event.capacity;
+    setState((s) => ({
+      ...s,
+      events: s.events.map((e) =>
+        e.id === event.id
+          ? {
+              ...e,
+              registered: e.registered + (full ? 0 : 1),
+              waitlist: e.waitlist + (full ? 1 : 0),
+            }
+          : e,
+      ),
+      registrations: [
+        ...s.registrations,
+        {
+          eventId: event.id,
+          status: full ? "waitlisted" : "registered",
+          position: full ? event.waitlist + 1 : null,
+          attended: false,
+        },
+      ],
     }));
-
-    triggerToast('Attendance status updated. Certificates generated for attendees.');
+    notify(
+      full
+        ? `You’re on the waitlist at position #${event.waitlist + 1}.`
+        : "Your seat is saved. Your schedule just got more interesting.",
+    );
   };
-
-  // 7. Submit Feedback Handler (Step 5 of Synopsis)
-  const handleSubmitFeedback = ({ eventId, eventTitle, studentName, rating, comment, registrationId }) => {
-    const newFeedback = {
-      id: 'fb-' + (feedbacks.length + 1),
-      eventId,
-      eventTitle,
-      studentName,
-      rating,
-      comment,
-      sentiment: rating >= 4 ? 'positive' : rating === 3 ? 'neutral' : 'constructive'
-    };
-
-    setFeedbacks([newFeedback, ...feedbacks]);
-
-    // Mark feedback as submitted on registration record
-    setRegistrations(registrations.map(r => 
-      r.id === registrationId ? { ...r, feedbackSubmitted: true } : r
-    ));
-
-    triggerToast('Thank you! Your feedback was recorded and fed into the AI Summarizer.');
+  // Existing waitlist positions represent seeded attendees. Release preserves queue order.
+  const releaseSeat = (event, removeOwn = false) => {
+    const own = state.registrations.find((r) => r.eventId === event.id);
+    const promoteOwn = own?.status === "waitlisted" && own.position === 1;
+    setState((s) => ({
+      ...s,
+      events: s.events.map((e) =>
+        e.id === event.id
+          ? {
+              ...e,
+              registered: Math.max(0, e.registered - (e.waitlist ? 0 : 1)),
+              waitlist: Math.max(0, e.waitlist - 1),
+            }
+          : e,
+      ),
+      registrations: s.registrations
+        .filter((r) => !(removeOwn && r.eventId === event.id))
+        .map((r) =>
+          r.eventId === event.id && r.status === "waitlisted"
+            ? {
+                ...r,
+                position: r.position === 1 ? null : r.position - 1,
+                status: r.position === 1 ? "registered" : "waitlisted",
+              }
+            : r,
+        ),
+    }));
+    notify(
+      promoteOwn
+        ? "A seat opened. Pranav is now registered!"
+        : event.waitlist
+          ? "One seat released; the next waitlisted attendee was promoted."
+          : "One demo seat released.",
+    );
   };
-
-  // 8. Propose New Club Handler (Student or Coordinator)
-  const handleProposeClub = (newClub) => {
-    setClubs([...clubs, newClub]);
-    triggerToast(`Club proposal "${newClub.name}" submitted! Awaiting Admin review.`);
+  const cancel = (event) => {
+    const r = state.registrations.find((r) => r.eventId === event.id);
+    if (!r || r.attended) return;
+    if (r.status === "registered") {
+      releaseSeat(event, true);
+      return;
+    }
+    setState((s) => ({
+      ...s,
+      registrations: s.registrations.filter((r) => r.eventId !== event.id),
+      events: s.events.map((e) =>
+        e.id === event.id ? { ...e, waitlist: Math.max(0, e.waitlist - 1) } : e,
+      ),
+    }));
+    notify("Your waitlist spot has been cancelled.");
   };
-
-  // 9. Admin Approvals
-  const handleApproveClub = (clubId) => {
-    setClubs(clubs.map(c => c.id === clubId ? { ...c, status: 'active' } : c));
-    triggerToast('Club charter approved and activated campus-wide!');
+  const attendance = (event, person, present) => {
+    setState((s) => {
+      const registration = s.registrations.find(
+        (r) => r.eventId === event.id && r.status === "registered",
+      );
+      let activities = s.activities;
+      if (person === "pranav" && registration) {
+        activities = present
+          ? [
+              ...s.activities.filter((a) => a.id !== event.id),
+              {
+                id: event.id,
+                title: event.title,
+                club: event.club,
+                date: event.date,
+                skill: event.tags[0],
+                attended: true,
+                feedback: false,
+              },
+            ]
+          : s.activities.filter((a) => a.id !== event.id);
+      }
+      return {
+        ...s,
+        checkins: {
+          ...s.checkins,
+          [event.id]: { ...s.checkins?.[event.id], [person]: present },
+        },
+        registrations: s.registrations.map((r) =>
+          r.eventId === event.id && person === "pranav"
+            ? { ...r, attended: present }
+            : r,
+        ),
+        activities,
+      };
+    });
+    notify(
+      present
+        ? "Attendance recorded. Every experience counts."
+        : "Check-in undone; the participation record was updated.",
+    );
   };
-
-  const handleRejectClub = (clubId) => {
-    setClubs(clubs.filter(c => c.id !== clubId));
-    triggerToast('Club proposal rejected.');
+  const publish = (event) => {
+    setState((s) => ({ ...s, events: [event, ...s.events] }));
+    notify("A new opportunity is now discoverable in this demo.");
   };
-
-  // 10. Admin Broadcast Announcement
-  const handleBroadcastAnnouncement = (text) => {
-    setCollegeAnnouncement(`📢 ${text}`);
-    triggerToast('Announcement broadcasted to all campus dashboards!');
+  const feedback = (id, rating, comment) => {
+    setState((s) => ({
+      ...s,
+      activities: s.activities.map((a) =>
+        a.id === id ? { ...a, feedback: true } : a,
+      ),
+      feedbacks: [...(s.feedbacks || []), { id, rating, comment }],
+    }));
+    notify("Reflection saved. Thanks for making the next experience better.");
   };
-
+  const join = (id) => {
+    setState((s) => ({
+      ...s,
+      joined: s.joined.includes(id)
+        ? s.joined.filter((c) => c !== id)
+        : [...s.joined, id],
+    }));
+    notify(
+      state.joined.includes(id)
+        ? "You’ve left this community."
+        : "Welcome to your people.",
+    );
+  };
+  const propose = (proposal) => {
+    setState((s) => ({ ...s, proposals: [...s.proposals, proposal] }));
+    notify("Your proposal is ready for review in the admin workspace.");
+  };
+  const decision = (proposal, approved) => {
+    setState((s) => ({
+      ...s,
+      proposals: s.proposals.filter((p) => p.id !== proposal.id),
+      approvedCommunities: approved
+        ? [
+            ...(s.approvedCommunities || []),
+            {
+              ...proposal,
+              category: "Community",
+              members: 0,
+              color: "blue",
+              art: "orbit",
+              tags: ["Community"],
+            },
+          ]
+        : s.approvedCommunities,
+    }));
+    notify(
+      approved
+        ? "A new community is now open to campus."
+        : "Community proposal declined in this demo.",
+    );
+  };
+  const open = (event) => event && setEventId(event.id);
+  const selectedEvent = state.events.find((e) => e.id === eventId);
   return (
-    <div className="app-root">
-      {/* Top Navigation Bar */}
-      <Navbar 
-        currentUser={currentUser} 
-        allUsers={allUsers}
-        onSelectUser={handleSelectUser}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-      />
-
-      {/* College Wide Announcement Banner */}
-      {collegeAnnouncement && (
-        <div className="announcement-strip">
-          <div className="announcement-inner">
-            <span>{collegeAnnouncement}</span>
-            <button 
-              className="announcement-close" 
-              onClick={() => setCollegeAnnouncement(null)}
+    <>
+      {page === "home" ? (
+        <Landing onEnter={enter} />
+      ) : (
+        <AppShell
+          page={page}
+          navigate={navigate}
+          role={role}
+          setRole={changeRole}
+          onHome={() => navigate("home")}
+          onAssistant={() => setAssistant(true)}
+          onReset={() => setResetOpen(true)}
+          storageError={storageError}
+        >
+          {page === "today" && (
+            <Today state={state} navigate={navigate} onOpen={open} />
+          )}
+          {page === "explore" && (
+            <Explore
+              key={String(free)}
+              state={state}
+              onOpen={open}
+              free={free}
+            />
+          )}
+          {page === "schedule" && (
+            <Schedule state={state} onOpen={open} navigate={navigate} />
+          )}
+          {page === "passport" && (
+            <Passport state={state} onFeedback={feedback} />
+          )}
+          {page === "poster" && <Poster state={state} onPublish={publish} />}
+          {page === "organizer" && (
+            <Organizer
+              state={state}
+              onCreate={publish}
+              onAttendance={attendance}
+              onReleaseSeat={releaseSeat}
+              navigate={navigate}
+            />
+          )}
+          {page === "communities" && (
+            <Communities state={state} onJoin={join} onPropose={propose} />
+          )}
+          {page === "admin" && (
+            <CampusAdmin
+              state={state}
+              onDecision={decision}
+              onBroadcast={(text) => {
+                setState((s) => ({ ...s, announcement: text }));
+                notify("Your note is now on My campus today.");
+              }}
+            />
+          )}
+        </AppShell>
+      )}
+      {selectedEvent && (
+        <EventDetails
+          event={selectedEvent}
+          state={state}
+          onClose={() => setEventId(null)}
+          onRegister={register}
+          onCancel={cancel}
+        />
+      )}{" "}
+      {assistant && (
+        <Assistant
+          state={state}
+          onClose={() => setAssistant(false)}
+          onOpen={open}
+        />
+      )}
+      <Notice message={message} onClose={() => setMessage("")} />
+      {resetOpen && (
+        <Dialog
+          title="Start a fresh campus day?"
+          onClose={() => setResetOpen(false)}
+        >
+          <p className="muted">
+            This restores the original demo events and passport. Created events,
+            registrations, check-ins, proposals, and reflections in this browser
+            will be cleared.
+          </p>
+          <div className="action-row reset-actions">
+            <button
+              className="button"
+              onClick={() => {
+                setState(createDemoState());
+                setResetOpen(false);
+                setEventId(null);
+                setAssistant(false);
+                changeRole("student");
+                notify("A fresh campus day. The demo is ready to explore.");
+              }}
             >
-              ✕
+              Reset local demo
+            </button>
+            <button
+              className="button secondary"
+              onClick={() => setResetOpen(false)}
+            >
+              Keep my changes
             </button>
           </div>
-        </div>
+        </Dialog>
       )}
-
-      {/* Role Switcher Floating Bar (Quick Demo Helper) */}
-      <div className="quick-persona-bar">
-        <span className="persona-bar-label">Current Role: <strong>{currentUser.role.toUpperCase()}</strong></span>
-        <div className="persona-btn-group">
-          <button 
-            className={`persona-chip ${currentUser.role === 'student' ? 'active' : ''}`}
-            onClick={() => handleSelectUser(allUsers.find(u => u.role === 'student'))}
-          >
-            👨‍💻 Student View (Pranav)
-          </button>
-          <button 
-            className={`persona-chip ${currentUser.role === 'coordinator' ? 'active' : ''}`}
-            onClick={() => handleSelectUser(allUsers.find(u => u.role === 'coordinator'))}
-          >
-            👨‍🏫 Coordinator View (Dr. Rajesh)
-          </button>
-          <button 
-            className={`persona-chip ${currentUser.role === 'admin' ? 'active' : ''}`}
-            onClick={() => handleSelectUser(allUsers.find(u => u.role === 'admin'))}
-          >
-            🏛️ Admin View (Dean Sen)
-          </button>
-          <button 
-            className="persona-chip chip-register"
-            onClick={() => setAuthModalOpen(true)}
-          >
-            ➕ Register / Login
-          </button>
-        </div>
-      </div>
-
-      {/* Main Page Routing via Active Tab */}
-      <main className="main-content">
-        {activeTab === 'dashboard' && (
-          currentUser.role === 'student' ? (
-            <StudentDashboard 
-              currentUser={currentUser}
-              clubs={clubs}
-              events={events}
-              registrations={registrations}
-              feedbacks={feedbacks}
-              onRegisterEvent={handleRegisterEvent}
-              onSubmitFeedback={handleSubmitFeedback}
-              setActiveTab={setActiveTab}
-            />
-          ) : currentUser.role === 'coordinator' ? (
-            <CoordinatorDashboard 
-              currentUser={currentUser}
-              clubs={clubs}
-              events={events}
-              registrations={registrations}
-              feedbacks={feedbacks}
-              aiInsights={aiInsights}
-              onCreateEvent={handleCreateEvent}
-              onToggleAttendance={handleToggleAttendance}
-            />
-          ) : (
-            <AdminManagement 
-              currentUser={currentUser}
-              allUsers={allUsers}
-              clubs={clubs}
-              onApproveClub={handleApproveClub}
-              onRejectClub={handleRejectClub}
-              onBroadcastAnnouncement={handleBroadcastAnnouncement}
-            />
-          )
-        )}
-
-        {activeTab === 'clubs' && (
-          <ClubsPage 
-            currentUser={currentUser}
-            clubs={clubs}
-            onJoinClub={handleJoinClub}
-            onProposeClub={handleProposeClub}
-            joinedClubIds={joinedClubIds}
-          />
-        )}
-
-        {activeTab === 'events' && (
-          <EventsPage 
-            currentUser={currentUser}
-            events={events}
-            registrations={registrations}
-            onRegisterEvent={handleRegisterEvent}
-          />
-        )}
-
-        {activeTab === 'analytics' && (
-          <AnalyticsDashboard 
-            aiInsights={aiInsights}
-          />
-        )}
-
-        {activeTab === 'admin' && (
-          <AdminManagement 
-            currentUser={currentUser}
-            allUsers={allUsers}
-            clubs={clubs}
-            onApproveClub={handleApproveClub}
-            onRejectClub={handleRejectClub}
-            onBroadcastAnnouncement={handleBroadcastAnnouncement}
-          />
-        )}
-      </main>
-
-      {/* Floating Action Notifications */}
-      <Toast message={toastMessage} onClose={() => setToastMessage(null)} />
-
-      {/* Login / Register Modal */}
-      <AuthModal 
-        isOpen={authModalOpen}
-        onClose={() => setAuthModalOpen(false)}
-        allUsers={allUsers}
-        onSelectDemoUser={handleSelectUser}
-        onRegisterNewUser={handleRegisterNewUser}
-      />
-
-      {/* Footer with Project Details from Synopsis */}
-      <footer className="footer">
-        <div className="footer-container">
-          <div className="footer-col">
-            <h3 className="footer-title">CampusConnect</h3>
-            <p className="footer-text">
-              An AI-Powered College Club and Event Management System with Student Engagement Analytics.
-            </p>
-            <p className="footer-copy">© 2026 CampusConnect. Iterative Full-Stack MERN Architecture.</p>
-          </div>
-
-          <div className="footer-col">
-            <h4 className="footer-subtitle">Project Team (Synopsis)</h4>
-            <ul className="footer-team-list">
-              <li><strong>Sinchana Jeppu</strong> (1MS24CI124)</li>
-              <li><strong>Pranav R Mane</strong> (1MS24CI091)</li>
-              <li><strong>Prajwal N</strong> (1MS24CI090)</li>
-            </ul>
-          </div>
-
-          <div className="footer-col">
-            <h4 className="footer-subtitle">System Modules</h4>
-            <p className="footer-text" style={{ fontSize: '0.85rem', lineHeight: '1.7' }}>
-              • Role-Based Access (Student / Coordinator / Admin)<br/>
-              • AI Club & Event Recommendations<br/>
-              • Attendance Tracking & Certificate Issuance<br/>
-              • NLP Feedback Summarizer & Engagement Analytics
-            </p>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </>
   );
 }
-
 export default App;

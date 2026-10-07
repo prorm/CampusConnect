@@ -1,0 +1,455 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T13:22:47.802Z",
+  "title": "Design System: CampusConnect",
+  "extensions": {
+    "colorMeta": {
+      "midnight": {
+        "role": "neutral",
+        "displayName": "Midnight",
+        "canonical": "#080f13",
+        "tonalRamp": [
+          "oklch(15.00% 0.01392 233.30)",
+          "oklch(26.43% 0.01392 233.30)",
+          "oklch(37.86% 0.01392 233.30)",
+          "oklch(49.29% 0.01392 233.30)",
+          "oklch(60.71% 0.01392 233.30)",
+          "oklch(72.14% 0.01392 233.30)",
+          "oklch(83.57% 0.01392 233.30)",
+          "oklch(95.00% 0.01392 233.30)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Deep Surface",
+        "canonical": "#101c22",
+        "tonalRamp": [
+          "oklch(15.00% 0.02068 230.58)",
+          "oklch(26.43% 0.02068 230.58)",
+          "oklch(37.86% 0.02068 230.58)",
+          "oklch(49.29% 0.02068 230.58)",
+          "oklch(60.71% 0.02068 230.58)",
+          "oklch(72.14% 0.02068 230.58)",
+          "oklch(83.57% 0.02068 230.58)",
+          "oklch(95.00% 0.02068 230.58)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Frost Text",
+        "canonical": "#eaf2ef",
+        "tonalRamp": [
+          "oklch(15.00% 0.00937 171.80)",
+          "oklch(26.43% 0.00937 171.80)",
+          "oklch(37.86% 0.00937 171.80)",
+          "oklch(49.29% 0.00937 171.80)",
+          "oklch(60.71% 0.00937 171.80)",
+          "oklch(72.14% 0.00937 171.80)",
+          "oklch(83.57% 0.00937 171.80)",
+          "oklch(95.00% 0.00937 171.80)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Quiet Text",
+        "canonical": "#a6b9b8",
+        "tonalRamp": [
+          "oklch(15.00% 0.02100 192.88)",
+          "oklch(26.43% 0.02100 192.88)",
+          "oklch(37.86% 0.02100 192.88)",
+          "oklch(49.29% 0.02100 192.88)",
+          "oklch(60.71% 0.02100 192.88)",
+          "oklch(72.14% 0.02100 192.88)",
+          "oklch(83.57% 0.02100 192.88)",
+          "oklch(95.00% 0.02100 192.88)"
+        ]
+      },
+      "mint": {
+        "role": "primary",
+        "displayName": "Possibility Mint",
+        "canonical": "#b8f4d6",
+        "tonalRamp": [
+          "oklch(15.00% 0.07325 162.84)",
+          "oklch(26.43% 0.07325 162.84)",
+          "oklch(37.86% 0.07325 162.84)",
+          "oklch(49.29% 0.07325 162.84)",
+          "oklch(60.71% 0.07325 162.84)",
+          "oklch(72.14% 0.07325 162.84)",
+          "oklch(83.57% 0.07325 162.84)",
+          "oklch(95.00% 0.07325 162.84)"
+        ]
+      },
+      "violet": {
+        "role": "secondary",
+        "displayName": "Growth Violet",
+        "canonical": "#bcabf2",
+        "tonalRamp": [
+          "oklch(15.00% 0.10104 294.94)",
+          "oklch(26.43% 0.10104 294.94)",
+          "oklch(37.86% 0.10104 294.94)",
+          "oklch(49.29% 0.10104 294.94)",
+          "oklch(60.71% 0.10104 294.94)",
+          "oklch(72.14% 0.10104 294.94)",
+          "oklch(83.57% 0.10104 294.94)",
+          "oklch(95.00% 0.10104 294.94)"
+        ]
+      },
+      "peach": {
+        "role": "tertiary",
+        "displayName": "Warm Peach",
+        "canonical": "#f1be9f",
+        "tonalRamp": [
+          "oklch(15.00% 0.07224 52.74)",
+          "oklch(26.43% 0.07224 52.74)",
+          "oklch(37.86% 0.07224 52.74)",
+          "oklch(49.29% 0.07224 52.74)",
+          "oklch(60.71% 0.07224 52.74)",
+          "oklch(72.14% 0.07224 52.74)",
+          "oklch(83.57% 0.07224 52.74)",
+          "oklch(95.00% 0.07224 52.74)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Glass Line",
+        "canonical": "rgba(187, 215, 213, 0.13)",
+        "tonalRamp": [
+          "oklch(15.00% 0.02995 191.35)",
+          "oklch(26.43% 0.02995 191.35)",
+          "oklch(37.86% 0.02995 191.35)",
+          "oklch(49.29% 0.02995 191.35)",
+          "oklch(60.71% 0.02995 191.35)",
+          "oklch(72.14% 0.02995 191.35)",
+          "oklch(83.57% 0.02995 191.35)",
+          "oklch(95.00% 0.02995 191.35)"
+        ]
+      },
+      "workspace": {
+        "role": "neutral",
+        "displayName": "Workspace Night",
+        "canonical": "#0a1217",
+        "tonalRamp": [
+          "oklch(15.00% 0.01597 236.31)",
+          "oklch(26.43% 0.01597 236.31)",
+          "oklch(37.86% 0.01597 236.31)",
+          "oklch(49.29% 0.01597 236.31)",
+          "oklch(60.71% 0.01597 236.31)",
+          "oklch(72.14% 0.01597 236.31)",
+          "oklch(83.57% 0.01597 236.31)",
+          "oklch(95.00% 0.01597 236.31)"
+        ]
+      },
+      "action-ink": {
+        "role": "neutral",
+        "displayName": "Action Ink",
+        "canonical": "#102820",
+        "tonalRamp": [
+          "oklch(15.00% 0.03407 169.61)",
+          "oklch(26.43% 0.03407 169.61)",
+          "oklch(37.86% 0.03407 169.61)",
+          "oklch(49.29% 0.03407 169.61)",
+          "oklch(60.71% 0.03407 169.61)",
+          "oklch(72.14% 0.03407 169.61)",
+          "oklch(83.57% 0.03407 169.61)",
+          "oklch(95.00% 0.03407 169.61)"
+        ]
+      },
+      "mint-hover": {
+        "role": "primary",
+        "displayName": "Mint Light",
+        "canonical": "#d3ffe8",
+        "tonalRamp": [
+          "oklch(15.00% 0.05455 162.44)",
+          "oklch(26.43% 0.05455 162.44)",
+          "oklch(37.86% 0.05455 162.44)",
+          "oklch(49.29% 0.05455 162.44)",
+          "oklch(60.71% 0.05455 162.44)",
+          "oklch(72.14% 0.05455 162.44)",
+          "oklch(83.57% 0.05455 162.44)",
+          "oklch(95.00% 0.05455 162.44)"
+        ]
+      },
+      "secondary-text": {
+        "role": "neutral",
+        "displayName": "Secondary Text",
+        "canonical": "#d7e9e4",
+        "tonalRamp": [
+          "oklch(15.00% 0.02024 177.42)",
+          "oklch(26.43% 0.02024 177.42)",
+          "oklch(37.86% 0.02024 177.42)",
+          "oklch(49.29% 0.02024 177.42)",
+          "oklch(60.71% 0.02024 177.42)",
+          "oklch(72.14% 0.02024 177.42)",
+          "oklch(83.57% 0.02024 177.42)",
+          "oklch(95.00% 0.02024 177.42)"
+        ]
+      },
+      "secondary-fill": {
+        "role": "neutral",
+        "displayName": "Secondary Fill",
+        "canonical": "#b9dcd009",
+        "tonalRamp": [
+          "oklch(15.00% 0.04042 172.57)",
+          "oklch(26.43% 0.04042 172.57)",
+          "oklch(37.86% 0.04042 172.57)",
+          "oklch(49.29% 0.04042 172.57)",
+          "oklch(60.71% 0.04042 172.57)",
+          "oklch(72.14% 0.04042 172.57)",
+          "oklch(83.57% 0.04042 172.57)",
+          "oklch(95.00% 0.04042 172.57)"
+        ]
+      },
+      "field-fill": {
+        "role": "neutral",
+        "displayName": "Field Fill",
+        "canonical": "#0f1c1d7a",
+        "tonalRamp": [
+          "oklch(15.00% 0.01832 202.01)",
+          "oklch(26.43% 0.01832 202.01)",
+          "oklch(37.86% 0.01832 202.01)",
+          "oklch(49.29% 0.01832 202.01)",
+          "oklch(60.71% 0.01832 202.01)",
+          "oklch(72.14% 0.01832 202.01)",
+          "oklch(83.57% 0.01832 202.01)",
+          "oklch(95.00% 0.01832 202.01)"
+        ]
+      },
+      "field-text": {
+        "role": "neutral",
+        "displayName": "Field Text",
+        "canonical": "#e2eee6",
+        "tonalRamp": [
+          "oklch(15.00% 0.01660 156.90)",
+          "oklch(26.43% 0.01660 156.90)",
+          "oklch(37.86% 0.01660 156.90)",
+          "oklch(49.29% 0.01660 156.90)",
+          "oklch(60.71% 0.01660 156.90)",
+          "oklch(72.14% 0.01660 156.90)",
+          "oklch(83.57% 0.01660 156.90)",
+          "oklch(95.00% 0.01660 156.90)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Landing hero only; responsive sizes differ from the desktop clamp."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Default workspace page heading; responsive rules adjust the size."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Default opportunity heading; single-column mobile cards use larger titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Operational paragraph text, with final responsive overrides applied."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Most operational metadata; selected passport microcopy remains 11px."
+      },
+      "action": {
+        "displayName": "Action",
+        "purpose": "Primary actions and workspace controls."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating-opportunity",
+        "value": "12px 28px 70px #0006",
+        "purpose": "The hero's perspective card."
+      },
+      {
+        "name": "floating-evidence",
+        "value": "5px 15px 35px #0003",
+        "purpose": "Nearby time and growth chips."
+      },
+      {
+        "name": "primary-action-hover",
+        "value": "0 8px 22px #9ee8c018",
+        "purpose": "A small mint lift for the main button."
+      },
+      {
+        "name": "dialog",
+        "value": "10px 30px 90px #0006",
+        "purpose": "Modal separation from the workspace."
+      }
+    ],
+    "motion": [
+      {
+        "name": "action-transition",
+        "value": "background 0.2s, transform 0.2s, box-shadow 0.2s",
+        "purpose": "Shared action state transitions."
+      },
+      {
+        "name": "scene-pointer",
+        "value": "transform 0.3s ease-out",
+        "purpose": "Pointer-driven scene translation."
+      },
+      {
+        "name": "card-pointer",
+        "value": "transform 0.4s",
+        "purpose": "Pointer-driven card rotation."
+      },
+      {
+        "name": "materialize",
+        "value": "hero-materialize 1.3s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "purpose": "Landing opportunity entrance."
+      },
+      {
+        "name": "floating-evidence",
+        "value": "gentle-float 7s ease-in-out infinite",
+        "purpose": "Slow landing evidence-chip rhythm."
+      },
+      {
+        "name": "page-entry",
+        "value": "page-in 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Workspace page transition."
+      },
+      {
+        "name": "marquee",
+        "value": "marquee 38s linear infinite",
+        "purpose": "Campus strip movement."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation: none !important; transition: none !important; scroll-behavior: auto !important",
+        "purpose": "Honor reduced-motion preferences; Canvas uses a static frame."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-min",
+        "value": "1600px"
+      },
+      {
+        "name": "compact-max",
+        "value": "1180px"
+      },
+      {
+        "name": "tablet-max",
+        "value": "960px"
+      },
+      {
+        "name": "stacked-max",
+        "value": "760px"
+      },
+      {
+        "name": "phone-max",
+        "value": "520px"
+      },
+      {
+        "name": "small-phone-max",
+        "value": "360px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Clear mint action with a quiet lift on hover.",
+      "html": "<button class=\"ds-button-primary\">Find my next opportunity<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-button-primary{display:inline-flex;align-items:center;justify-content:center;gap:15px;padding:15px 23px;border-radius:8px;font-family:'DM Sans Variable',sans-serif;font-size:14px;font-weight:600;line-height:1.4;border:0;cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s;background:var(--mint,#b8f4d6);color:#102820}.ds-button-primary:hover:not(:disabled){background:#d3ffe8;transform:translateY(-2px);box-shadow:0 8px 22px #9ee8c018}.ds-button-primary:disabled{opacity:.48;cursor:not-allowed}.ds-button-primary:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}@media(prefers-reduced-motion:reduce){.ds-button-primary{transition:none}.ds-button-primary:hover{transform:none}}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Translucent outlined alternative to the mint action.",
+      "html": "<button class=\"ds-button-secondary\">View my schedule<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-button-secondary{display:inline-flex;align-items:center;justify-content:center;gap:15px;padding:15px 23px;border-radius:8px;font-family:'DM Sans Variable',sans-serif;font-size:14px;font-weight:600;line-height:1.4;border:0;cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s;background:#b9dcd009;border:1px solid #b9dcd026;color:#d7e9e4}.ds-button-secondary:hover:not(:disabled){background:#b9dcd017;transform:translateY(-2px);box-shadow:0 8px 22px #9ee8c018}.ds-button-secondary:disabled{opacity:.48;cursor:not-allowed}.ds-button-secondary:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}@media(prefers-reduced-motion:reduce){.ds-button-secondary{transition:none}.ds-button-secondary:hover{transform:none}}"
+    },
+    {
+      "name": "Text Button",
+      "kind": "button",
+      "refersTo": "text-button",
+      "description": "Quiet operational navigation with a moving arrow.",
+      "html": "<button class=\"ds-text-button\">Explore this free window<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-text-button{padding:0;display:inline-flex;align-items:center;gap:10px;font-family:'DM Sans Variable',sans-serif;font-size:14px;font-weight:500;line-height:1.6;text-align:left;border:0;background:none;color:var(--text,#eaf2ef);cursor:pointer}.ds-text-button:hover{color:var(--mint,#b8f4d6)}.ds-text-button svg{transition:transform .2s}.ds-text-button:hover svg{transform:translateX(3px)}.ds-text-button:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}@media(prefers-reduced-motion:reduce){.ds-text-button svg{transition:none}.ds-text-button:hover svg{transform:none}}"
+    },
+    {
+      "name": "Form Field",
+      "kind": "input",
+      "refersTo": "form-field",
+      "description": "Readable operational field with an explicit label and mint focus.",
+      "html": "<label class=\"ds-field-label\">Your interests<input class=\"ds-field\" placeholder=\"Design, technology, leadership\" /></label>",
+      "css": ".ds-field-label{display:flex;flex-direction:column;gap:8px;color:#c6d9ca;font-family:'DM Sans Variable',sans-serif;font-size:14px}.ds-field{padding:11px 13px;border:1px solid #b8f4d626;border-radius:7px;background:#0f1c1d7a;color:#e2eee6;font-family:'DM Sans Variable',sans-serif;font-size:14px;line-height:1.5;caret-color:var(--mint,#b8f4d6)}.ds-field::placeholder{color:#91a7a6}.ds-field:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}"
+    },
+    {
+      "name": "Workspace Navigation",
+      "kind": "nav",
+      "refersTo": "workspace-navigation",
+      "description": "A readable selected destination with current-page semantics.",
+      "html": "<nav aria-label=\"Workspace navigation\" class=\"ds-nav\"><button class=\"ds-nav-link ds-nav-active\" aria-current=\"page\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 2v2m0 16v2M2 12h2m16 0h2\"/></svg>My campus today<span class=\"ds-nav-dot\"></span></button><button class=\"ds-nav-link\">Discover</button></nav>",
+      "css": ".ds-nav{display:flex;flex-direction:column;gap:6px}.ds-nav-link{display:flex;align-items:center;gap:12px;min-height:43px;padding:11px 12px;border-radius:8px;font-family:'DM Sans Variable',sans-serif;font-size:14px;color:#9fb7ad;text-align:left;border:0;background:none;cursor:pointer}.ds-nav-link:hover{background:#b8f4d609;color:#d8eee4}.ds-nav-link.ds-nav-active{background:#b8f4d610;color:var(--mint,#b8f4d6)}.ds-nav-dot{width:4px;height:4px;background:var(--mint,#b8f4d6);border-radius:50%;margin-left:auto}.ds-nav-link:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}"
+    },
+    {
+      "name": "Metadata Pill",
+      "kind": "chip",
+      "refersTo": "pill",
+      "description": "A softly outlined metadata capsule at the shared compact size.",
+      "html": "<span class=\"ds-pill\">Fits your timetable</span>",
+      "css": ".ds-pill{display:inline-flex;align-items:center;gap:7px;font-family:'DM Sans Variable',sans-serif;font-size:11px;padding:6px 11px;border:1px solid var(--line,rgba(187,215,213,.13));border-radius:100px;line-height:1.5;color:var(--text,#eaf2ef)}"
+    },
+    {
+      "name": "Category Filters",
+      "kind": "chip",
+      "description": "Mint selection among quiet outlined operational filters.",
+      "html": "<div class=\"ds-filters\"><button class=\"ds-filter ds-filter-active\" aria-pressed=\"true\">All opportunities</button><button class=\"ds-filter\" aria-pressed=\"false\">Technology</button></div>",
+      "css": ".ds-filters{display:flex;gap:8px;flex-wrap:wrap}.ds-filter{padding:8px 17px;font-family:'DM Sans Variable',sans-serif;font-size:14px;border:1px solid var(--line,rgba(187,215,213,.13));border-radius:50px;color:#aac2b4;background:none;cursor:pointer}.ds-filter.ds-filter-active{background:var(--mint,#b8f4d6);color:#163125;border-color:var(--mint,#b8f4d6)}.ds-filter:hover:not(.ds-filter-active){background:#b8f4d60c}.ds-filter:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}"
+    },
+    {
+      "name": "Glass Opportunity Card",
+      "kind": "card",
+      "refersTo": "glass-card",
+      "description": "A contained opportunity with a readable title and useful action.",
+      "html": "<article class=\"ds-card\"><span class=\"ds-card-host\">CODECRAFT · TODAY</span><h3 class=\"ds-card-title\"><button class=\"ds-card-title-button\">Build your first AI agent</button></h3><p class=\"ds-card-meta\">12:45 PM · Innovation Lab</p><div class=\"ds-card-bottom\"><span>Fits your timetable</span><button class=\"ds-card-action\">View event<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button></div></article>",
+      "css": ".ds-card{padding:20px;background:linear-gradient(135deg,rgba(32,52,59,.66),rgba(16,29,36,.72));border:1px solid var(--line,rgba(187,215,213,.13));backdrop-filter:blur(22px);border-radius:var(--radius,16px);color:var(--text,#eaf2ef);font-family:'DM Sans Variable',sans-serif;transition:background .25s;max-width:330px}.ds-card:hover{background:#24413c73}.ds-card-host{font-size:12px;color:#8da99a}.ds-card-title{font-family:var(--display,'Space Grotesk Variable',sans-serif);font-size:21px;font-weight:500;line-height:1.3;letter-spacing:-.035em;margin:10px 0 12px}.ds-card-title-button{padding:0;text-align:left;font:inherit;letter-spacing:inherit;border:0;background:none;color:inherit;cursor:pointer}.ds-card-title-button:hover{color:var(--mint,#b8f4d6)}.ds-card-meta{font-size:12px;color:#a4bcb0;line-height:1.7;margin:0}.ds-card-bottom{border-top:1px solid var(--line,rgba(187,215,213,.13));margin-top:18px;padding-top:15px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:12px}.ds-card-action{display:inline-flex;align-items:center;justify-content:center;gap:15px;padding:15px 23px;border-radius:8px;font-family:'DM Sans Variable',sans-serif;font-size:14px;font-weight:600;line-height:1.4;border:0;cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s;font-size:14px;padding:8px 10px;gap:5px;background:var(--mint,#b8f4d6);color:#102820}.ds-card-action:hover{background:#d3ffe8;transform:translateY(-2px);box-shadow:0 8px 22px #9ee8c018}.ds-card-title-button:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}.ds-card-action:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}@media(prefers-reduced-motion:reduce){.ds-card,.ds-card-action{transition:none}.ds-card-action:hover{transform:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Campus constellation",
+    "overview": "CampusConnect joins opportunities, free time and personal growth through a midnight glass world. Mint light gives actions and availability a clear signal; violet supports the sense of discovery and growth. Authored orbital geometry turns the idea of connection into a recognizable visual signature.\n\nThe landing page is expressive and spacious, with perspective ribbons, drifting particles and a floating opportunity card that responds to the pointer. The workspace retains the same materials while quieting the spectacle so students and coordinators can read, compare and act. The visual identity is techy and welcoming, with locally bundled typography and crisp, restrained controls.",
+    "keyCharacteristics": [
+      "Midnight glass with mint and violet light.",
+      "Orbital geometry authored in CSS and Canvas.",
+      "Expressive discovery, quiet operational reading.",
+      "Visible focus, responsive layouts and user-controlled motion."
+    ],
+    "rules": [
+      {
+        "name": "The Signal Rule",
+        "body": "Use mint for action and availability; keep written status information beside colored indicators.",
+        "section": "colors"
+      },
+      {
+        "name": "The Operational Reading Rule",
+        "body": "Read final effective CSS before copying a type size: the overrides at the end of `frontend/src/styles/responsive.css` supersede the earlier compact workspace declarations.",
+        "section": "typography"
+      },
+      {
+        "name": "The Quiet Workspace Rule",
+        "body": "Retain the shared glass material in operational screens and reserve the large ribbon, particle field and tilting card composition for expressive discovery surfaces.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use the midnight glass, mint action and violet growth relationship across new surfaces.",
+      "Do retain authored orbital geometry as the recognizable connection motif.",
+      "Do resolve operational type against the final responsive overrides before reusing a component.",
+      "Do keep visible focus, skip links, native dialog semantics and motion controls intact.",
+      "Do label local demonstration data and illustrative intelligence honestly."
+    ],
+    "donts": [
+      "Don't carry the landing's compact decorative labels into operational body copy or controls.",
+      "Don't make color or animation the only way to understand availability or status.",
+      "Don't replace authored geometry with unrelated imagery that changes the campus constellation world.",
+      "Don't imply a connected backend, external AI service or live authentication from this frontend demo."
+    ]
+  }
+}
