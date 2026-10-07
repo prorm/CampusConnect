@@ -2,11 +2,12 @@ import { useState } from "react";
 import Icon from "../components/Icon";
 import Art from "../components/Art";
 import Dialog from "../components/Dialog";
-import { communities } from "../data/campus";
-export default function Communities({ state, onJoin, onPropose }) {
+import Counter from "../components/Counter";
+export default function Communities({ state, busy, onJoin, onPropose }) {
   const [search, setSearch] = useState(""),
     [propose, setPropose] = useState(false);
-  const list = [...communities, ...(state.approvedCommunities || [])].filter(
+  const pending = state.proposals;
+  const list = state.communities.filter(
     (c) =>
       `${c.name} ${c.description} ${c.tags.join(" ")}`
         .toLowerCase()
@@ -17,7 +18,7 @@ export default function Communities({ state, onJoin, onPropose }) {
       <div className="page-heading">
         <div>
           <h1>
-            Find the people who get you<span className="mint-text">.</span>
+            Find the people who get you<span className="accent-dot">.</span>
           </h1>
           <p className="muted">Big ideas start with a small “hey, me too.”</p>
         </div>
@@ -37,10 +38,14 @@ export default function Communities({ state, onJoin, onPropose }) {
         />
       </label>
       <div className="community-grid">
-        {list.map((c) => {
+        {list.map((c, i) => {
           const joined = state.joined.includes(c.id);
           return (
-            <article className="community-card glass" key={c.id}>
+            <article
+              className={`community-card glass tone-${c.color} ${joined ? "joined" : ""}`}
+              key={c.id}
+              style={{ "--i": i }}
+            >
               <div className={`community-art ${c.color}`}>
                 <Art kind={c.art} />
                 <span>{c.category}</span>
@@ -49,9 +54,7 @@ export default function Communities({ state, onJoin, onPropose }) {
                 <div className="community-title">
                   <h2>{c.name}</h2>
                   <span className="small-text muted">
-                    {c.members +
-                      (joined && !["code", "mind"].includes(c.id) ? 1 : 0)}{" "}
-                    members
+                    <Counter value={c.members} /> members
                   </span>
                 </div>
                 <p className="muted">{c.description}</p>
@@ -65,6 +68,7 @@ export default function Communities({ state, onJoin, onPropose }) {
                 <button
                   className={`button small ${joined ? "secondary" : ""}`}
                   aria-pressed={joined}
+                  disabled={busy}
                   onClick={() => onJoin(c.id)}
                 >
                   {joined ? "Joined · leave community" : "Find my people"}
@@ -75,6 +79,15 @@ export default function Communities({ state, onJoin, onPropose }) {
           );
         })}
       </div>
+      {state.user.role !== "admin" && pending.length > 0 && (
+        <section className="pending-strip">
+          <Icon name="clock" size={17} />
+          <p>
+            Awaiting review:{" "}
+            <strong>{pending.map((p) => p.name).join(", ")}</strong>
+          </p>
+        </section>
+      )}
       {!list.length && (
         <div className="empty-state">
           <h2>No community found yet.</h2>
@@ -88,20 +101,21 @@ export default function Communities({ state, onJoin, onPropose }) {
         >
           <form
             className="form-stack"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
               const data = new FormData(e.currentTarget);
-              onPropose({
-                id: `community-${Date.now()}`,
-                name: data.get("name"),
-                description: data.get("description"),
-              });
-              setPropose(false);
+              if (
+                await onPropose({
+                  name: data.get("name"),
+                  description: data.get("description"),
+                })
+              )
+                setPropose(false);
             }}
           >
             <p className="muted">
-              Propose a community. A demo administrator can review it in Campus
-              management.
+              Propose a community. Campus administration reviews every
+              proposal before it opens.
             </p>
             <label>
               Name
@@ -111,7 +125,7 @@ export default function Communities({ state, onJoin, onPropose }) {
               What brings you together?
               <textarea name="description" required maxLength="500" rows="4" />
             </label>
-            <button className="button" type="submit">
+            <button className="button" type="submit" disabled={busy}>
               Send proposal for review <Icon name="arrow" size={16} />
             </button>
           </form>

@@ -29,6 +29,15 @@ const paths = {
   warning: "m12 3 10 18H2L12 3Zm0 6v5m0 3v1",
   play: "m8 4 12 8-12 8V4Z",
   book: "M3 4h7l2 2 2-2h7v16h-7l-2 2-2-2H3V4Zm9 2v16",
+  trash: "M4 7h16M10 11v6m4-6v6M6 7l1 13h10l1-13M9 7V4h6v3",
+  refresh: "M20 11a8 8 0 0 0-14.9-4M4 4v4h4m-4 5a8 8 0 0 0 14.9 4M20 20v-4h-4",
+  lock: "M6 11h12v10H6V11Zm2 0V8a4 4 0 1 1 8 0v3m-4 4v2",
+  mail: "M3 6h18v12H3V6Zm0 0 9 7 9-7",
+  user: "M16 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM4 21a8 8 0 0 1 16 0",
+  chart: "M4 20V10m6 10V4m6 16v-7m4 7H2",
+  image: "M4 5h16v14H4V5Zm0 11 5-5 4 4 3-3 4 4M15 9h.01",
+  offline: "M2 8.8a15 15 0 0 1 4.2-2.8M10 5.1A15 15 0 0 1 22 8.8M5 12.9a10 10 0 0 1 5.3-2.8M16.8 11.4a10 10 0 0 1 2.2 1.5M8.5 16.4a5 5 0 0 1 7 0M12 20h.01M3 3l18 18",
+  eye: "M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Zm13 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z",
 };
 export default function Icon({ name = "spark", size = 20, ...props }) {
   return (

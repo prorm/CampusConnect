@@ -1,76 +1,86 @@
 import { useEffect, useRef, useState } from "react";
 import Dialog from "./Dialog";
 import Icon from "./Icon";
-import {
-  feasibility,
-  clock,
-  DEMO_DATE,
-  DEMO_NOW,
-  currentFreeWindow,
-} from "../data/campus";
+import { freeFor } from "../data/campus";
+import { api } from "../api/client";
+
+const SUGGESTIONS = {
+  student: [
+    "What can I do during my break?",
+    "AI events this week",
+    "How does the waitlist work?",
+  ],
+  coordinator: [
+    "Which events are full?",
+    "What's happening today?",
+    "Any design events?",
+  ],
+  admin: [
+    "Which events are full?",
+    "What's happening today?",
+    "Any hackathons coming up?",
+  ],
+};
+
 export default function Assistant({ state, onClose, onOpen }) {
-  const free = currentFreeWindow(state.events, state.registrations);
+  const free = freeFor(state);
   const [messages, setMessages] = useState([
       {
         role: "assistant",
-        text: `You’ve got ${free.minutes} free minutes before your next plan. Ask about your break, AI events, waitlists, or your passport.`,
+        text:
+          state.user.role === "student"
+            ? `Hi ${state.user.firstName}, you have ${free.minutes} free minutes before your next plan. Ask about your break, events, waitlists, or your passport.`
+            : `Hi ${state.user.firstName}. Ask about today's events, what's full, or what's coming up.`,
       },
     ]),
     [input, setInput] = useState(""),
     [busy, setBusy] = useState(false);
-  const timer = useRef(null),
-    log = useRef(null);
-  useEffect(() => () => clearTimeout(timer.current), []);
+  const log = useRef(null),
+    controller = useRef(null);
+  useEffect(() => () => controller.current?.abort(), []);
   useEffect(() => {
-    log.current?.scrollTo({
-      top: log.current.scrollHeight,
-      behavior: "smooth",
-    });
-  }, [messages]);
-  const ask = (question) => {
-    if (busy || !question.trim()) return;
+    log.current?.scrollTo({ top: log.current.scrollHeight, behavior: "smooth" });
+  }, [messages, busy]);
+
+  const ask = async (question) => {
+    const text = question.trim();
+    if (busy || !text) return;
     setInput("");
     setBusy(true);
-    setMessages((m) => [...m, { role: "user", text: question }]);
-    timer.current = setTimeout(() => {
-      const q = question.toLowerCase();
-      let text, event;
-      if (/passport|skill|certificate/.test(q))
-        text = `Your passport has ${state.activities.length} recorded activities. Marking attendance in the organizer workspace adds an experience and unlocks a demo certificate.`;
-      else if (/waitlist|full|hack/.test(q)) {
-        event = state.events.find((e) => e.id === "hack");
-        text = `HackMatrix has ${event.registered}/${event.capacity} seats filled and ${event.waitlist} people waiting. You can join the waitlist. Releasing a demo seat in the organizer workspace promotes the next person in line.`;
-      } else if (/friend|sinchana|together/.test(q))
-        text =
-          "Your timetable is available, but your friends’ schedules are not connected in this frontend demo. You can explore an event together, but I can’t verify a shared free period.";
-      else if (/ai|break|free|today|workshop|event/.test(q)) {
-        const available = state.events
-          .filter(
-            (e) =>
-              feasibility(e, state.registrations, state.events).ok &&
-              (/ai/.test(q)
-                ? e.tags.includes("AI / ML")
-                : e.date === DEMO_DATE &&
-                  e.start >= DEMO_NOW &&
-                  e.end + e.walk <= free.until),
-          )
-          .sort((a, b) => b.score - a.score);
-        event = available[0];
-        text = event
-          ? `${event.title} is a good fit. It starts at ${clock(event.start)}, ends at ${clock(event.end)}, and is ${event.walk} minutes away. ${event.capacity - event.registered} seats remain. ${feasibility(event, state.registrations, state.events).reason}`
-          : `No demo opportunity fits your current ${free.minutes}-minute break. Check My schedule, or discover events later this week.`;
-      } else
-        text =
-          "I can use the local event list and your demo timetable to answer questions about free time, AI events, waitlists, and your skill passport. Try “What can I do during my break?”";
-      setMessages((m) => [...m, { role: "assistant", text, event }]);
+    const history = messages
+      .slice(1)
+      .filter((m) => !m.error)
+      .map(({ role, text }) => ({ role, text }));
+    setMessages((m) => [...m, { role: "user", text }]);
+    try {
+      const reply = await api.ask(text, history);
+      setMessages((m) => [
+        ...m,
+        {
+          role: "assistant",
+          text: reply.reply,
+          event: state.events.find((e) => e.id === reply.eventId),
+          source: reply.source,
+          notice: reply.notice,
+        },
+      ]);
+    } catch (e) {
+      setMessages((m) => [
+        ...m,
+        { role: "assistant", text: e.message, error: true },
+      ]);
+    } finally {
       setBusy(false);
-    }, 650);
+    }
   };
+
   return (
     <Dialog title="Your campus, a little clearer" onClose={onClose}>
       <p className="small-text muted assistant-disclaimer">
         <Icon name="spark" size={15} />
-        Grounded in local demo data · scripted assistant, no live LLM
+        {state.ai.enabled
+          ? `Claude answers from your timetable and live campus data.`
+          : "Rule-based answers from your timetable and live campus data. Add an API key on the server to enable Claude."}
       </p>
       <div
         className="chat-log"
@@ -80,8 +90,15 @@ export default function Assistant({ state, onClose, onOpen }) {
         aria-live="polite"
       >
         {messages.map((m, i) => (
-          <div className={`chat-message ${m.role}`} key={i}>
-            {m.role === "assistant" && <Icon name="spark" size={18} />}
+          <div
+            className={`chat-message ${m.role} ${m.error ? "error" : ""}`}
+            key={i}
+          >
+            {m.role === "assistant" && (
+              <span className="assistant-orb small" aria-hidden="true">
+                <Icon name={m.error ? "warning" : "spark"} size={14} />
+              </span>
+            )}
             <div>
               <p>{m.text}</p>
               {m.event && (
@@ -92,25 +109,33 @@ export default function Assistant({ state, onClose, onOpen }) {
                     onOpen(m.event);
                   }}
                 >
-                  Explore this opportunity <Icon name="arrow" size={15} />
+                  Open {m.event.title} <Icon name="arrow" size={15} />
                 </button>
+              )}
+              {m.source && (
+                <small className="muted">
+                  {m.source === "claude" ? "Answered by Claude" : "Rule-based answer"}
+                  {m.notice ? ` · ${m.notice}` : ""}
+                </small>
               )}
             </div>
           </div>
         ))}
         {busy && (
-          <div className="chat-message assistant">
-            <span className="spinner" />
-            Connecting the details…
+          <div className="chat-message assistant typing" aria-label="Thinking">
+            <span className="assistant-orb small" aria-hidden="true">
+              <Icon name="spark" size={14} />
+            </span>
+            <span className="typing-dots" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
           </div>
         )}
       </div>
       <div className="chat-suggestions">
-        {[
-          "What can I do during my break?",
-          "AI events this week",
-          "How does the waitlist work?",
-        ].map((q) => (
+        {SUGGESTIONS[state.user.role].map((q) => (
           <button key={q} disabled={busy} onClick={() => ask(q)}>
             {q}
           </button>
@@ -131,7 +156,7 @@ export default function Assistant({ state, onClose, onOpen }) {
           onChange={(e) => setInput(e.target.value)}
         />
         <button
-          className="icon-button"
+          className="icon-button send"
           type="submit"
           disabled={busy || !input.trim()}
           aria-label="Send message"

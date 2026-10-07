@@ -1,0 +1,19 @@
+{
+  "name": "campusconnect",
+  "version": "2.0.0",
+  "private": true,
+  "description": "CampusConnect: MERN campus opportunity discovery, scheduling, and engagement analytics",
+  "scripts": {
+    "setup": "npm --prefix backend install && npm --prefix frontend install",
+    "seed": "npm --prefix backend run seed",
+    "dev": "node scripts/dev.js",
+    "build": "npm --prefix frontend run build",
+    "start": "node scripts/start.js",
+    "test": "npm --prefix backend test && npm --prefix frontend test",
+    "lint": "npm --prefix frontend run lint"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "license": "ISC"
+}

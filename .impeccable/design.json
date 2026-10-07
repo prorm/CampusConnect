@@ -1,349 +1,718 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-07T13:22:47.802Z",
+  "generatedAt": "2026-10-07T15:20:13.722Z",
   "title": "Design System: CampusConnect",
   "extensions": {
     "colorMeta": {
-      "midnight": {
+      "bg": {
         "role": "neutral",
-        "displayName": "Midnight",
-        "canonical": "#080f13",
+        "displayName": "Night",
+        "canonical": "#070918",
         "tonalRamp": [
-          "oklch(15.00% 0.01392 233.30)",
-          "oklch(26.43% 0.01392 233.30)",
-          "oklch(37.86% 0.01392 233.30)",
-          "oklch(49.29% 0.01392 233.30)",
-          "oklch(60.71% 0.01392 233.30)",
-          "oklch(72.14% 0.01392 233.30)",
-          "oklch(83.57% 0.01392 233.30)",
-          "oklch(95.00% 0.01392 233.30)"
+          "oklch(15.00% 0.03258 275.13)",
+          "oklch(26.43% 0.03258 275.13)",
+          "oklch(37.86% 0.03258 275.13)",
+          "oklch(49.29% 0.03258 275.13)",
+          "oklch(60.71% 0.03258 275.13)",
+          "oklch(72.14% 0.03258 275.13)",
+          "oklch(83.57% 0.03258 275.13)",
+          "oklch(95.00% 0.03258 275.13)"
         ]
       },
-      "surface": {
+      "bg-deep": {
         "role": "neutral",
-        "displayName": "Deep Surface",
-        "canonical": "#101c22",
+        "displayName": "Deep Night",
+        "canonical": "#04050f",
         "tonalRamp": [
-          "oklch(15.00% 0.02068 230.58)",
-          "oklch(26.43% 0.02068 230.58)",
-          "oklch(37.86% 0.02068 230.58)",
-          "oklch(49.29% 0.02068 230.58)",
-          "oklch(60.71% 0.02068 230.58)",
-          "oklch(72.14% 0.02068 230.58)",
-          "oklch(83.57% 0.02068 230.58)",
-          "oklch(95.00% 0.02068 230.58)"
-        ]
-      },
-      "text": {
-        "role": "neutral",
-        "displayName": "Frost Text",
-        "canonical": "#eaf2ef",
-        "tonalRamp": [
-          "oklch(15.00% 0.00937 171.80)",
-          "oklch(26.43% 0.00937 171.80)",
-          "oklch(37.86% 0.00937 171.80)",
-          "oklch(49.29% 0.00937 171.80)",
-          "oklch(60.71% 0.00937 171.80)",
-          "oklch(72.14% 0.00937 171.80)",
-          "oklch(83.57% 0.00937 171.80)",
-          "oklch(95.00% 0.00937 171.80)"
-        ]
-      },
-      "muted": {
-        "role": "neutral",
-        "displayName": "Quiet Text",
-        "canonical": "#a6b9b8",
-        "tonalRamp": [
-          "oklch(15.00% 0.02100 192.88)",
-          "oklch(26.43% 0.02100 192.88)",
-          "oklch(37.86% 0.02100 192.88)",
-          "oklch(49.29% 0.02100 192.88)",
-          "oklch(60.71% 0.02100 192.88)",
-          "oklch(72.14% 0.02100 192.88)",
-          "oklch(83.57% 0.02100 192.88)",
-          "oklch(95.00% 0.02100 192.88)"
-        ]
-      },
-      "mint": {
-        "role": "primary",
-        "displayName": "Possibility Mint",
-        "canonical": "#b8f4d6",
-        "tonalRamp": [
-          "oklch(15.00% 0.07325 162.84)",
-          "oklch(26.43% 0.07325 162.84)",
-          "oklch(37.86% 0.07325 162.84)",
-          "oklch(49.29% 0.07325 162.84)",
-          "oklch(60.71% 0.07325 162.84)",
-          "oklch(72.14% 0.07325 162.84)",
-          "oklch(83.57% 0.07325 162.84)",
-          "oklch(95.00% 0.07325 162.84)"
-        ]
-      },
-      "violet": {
-        "role": "secondary",
-        "displayName": "Growth Violet",
-        "canonical": "#bcabf2",
-        "tonalRamp": [
-          "oklch(15.00% 0.10104 294.94)",
-          "oklch(26.43% 0.10104 294.94)",
-          "oklch(37.86% 0.10104 294.94)",
-          "oklch(49.29% 0.10104 294.94)",
-          "oklch(60.71% 0.10104 294.94)",
-          "oklch(72.14% 0.10104 294.94)",
-          "oklch(83.57% 0.10104 294.94)",
-          "oklch(95.00% 0.10104 294.94)"
-        ]
-      },
-      "peach": {
-        "role": "tertiary",
-        "displayName": "Warm Peach",
-        "canonical": "#f1be9f",
-        "tonalRamp": [
-          "oklch(15.00% 0.07224 52.74)",
-          "oklch(26.43% 0.07224 52.74)",
-          "oklch(37.86% 0.07224 52.74)",
-          "oklch(49.29% 0.07224 52.74)",
-          "oklch(60.71% 0.07224 52.74)",
-          "oklch(72.14% 0.07224 52.74)",
-          "oklch(83.57% 0.07224 52.74)",
-          "oklch(95.00% 0.07224 52.74)"
-        ]
-      },
-      "line": {
-        "role": "neutral",
-        "displayName": "Glass Line",
-        "canonical": "rgba(187, 215, 213, 0.13)",
-        "tonalRamp": [
-          "oklch(15.00% 0.02995 191.35)",
-          "oklch(26.43% 0.02995 191.35)",
-          "oklch(37.86% 0.02995 191.35)",
-          "oklch(49.29% 0.02995 191.35)",
-          "oklch(60.71% 0.02995 191.35)",
-          "oklch(72.14% 0.02995 191.35)",
-          "oklch(83.57% 0.02995 191.35)",
-          "oklch(95.00% 0.02995 191.35)"
+          "oklch(15.00% 0.02514 275.72)",
+          "oklch(26.43% 0.02514 275.72)",
+          "oklch(37.86% 0.02514 275.72)",
+          "oklch(49.29% 0.02514 275.72)",
+          "oklch(60.71% 0.02514 275.72)",
+          "oklch(72.14% 0.02514 275.72)",
+          "oklch(83.57% 0.02514 275.72)",
+          "oklch(95.00% 0.02514 275.72)"
         ]
       },
       "workspace": {
         "role": "neutral",
         "displayName": "Workspace Night",
-        "canonical": "#0a1217",
+        "canonical": "#080a1d",
         "tonalRamp": [
-          "oklch(15.00% 0.01597 236.31)",
-          "oklch(26.43% 0.01597 236.31)",
-          "oklch(37.86% 0.01597 236.31)",
-          "oklch(49.29% 0.01597 236.31)",
-          "oklch(60.71% 0.01597 236.31)",
-          "oklch(72.14% 0.01597 236.31)",
-          "oklch(83.57% 0.01597 236.31)",
-          "oklch(95.00% 0.01597 236.31)"
+          "oklch(15.00% 0.04017 275.86)",
+          "oklch(26.43% 0.04017 275.86)",
+          "oklch(37.86% 0.04017 275.86)",
+          "oklch(49.29% 0.04017 275.86)",
+          "oklch(60.71% 0.04017 275.86)",
+          "oklch(72.14% 0.04017 275.86)",
+          "oklch(83.57% 0.04017 275.86)",
+          "oklch(95.00% 0.04017 275.86)"
         ]
       },
-      "action-ink": {
+      "surface-1": {
         "role": "neutral",
-        "displayName": "Action Ink",
-        "canonical": "#102820",
+        "displayName": "Surface 1",
+        "canonical": "#0f1230",
         "tonalRamp": [
-          "oklch(15.00% 0.03407 169.61)",
-          "oklch(26.43% 0.03407 169.61)",
-          "oklch(37.86% 0.03407 169.61)",
-          "oklch(49.29% 0.03407 169.61)",
-          "oklch(60.71% 0.03407 169.61)",
-          "oklch(72.14% 0.03407 169.61)",
-          "oklch(83.57% 0.03407 169.61)",
-          "oklch(95.00% 0.03407 169.61)"
+          "oklch(15.00% 0.05906 275.38)",
+          "oklch(26.43% 0.05906 275.38)",
+          "oklch(37.86% 0.05906 275.38)",
+          "oklch(49.29% 0.05906 275.38)",
+          "oklch(60.71% 0.05906 275.38)",
+          "oklch(72.14% 0.05906 275.38)",
+          "oklch(83.57% 0.05906 275.38)",
+          "oklch(95.00% 0.05906 275.38)"
         ]
       },
-      "mint-hover": {
+      "surface-2": {
+        "role": "neutral",
+        "displayName": "Surface 2",
+        "canonical": "#171b42",
+        "tonalRamp": [
+          "oklch(15.00% 0.07301 275.18)",
+          "oklch(26.43% 0.07301 275.18)",
+          "oklch(37.86% 0.07301 275.18)",
+          "oklch(49.29% 0.07301 275.18)",
+          "oklch(60.71% 0.07301 275.18)",
+          "oklch(72.14% 0.07301 275.18)",
+          "oklch(83.57% 0.07301 275.18)",
+          "oklch(95.00% 0.07301 275.18)"
+        ]
+      },
+      "surface-3": {
+        "role": "neutral",
+        "displayName": "Surface 3",
+        "canonical": "#1f2454",
+        "tonalRamp": [
+          "oklch(15.00% 0.08632 275.05)",
+          "oklch(26.43% 0.08632 275.05)",
+          "oklch(37.86% 0.08632 275.05)",
+          "oklch(49.29% 0.08632 275.05)",
+          "oklch(60.71% 0.08632 275.05)",
+          "oklch(72.14% 0.08632 275.05)",
+          "oklch(83.57% 0.08632 275.05)",
+          "oklch(95.00% 0.08632 275.05)"
+        ]
+      },
+      "field": {
+        "role": "neutral",
+        "displayName": "Field Night",
+        "canonical": "rgb(10 12 34 / 0.72)",
+        "tonalRamp": [
+          "oklch(15.00% 0.04543 276.40)",
+          "oklch(26.43% 0.04543 276.40)",
+          "oklch(37.86% 0.04543 276.40)",
+          "oklch(49.29% 0.04543 276.40)",
+          "oklch(60.71% 0.04543 276.40)",
+          "oklch(72.14% 0.04543 276.40)",
+          "oklch(83.57% 0.04543 276.40)",
+          "oklch(95.00% 0.04543 276.40)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Glass Line",
+        "canonical": "rgb(150 160 255 / 0.13)",
+        "tonalRamp": [
+          "oklch(15.00% 0.13730 277.89)",
+          "oklch(26.43% 0.13730 277.89)",
+          "oklch(37.86% 0.13730 277.89)",
+          "oklch(49.29% 0.13730 277.89)",
+          "oklch(60.71% 0.13730 277.89)",
+          "oklch(72.14% 0.13730 277.89)",
+          "oklch(83.57% 0.13730 277.89)",
+          "oklch(95.00% 0.13730 277.89)"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Strong Line",
+        "canonical": "rgb(160 170 255 / 0.26)",
+        "tonalRamp": [
+          "oklch(15.00% 0.12219 277.95)",
+          "oklch(26.43% 0.12219 277.95)",
+          "oklch(37.86% 0.12219 277.95)",
+          "oklch(49.29% 0.12219 277.95)",
+          "oklch(60.71% 0.12219 277.95)",
+          "oklch(72.14% 0.12219 277.95)",
+          "oklch(83.57% 0.12219 277.95)",
+          "oklch(95.00% 0.12219 277.95)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Starlight",
+        "canonical": "#eef0ff",
+        "tonalRamp": [
+          "oklch(15.00% 0.02019 279.94)",
+          "oklch(26.43% 0.02019 279.94)",
+          "oklch(37.86% 0.02019 279.94)",
+          "oklch(49.29% 0.02019 279.94)",
+          "oklch(60.71% 0.02019 279.94)",
+          "oklch(72.14% 0.02019 279.94)",
+          "oklch(83.57% 0.02019 279.94)",
+          "oklch(95.00% 0.02019 279.94)"
+        ]
+      },
+      "text-2": {
+        "role": "neutral",
+        "displayName": "Haze",
+        "canonical": "#c4c8ec",
+        "tonalRamp": [
+          "oklch(15.00% 0.05031 280.26)",
+          "oklch(26.43% 0.05031 280.26)",
+          "oklch(37.86% 0.05031 280.26)",
+          "oklch(49.29% 0.05031 280.26)",
+          "oklch(60.71% 0.05031 280.26)",
+          "oklch(72.14% 0.05031 280.26)",
+          "oklch(83.57% 0.05031 280.26)",
+          "oklch(95.00% 0.05031 280.26)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Dusk",
+        "canonical": "#9ea3d2",
+        "tonalRamp": [
+          "oklch(15.00% 0.06829 279.82)",
+          "oklch(26.43% 0.06829 279.82)",
+          "oklch(37.86% 0.06829 279.82)",
+          "oklch(49.29% 0.06829 279.82)",
+          "oklch(60.71% 0.06829 279.82)",
+          "oklch(72.14% 0.06829 279.82)",
+          "oklch(83.57% 0.06829 279.82)",
+          "oklch(95.00% 0.06829 279.82)"
+        ]
+      },
+      "faint": {
+        "role": "neutral",
+        "displayName": "Faint",
+        "canonical": "#8186b9",
+        "tonalRamp": [
+          "oklch(15.00% 0.07666 279.64)",
+          "oklch(26.43% 0.07666 279.64)",
+          "oklch(37.86% 0.07666 279.64)",
+          "oklch(49.29% 0.07666 279.64)",
+          "oklch(60.71% 0.07666 279.64)",
+          "oklch(72.14% 0.07666 279.64)",
+          "oklch(83.57% 0.07666 279.64)",
+          "oklch(95.00% 0.07666 279.64)"
+        ]
+      },
+      "mint": {
         "role": "primary",
-        "displayName": "Mint Light",
-        "canonical": "#d3ffe8",
+        "displayName": "Fit Mint",
+        "canonical": "#7cf5c4",
         "tonalRamp": [
-          "oklch(15.00% 0.05455 162.44)",
-          "oklch(26.43% 0.05455 162.44)",
-          "oklch(37.86% 0.05455 162.44)",
-          "oklch(49.29% 0.05455 162.44)",
-          "oklch(60.71% 0.05455 162.44)",
-          "oklch(72.14% 0.05455 162.44)",
-          "oklch(83.57% 0.05455 162.44)",
-          "oklch(95.00% 0.05455 162.44)"
+          "oklch(15.00% 0.13054 164.90)",
+          "oklch(26.43% 0.13054 164.90)",
+          "oklch(37.86% 0.13054 164.90)",
+          "oklch(49.29% 0.13054 164.90)",
+          "oklch(60.71% 0.13054 164.90)",
+          "oklch(72.14% 0.13054 164.90)",
+          "oklch(83.57% 0.13054 164.90)",
+          "oklch(95.00% 0.13054 164.90)"
         ]
       },
-      "secondary-text": {
-        "role": "neutral",
-        "displayName": "Secondary Text",
-        "canonical": "#d7e9e4",
+      "mint-hi": {
+        "role": "primary",
+        "displayName": "Mint Glow",
+        "canonical": "#b2ffe2",
         "tonalRamp": [
-          "oklch(15.00% 0.02024 177.42)",
-          "oklch(26.43% 0.02024 177.42)",
-          "oklch(37.86% 0.02024 177.42)",
-          "oklch(49.29% 0.02024 177.42)",
-          "oklch(60.71% 0.02024 177.42)",
-          "oklch(72.14% 0.02024 177.42)",
-          "oklch(83.57% 0.02024 177.42)",
-          "oklch(95.00% 0.02024 177.42)"
+          "oklch(15.00% 0.08555 169.00)",
+          "oklch(26.43% 0.08555 169.00)",
+          "oklch(37.86% 0.08555 169.00)",
+          "oklch(49.29% 0.08555 169.00)",
+          "oklch(60.71% 0.08555 169.00)",
+          "oklch(72.14% 0.08555 169.00)",
+          "oklch(83.57% 0.08555 169.00)",
+          "oklch(95.00% 0.08555 169.00)"
         ]
       },
-      "secondary-fill": {
-        "role": "neutral",
-        "displayName": "Secondary Fill",
-        "canonical": "#b9dcd009",
+      "mint-deep": {
+        "role": "primary",
+        "displayName": "Mint Depth",
+        "canonical": "#1d6b55",
         "tonalRamp": [
-          "oklch(15.00% 0.04042 172.57)",
-          "oklch(26.43% 0.04042 172.57)",
-          "oklch(37.86% 0.04042 172.57)",
-          "oklch(49.29% 0.04042 172.57)",
-          "oklch(60.71% 0.04042 172.57)",
-          "oklch(72.14% 0.04042 172.57)",
-          "oklch(83.57% 0.04042 172.57)",
-          "oklch(95.00% 0.04042 172.57)"
+          "oklch(15.00% 0.08270 170.01)",
+          "oklch(26.43% 0.08270 170.01)",
+          "oklch(37.86% 0.08270 170.01)",
+          "oklch(49.29% 0.08270 170.01)",
+          "oklch(60.71% 0.08270 170.01)",
+          "oklch(72.14% 0.08270 170.01)",
+          "oklch(83.57% 0.08270 170.01)",
+          "oklch(95.00% 0.08270 170.01)"
         ]
       },
-      "field-fill": {
-        "role": "neutral",
-        "displayName": "Field Fill",
-        "canonical": "#0f1c1d7a",
+      "on-mint": {
+        "role": "primary",
+        "displayName": "Mint Ink",
+        "canonical": "#03251a",
         "tonalRamp": [
-          "oklch(15.00% 0.01832 202.01)",
-          "oklch(26.43% 0.01832 202.01)",
-          "oklch(37.86% 0.01832 202.01)",
-          "oklch(49.29% 0.01832 202.01)",
-          "oklch(60.71% 0.01832 202.01)",
-          "oklch(72.14% 0.01832 202.01)",
-          "oklch(83.57% 0.01832 202.01)",
-          "oklch(95.00% 0.01832 202.01)"
+          "oklch(15.00% 0.04476 167.33)",
+          "oklch(26.43% 0.04476 167.33)",
+          "oklch(37.86% 0.04476 167.33)",
+          "oklch(49.29% 0.04476 167.33)",
+          "oklch(60.71% 0.04476 167.33)",
+          "oklch(72.14% 0.04476 167.33)",
+          "oklch(83.57% 0.04476 167.33)",
+          "oklch(95.00% 0.04476 167.33)"
         ]
       },
-      "field-text": {
-        "role": "neutral",
-        "displayName": "Field Text",
-        "canonical": "#e2eee6",
+      "mint-soft": {
+        "role": "primary",
+        "displayName": "Mint Wash",
+        "canonical": "rgb(124 245 196 / 0.12)",
         "tonalRamp": [
-          "oklch(15.00% 0.01660 156.90)",
-          "oklch(26.43% 0.01660 156.90)",
-          "oklch(37.86% 0.01660 156.90)",
-          "oklch(49.29% 0.01660 156.90)",
-          "oklch(60.71% 0.01660 156.90)",
-          "oklch(72.14% 0.01660 156.90)",
-          "oklch(83.57% 0.01660 156.90)",
-          "oklch(95.00% 0.01660 156.90)"
+          "oklch(15.00% 0.13054 164.90)",
+          "oklch(26.43% 0.13054 164.90)",
+          "oklch(37.86% 0.13054 164.90)",
+          "oklch(49.29% 0.13054 164.90)",
+          "oklch(60.71% 0.13054 164.90)",
+          "oklch(72.14% 0.13054 164.90)",
+          "oklch(83.57% 0.13054 164.90)",
+          "oklch(95.00% 0.13054 164.90)"
+        ]
+      },
+      "violet": {
+        "role": "secondary",
+        "displayName": "Growth Violet",
+        "canonical": "#a594ff",
+        "tonalRamp": [
+          "oklch(15.00% 0.15243 289.33)",
+          "oklch(26.43% 0.15243 289.33)",
+          "oklch(37.86% 0.15243 289.33)",
+          "oklch(49.29% 0.15243 289.33)",
+          "oklch(60.71% 0.15243 289.33)",
+          "oklch(72.14% 0.15243 289.33)",
+          "oklch(83.57% 0.15243 289.33)",
+          "oklch(95.00% 0.15243 289.33)"
+        ]
+      },
+      "violet-deep": {
+        "role": "secondary",
+        "displayName": "Violet Depth",
+        "canonical": "#4b3cc2",
+        "tonalRamp": [
+          "oklch(15.00% 0.19895 280.23)",
+          "oklch(26.43% 0.19895 280.23)",
+          "oklch(37.86% 0.19895 280.23)",
+          "oklch(49.29% 0.19895 280.23)",
+          "oklch(60.71% 0.19895 280.23)",
+          "oklch(72.14% 0.19895 280.23)",
+          "oklch(83.57% 0.19895 280.23)",
+          "oklch(95.00% 0.19895 280.23)"
+        ]
+      },
+      "violet-soft": {
+        "role": "secondary",
+        "displayName": "Violet Wash",
+        "canonical": "rgb(157 140 255 / 0.14)",
+        "tonalRamp": [
+          "oklch(15.00% 0.16418 288.23)",
+          "oklch(26.43% 0.16418 288.23)",
+          "oklch(37.86% 0.16418 288.23)",
+          "oklch(49.29% 0.16418 288.23)",
+          "oklch(60.71% 0.16418 288.23)",
+          "oklch(72.14% 0.16418 288.23)",
+          "oklch(83.57% 0.16418 288.23)",
+          "oklch(95.00% 0.16418 288.23)"
+        ]
+      },
+      "cyan": {
+        "role": "tertiary",
+        "displayName": "Time Cyan",
+        "canonical": "#6fd6ff",
+        "tonalRamp": [
+          "oklch(15.00% 0.11162 226.53)",
+          "oklch(26.43% 0.11162 226.53)",
+          "oklch(37.86% 0.11162 226.53)",
+          "oklch(49.29% 0.11162 226.53)",
+          "oklch(60.71% 0.11162 226.53)",
+          "oklch(72.14% 0.11162 226.53)",
+          "oklch(83.57% 0.11162 226.53)",
+          "oklch(95.00% 0.11162 226.53)"
+        ]
+      },
+      "cyan-deep": {
+        "role": "tertiary",
+        "displayName": "Cyan Depth",
+        "canonical": "#1b5d99",
+        "tonalRamp": [
+          "oklch(15.00% 0.11669 250.31)",
+          "oklch(26.43% 0.11669 250.31)",
+          "oklch(37.86% 0.11669 250.31)",
+          "oklch(49.29% 0.11669 250.31)",
+          "oklch(60.71% 0.11669 250.31)",
+          "oklch(72.14% 0.11669 250.31)",
+          "oklch(83.57% 0.11669 250.31)",
+          "oklch(95.00% 0.11669 250.31)"
+        ]
+      },
+      "cyan-soft": {
+        "role": "tertiary",
+        "displayName": "Cyan Wash",
+        "canonical": "rgb(95 208 255 / 0.13)",
+        "tonalRamp": [
+          "oklch(15.00% 0.12161 228.43)",
+          "oklch(26.43% 0.12161 228.43)",
+          "oklch(37.86% 0.12161 228.43)",
+          "oklch(49.29% 0.12161 228.43)",
+          "oklch(60.71% 0.12161 228.43)",
+          "oklch(72.14% 0.12161 228.43)",
+          "oklch(83.57% 0.12161 228.43)",
+          "oklch(95.00% 0.12161 228.43)"
+        ]
+      },
+      "coral": {
+        "role": "tertiary",
+        "displayName": "Signal Coral",
+        "canonical": "#ff9a82",
+        "tonalRamp": [
+          "oklch(15.00% 0.12655 34.20)",
+          "oklch(26.43% 0.12655 34.20)",
+          "oklch(37.86% 0.12655 34.20)",
+          "oklch(49.29% 0.12655 34.20)",
+          "oklch(60.71% 0.12655 34.20)",
+          "oklch(72.14% 0.12655 34.20)",
+          "oklch(83.57% 0.12655 34.20)",
+          "oklch(95.00% 0.12655 34.20)"
+        ]
+      },
+      "coral-deep": {
+        "role": "tertiary",
+        "displayName": "Coral Depth",
+        "canonical": "#9a3b28",
+        "tonalRamp": [
+          "oklch(15.00% 0.13149 33.14)",
+          "oklch(26.43% 0.13149 33.14)",
+          "oklch(37.86% 0.13149 33.14)",
+          "oklch(49.29% 0.13149 33.14)",
+          "oklch(60.71% 0.13149 33.14)",
+          "oklch(72.14% 0.13149 33.14)",
+          "oklch(83.57% 0.13149 33.14)",
+          "oklch(95.00% 0.13149 33.14)"
+        ]
+      },
+      "coral-soft": {
+        "role": "tertiary",
+        "displayName": "Coral Wash",
+        "canonical": "rgb(255 138 112 / 0.13)",
+        "tonalRamp": [
+          "oklch(15.00% 0.14752 33.64)",
+          "oklch(26.43% 0.14752 33.64)",
+          "oklch(37.86% 0.14752 33.64)",
+          "oklch(49.29% 0.14752 33.64)",
+          "oklch(60.71% 0.14752 33.64)",
+          "oklch(72.14% 0.14752 33.64)",
+          "oklch(83.57% 0.14752 33.64)",
+          "oklch(95.00% 0.14752 33.64)"
+        ]
+      },
+      "on-coral": {
+        "role": "tertiary",
+        "displayName": "Coral Ink",
+        "canonical": "#2b0800",
+        "tonalRamp": [
+          "oklch(15.00% 0.06191 39.87)",
+          "oklch(26.43% 0.06191 39.87)",
+          "oklch(37.86% 0.06191 39.87)",
+          "oklch(49.29% 0.06191 39.87)",
+          "oklch(60.71% 0.06191 39.87)",
+          "oklch(72.14% 0.06191 39.87)",
+          "oklch(83.57% 0.06191 39.87)",
+          "oklch(95.00% 0.06191 39.87)"
+        ]
+      },
+      "pink": {
+        "role": "tertiary",
+        "displayName": "Event Pink",
+        "canonical": "#ff8fd4",
+        "tonalRamp": [
+          "oklch(15.00% 0.15679 343.56)",
+          "oklch(26.43% 0.15679 343.56)",
+          "oklch(37.86% 0.15679 343.56)",
+          "oklch(49.29% 0.15679 343.56)",
+          "oklch(60.71% 0.15679 343.56)",
+          "oklch(72.14% 0.15679 343.56)",
+          "oklch(83.57% 0.15679 343.56)",
+          "oklch(95.00% 0.15679 343.56)"
+        ]
+      },
+      "chart-cyan": {
+        "role": "data",
+        "displayName": "Chart Cyan",
+        "canonical": "#3593cc",
+        "tonalRamp": [
+          "oklch(15.00% 0.12330 238.32)",
+          "oklch(26.43% 0.12330 238.32)",
+          "oklch(37.86% 0.12330 238.32)",
+          "oklch(49.29% 0.12330 238.32)",
+          "oklch(60.71% 0.12330 238.32)",
+          "oklch(72.14% 0.12330 238.32)",
+          "oklch(83.57% 0.12330 238.32)",
+          "oklch(95.00% 0.12330 238.32)"
+        ]
+      },
+      "chart-mint": {
+        "role": "data",
+        "displayName": "Chart Mint / Positive Sentiment",
+        "canonical": "#2ea57a",
+        "tonalRamp": [
+          "oklch(15.00% 0.12263 164.23)",
+          "oklch(26.43% 0.12263 164.23)",
+          "oklch(37.86% 0.12263 164.23)",
+          "oklch(49.29% 0.12263 164.23)",
+          "oklch(60.71% 0.12263 164.23)",
+          "oklch(72.14% 0.12263 164.23)",
+          "oklch(83.57% 0.12263 164.23)",
+          "oklch(95.00% 0.12263 164.23)"
+        ]
+      },
+      "chart-violet": {
+        "role": "data",
+        "displayName": "Chart Violet",
+        "canonical": "#8b7bff",
+        "tonalRamp": [
+          "oklch(15.00% 0.18899 285.52)",
+          "oklch(26.43% 0.18899 285.52)",
+          "oklch(37.86% 0.18899 285.52)",
+          "oklch(49.29% 0.18899 285.52)",
+          "oklch(60.71% 0.18899 285.52)",
+          "oklch(72.14% 0.18899 285.52)",
+          "oklch(83.57% 0.18899 285.52)",
+          "oklch(95.00% 0.18899 285.52)"
+        ]
+      },
+      "sentiment-neutral": {
+        "role": "data",
+        "displayName": "Neutral Sentiment",
+        "canonical": "#6b7099",
+        "tonalRamp": [
+          "oklch(15.00% 0.06385 278.72)",
+          "oklch(26.43% 0.06385 278.72)",
+          "oklch(37.86% 0.06385 278.72)",
+          "oklch(49.29% 0.06385 278.72)",
+          "oklch(60.71% 0.06385 278.72)",
+          "oklch(72.14% 0.06385 278.72)",
+          "oklch(83.57% 0.06385 278.72)",
+          "oklch(95.00% 0.06385 278.72)"
+        ]
+      },
+      "sentiment-constructive": {
+        "role": "data",
+        "displayName": "Constructive Sentiment",
+        "canonical": "#d9604a",
+        "tonalRamp": [
+          "oklch(15.00% 0.15691 32.11)",
+          "oklch(26.43% 0.15691 32.11)",
+          "oklch(37.86% 0.15691 32.11)",
+          "oklch(49.29% 0.15691 32.11)",
+          "oklch(60.71% 0.15691 32.11)",
+          "oklch(72.14% 0.15691 32.11)",
+          "oklch(83.57% 0.15691 32.11)",
+          "oklch(95.00% 0.15691 32.11)"
         ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Landing hero only; responsive sizes differ from the desktop clamp."
+        "purpose": "Landing hero only, set in masked lines that rise in."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Default workspace page heading; responsive rules adjust the size."
+        "purpose": "Workspace page titles and status-screen titles."
+      },
+      "section": {
+        "displayName": "Section",
+        "purpose": "Section headings inside workspace pages."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Default opportunity heading; single-column mobile cards use larger titles."
+        "purpose": "Opportunity card titles."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Stat tiles; tabular numerals so tweened counts do not jitter."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Operational paragraph text, with final responsive overrides applied."
+        "purpose": "Operational paragraphs."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Most operational metadata; selected passport microcopy remains 11px."
+        "purpose": "Form labels, stat labels, chips and metadata."
       },
       "action": {
         "displayName": "Action",
-        "purpose": "Primary actions and workspace controls."
+        "purpose": "Button labels."
       }
     },
+    "materials": [
+      {
+        "name": "glass-fill",
+        "value": "linear-gradient(145deg, rgb(40 44 104 / 0.5), rgb(14 17 46 / 0.66))",
+        "purpose": "Shared glass surface, with 1px line border and backdrop-filter: blur(22px) saturate(1.3)."
+      },
+      {
+        "name": "spotlight",
+        "value": "radial-gradient(420px circle at var(--sx) var(--sy), rgb(165 148 255 / 0.1), rgb(111 214 255 / 0.04) 40%, transparent 70%)",
+        "purpose": "Cursor light on .glass/.spot, screen-blended, fades in on hover; fine pointers only."
+      },
+      {
+        "name": "aurora-field",
+        "value": "radial-gradient(40% 50% at 20% 30%, rgb(124 92 255 / 0.26), transparent 70%), radial-gradient(35% 45% at 55% 10%, rgb(76 201 255 / 0.16), transparent 70%), radial-gradient(30% 40% at 85% 35%, rgb(124 245 196 / 0.12), transparent 70%)",
+        "purpose": "Fixed drifting glow behind workspace, auth and status; blur(30px), 26s drift."
+      },
+      {
+        "name": "dialog-fill",
+        "value": "linear-gradient(160deg, #1a1e4a, #0c0e28 70%)",
+        "purpose": "Native dialog surface."
+      },
+      {
+        "name": "toast-fill",
+        "value": "linear-gradient(150deg, #1d2257, #11143a)",
+        "purpose": "Top-layer toast surface."
+      }
+    ],
     "shadows": [
       {
-        "name": "floating-opportunity",
-        "value": "12px 28px 70px #0006",
-        "purpose": "The hero's perspective card."
+        "name": "card-lift",
+        "value": "0 24px 50px rgb(2 2 14 / 0.45)",
+        "purpose": "Opportunity card hover with 4px rise."
       },
       {
-        "name": "floating-evidence",
-        "value": "5px 15px 35px #0003",
-        "purpose": "Nearby time and growth chips."
+        "name": "primary-glow",
+        "value": "0 1px 0 rgb(255 255 255 / 0.4) inset, 0 10px 28px rgb(124 245 196 / 0.22)",
+        "purpose": "Primary button hover."
       },
       {
-        "name": "primary-action-hover",
-        "value": "0 8px 22px #9ee8c018",
-        "purpose": "A small mint lift for the main button."
+        "name": "secondary-hover",
+        "value": "0 8px 24px rgb(2 2 12 / 0.3)",
+        "purpose": "Secondary button hover."
       },
       {
         "name": "dialog",
-        "value": "10px 30px 90px #0006",
-        "purpose": "Modal separation from the workspace."
+        "value": "10px 40px 100px rgb(0 0 0 / 0.6)",
+        "purpose": "Modal separation above a blurred backdrop."
+      },
+      {
+        "name": "auth-card",
+        "value": "0 40px 100px rgb(0 0 0 / 0.45)",
+        "purpose": "Sign-in card."
+      },
+      {
+        "name": "toast",
+        "value": "0 20px 60px rgb(0 0 0 / 0.5)",
+        "purpose": "Toast notifications."
+      },
+      {
+        "name": "hero-float",
+        "value": "0 1px 0 rgb(255 255 255 / 0.08) inset, 14px 34px 80px rgb(2 2 12 / 0.6)",
+        "purpose": "Landing tilting opportunity card."
+      },
+      {
+        "name": "focus-halo",
+        "value": "0 0 0 4px rgb(124 245 196 / 0.12)",
+        "purpose": "Focused form fields."
+      },
+      {
+        "name": "signal-glow",
+        "value": "0 0 14px var(--mint)",
+        "purpose": "Active nav marker, live dot; light rather than elevation."
       }
     ],
     "motion": [
       {
-        "name": "action-transition",
-        "value": "background 0.2s, transform 0.2s, box-shadow 0.2s",
-        "purpose": "Shared action state transitions."
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default easing for entrances, hovers and state changes."
       },
       {
-        "name": "scene-pointer",
-        "value": "transform 0.3s ease-out",
-        "purpose": "Pointer-driven scene translation."
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.65, 0, 0.35, 1)",
+        "purpose": "Splash orbit spin."
       },
       {
-        "name": "card-pointer",
-        "value": "transform 0.4s",
-        "purpose": "Pointer-driven card rotation."
+        "name": "view-in",
+        "value": "0.45s ease-out; opacity 0, blur(6px), translateY(10px)",
+        "purpose": "Route transition of workspace content."
       },
       {
-        "name": "materialize",
-        "value": "hero-materialize 1.3s cubic-bezier(0.16, 1, 0.3, 1) both",
-        "purpose": "Landing opportunity entrance."
+        "name": "stagger",
+        "value": "calc(min(var(--i), 8) * 50-60ms)",
+        "purpose": "Card and list entrances, capped at eight items."
       },
       {
-        "name": "floating-evidence",
-        "value": "gentle-float 7s ease-in-out infinite",
-        "purpose": "Slow landing evidence-chip rhythm."
+        "name": "line-rise",
+        "value": "1s ease-out, 0.09s per line",
+        "purpose": "Hero headline lines rising out of clip masks."
       },
       {
-        "name": "page-entry",
-        "value": "page-in 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Workspace page transition."
+        "name": "aurora-drift",
+        "value": "26s ease-in-out infinite alternate",
+        "purpose": "Aurora field behind Operate screens."
       },
       {
-        "name": "marquee",
-        "value": "marquee 38s linear infinite",
-        "purpose": "Campus strip movement."
+        "name": "counter",
+        "value": "650ms ease-out-quart",
+        "purpose": "Seat and queue number tweening (Counter.jsx)."
+      },
+      {
+        "name": "stamp",
+        "value": "0.55s, scale 2.2 rotate -25deg to rest",
+        "purpose": "Ticket stub on registration."
+      },
+      {
+        "name": "bar-fill",
+        "value": "0.9s ease-out, 70ms stagger",
+        "purpose": "Skill, forecast and analytics bars."
+      },
+      {
+        "name": "light-sweep",
+        "value": "0.7s ease-out translateX(-120% to 120%)",
+        "purpose": "Button hover sheen."
+      },
+      {
+        "name": "toast-timer",
+        "value": "4.8s linear scaleX(1 to 0)",
+        "purpose": "Toast dismiss timer bar."
       },
       {
         "name": "reduced-motion",
-        "value": "animation: none !important; transition: none !important; scroll-behavior: auto !important",
-        "purpose": "Honor reduced-motion preferences; Canvas uses a static frame."
+        "value": "animations 0.01ms; transitions limited to color, background-color, border-color, opacity, box-shadow at 0.15s",
+        "purpose": "Keeps feedback, removes movement."
       }
     ],
     "breakpoints": [
       {
-        "name": "wide-min",
-        "value": "1600px"
+        "name": "wide",
+        "value": "min-width: 1600px"
       },
       {
-        "name": "compact-max",
-        "value": "1180px"
+        "name": "xl",
+        "value": "max-width: 1280px"
       },
       {
-        "name": "tablet-max",
-        "value": "960px"
+        "name": "lg",
+        "value": "max-width: 1180px"
       },
       {
-        "name": "stacked-max",
-        "value": "760px"
+        "name": "md",
+        "value": "max-width: 960px"
       },
       {
-        "name": "phone-max",
-        "value": "520px"
+        "name": "drawer",
+        "value": "max-width: 760px"
       },
       {
-        "name": "small-phone-max",
-        "value": "360px"
+        "name": "sm",
+        "value": "max-width: 520px"
+      },
+      {
+        "name": "xs",
+        "value": "max-width: 360px"
       }
     ]
   },
@@ -352,104 +721,128 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Clear mint action with a quiet lift on hover.",
-      "html": "<button class=\"ds-button-primary\">Find my next opportunity<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
-      "css": ".ds-button-primary{display:inline-flex;align-items:center;justify-content:center;gap:15px;padding:15px 23px;border-radius:8px;font-family:'DM Sans Variable',sans-serif;font-size:14px;font-weight:600;line-height:1.4;border:0;cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s;background:var(--mint,#b8f4d6);color:#102820}.ds-button-primary:hover:not(:disabled){background:#d3ffe8;transform:translateY(-2px);box-shadow:0 8px 22px #9ee8c018}.ds-button-primary:disabled{opacity:.48;cursor:not-allowed}.ds-button-primary:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}@media(prefers-reduced-motion:reduce){.ds-button-primary{transition:none}.ds-button-primary:hover{transform:none}}"
+      "description": "Mint action with light sweep; the only mint button.",
+      "html": "<button class=\"ds-btn-primary\">Register <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:12px;font-family:var(--body,'DM Sans Variable',sans-serif);font-weight:600;font-size:14px;line-height:1.4;border:0;cursor:pointer;position:relative;overflow:hidden;isolation:isolate;transition:background .2s,transform .25s cubic-bezier(0.16,1,0.3,1),box-shadow .25s;background:#7cf5c4;color:#03251a;box-shadow:0 1px 0 rgb(255 255 255 / 0.4) inset}.ds-btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgb(255 255 255 / 0.45) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s cubic-bezier(0.16,1,0.3,1);z-index:-1;}.ds-btn-primary:hover{background:#b2ffe2;transform:translateY(-2px);box-shadow:0 1px 0 rgb(255 255 255 / 0.4) inset,0 10px 28px rgb(124 245 196 / 0.22)}.ds-btn-primary:hover::after{transform:translateX(120%)}.ds-btn-primary svg{transition:transform .25s}.ds-btn-primary:hover svg{transform:translateX(3px)}.ds-btn-primary:active{transform:scale(.98)}.ds-btn-primary:focus-visible{outline:2px solid #7cf5c4;outline-offset:4px;}"
     },
     {
       "name": "Secondary Button",
       "kind": "button",
       "refersTo": "button-secondary",
-      "description": "Translucent outlined alternative to the mint action.",
-      "html": "<button class=\"ds-button-secondary\">View my schedule<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
-      "css": ".ds-button-secondary{display:inline-flex;align-items:center;justify-content:center;gap:15px;padding:15px 23px;border-radius:8px;font-family:'DM Sans Variable',sans-serif;font-size:14px;font-weight:600;line-height:1.4;border:0;cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s;background:#b9dcd009;border:1px solid #b9dcd026;color:#d7e9e4}.ds-button-secondary:hover:not(:disabled){background:#b9dcd017;transform:translateY(-2px);box-shadow:0 8px 22px #9ee8c018}.ds-button-secondary:disabled{opacity:.48;cursor:not-allowed}.ds-button-secondary:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}@media(prefers-reduced-motion:reduce){.ds-button-secondary{transition:none}.ds-button-secondary:hover{transform:none}}"
+      "description": "Outlined indigo action with a violet sweep.",
+      "html": "<button class=\"ds-btn-secondary\">View details</button>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:12px;font-family:var(--body,'DM Sans Variable',sans-serif);font-weight:600;font-size:14px;line-height:1.4;border:0;cursor:pointer;position:relative;overflow:hidden;isolation:isolate;transition:background .2s,transform .25s cubic-bezier(0.16,1,0.3,1),box-shadow .25s;background:rgb(160 170 255 / 0.06);border:1px solid rgb(160 170 255 / 0.26);color:#eef0ff}.ds-btn-secondary::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgb(165 148 255 / 0.18) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s cubic-bezier(0.16,1,0.3,1);z-index:-1;}.ds-btn-secondary:hover{background:rgb(160 170 255 / 0.12);border-color:rgb(165 148 255 / 0.5);transform:translateY(-2px);box-shadow:0 8px 24px rgb(2 2 12 / 0.3)}.ds-btn-secondary:hover::after{transform:translateX(120%)}.ds-btn-secondary:focus-visible{outline:2px solid #7cf5c4;outline-offset:4px;}"
     },
     {
-      "name": "Text Button",
+      "name": "Danger Button",
       "kind": "button",
-      "refersTo": "text-button",
-      "description": "Quiet operational navigation with a moving arrow.",
-      "html": "<button class=\"ds-text-button\">Explore this free window<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
-      "css": ".ds-text-button{padding:0;display:inline-flex;align-items:center;gap:10px;font-family:'DM Sans Variable',sans-serif;font-size:14px;font-weight:500;line-height:1.6;text-align:left;border:0;background:none;color:var(--text,#eaf2ef);cursor:pointer}.ds-text-button:hover{color:var(--mint,#b8f4d6)}.ds-text-button svg{transition:transform .2s}.ds-text-button:hover svg{transform:translateX(3px)}.ds-text-button:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}@media(prefers-reduced-motion:reduce){.ds-text-button svg{transition:none}.ds-text-button:hover svg{transform:none}}"
+      "refersTo": "button-danger",
+      "description": "Coral destructive action.",
+      "html": "<button class=\"ds-btn-danger\">Cancel registration</button>",
+      "css": ".ds-btn-danger{display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:12px;font-family:var(--body,'DM Sans Variable',sans-serif);font-weight:600;font-size:14px;line-height:1.4;border:0;cursor:pointer;position:relative;overflow:hidden;isolation:isolate;transition:background .2s,transform .25s cubic-bezier(0.16,1,0.3,1),box-shadow .25s;background:#ff9a82;color:#2b0800}.ds-btn-danger:hover{background:#ffb4a3;transform:translateY(-2px);box-shadow:0 10px 28px rgb(255 138 112 / 0.22)}.ds-btn-danger:focus-visible{outline:2px solid #7cf5c4;outline-offset:4px;}"
     },
     {
-      "name": "Form Field",
+      "name": "Text Field",
       "kind": "input",
       "refersTo": "form-field",
-      "description": "Readable operational field with an explicit label and mint focus.",
-      "html": "<label class=\"ds-field-label\">Your interests<input class=\"ds-field\" placeholder=\"Design, technology, leadership\" /></label>",
-      "css": ".ds-field-label{display:flex;flex-direction:column;gap:8px;color:#c6d9ca;font-family:'DM Sans Variable',sans-serif;font-size:14px}.ds-field{padding:11px 13px;border:1px solid #b8f4d626;border-radius:7px;background:#0f1c1d7a;color:#e2eee6;font-family:'DM Sans Variable',sans-serif;font-size:14px;line-height:1.5;caret-color:var(--mint,#b8f4d6)}.ds-field::placeholder{color:#91a7a6}.ds-field:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}"
+      "description": "Field Night input with mint focus halo and violet hover.",
+      "html": "<label class=\"ds-label\">Email<input class=\"ds-input\" placeholder=\"you@campus.edu\"></label>",
+      "css": ".ds-label{display:grid;gap:7px;font:500 13px var(--body,'DM Sans Variable',sans-serif);color:#c4c8ec;max-width:320px}.ds-input{background:rgb(10 12 34 / 0.72);border:1px solid rgb(160 170 255 / 0.26);border-radius:10px;padding:11px 13px;font:14px var(--body,'DM Sans Variable',sans-serif);color:#eef0ff;caret-color:#7cf5c4;transition:border-color .2s,box-shadow .2s,background .2s}.ds-input::placeholder{color:#8186b9}.ds-input:hover{border-color:rgb(165 148 255 / 0.45)}.ds-input:focus{outline:none;border-color:#7cf5c4;box-shadow:0 0 0 4px rgb(124 245 196 / 0.12);background:rgb(10 12 34 / 0.9)}"
+    },
+    {
+      "name": "Role Pills and Filter Chips",
+      "kind": "chip",
+      "refersTo": "pill",
+      "description": "Capsule pills by role; filter chips fill mint when selected.",
+      "html": "<div class=\"ds-row\"><span class=\"ds-pill ds-mint\">Fits your day</span><span class=\"ds-pill ds-violet\">Waitlist #3</span><span class=\"ds-pill ds-coral\">Clashes with Lab</span><button class=\"ds-chip\">All</button><button class=\"ds-chip ds-on\" aria-pressed=\"true\">Tech</button></div>",
+      "css": ".ds-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.ds-pill{display:inline-flex;font:500 12px var(--body,'DM Sans Variable',sans-serif);padding:6px 12px;border-radius:100px;border:1px solid rgb(160 170 255 / 0.26);color:#c4c8ec;line-height:1.5}.ds-mint{color:#7cf5c4;border-color:rgb(124 245 196 / 0.3);background:rgb(124 245 196 / 0.12)}.ds-violet{color:#a594ff;border-color:rgb(165 148 255 / 0.32);background:rgb(157 140 255 / 0.14)}.ds-coral{color:#ff9a82;border-color:rgb(255 138 112 / 0.32);background:rgb(255 138 112 / 0.13)}.ds-chip{min-height:36px;padding:7px 13px;border-radius:100px;border:1px solid rgb(160 170 255 / 0.26);background:none;color:#c4c8ec;font:13px var(--body,'DM Sans Variable',sans-serif);cursor:pointer;transition:all .2s}.ds-chip:hover{border-color:#a594ff;color:#eef0ff}.ds-chip.ds-on{background:#7cf5c4;border-color:#7cf5c4;color:#03251a;font-weight:600}.ds-chip:focus-visible{outline:2px solid #7cf5c4;outline-offset:4px;}"
     },
     {
       "name": "Workspace Navigation",
       "kind": "nav",
       "refersTo": "workspace-navigation",
-      "description": "A readable selected destination with current-page semantics.",
-      "html": "<nav aria-label=\"Workspace navigation\" class=\"ds-nav\"><button class=\"ds-nav-link ds-nav-active\" aria-current=\"page\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 2v2m0 16v2M2 12h2m16 0h2\"/></svg>My campus today<span class=\"ds-nav-dot\"></span></button><button class=\"ds-nav-link\">Discover</button></nav>",
-      "css": ".ds-nav{display:flex;flex-direction:column;gap:6px}.ds-nav-link{display:flex;align-items:center;gap:12px;min-height:43px;padding:11px 12px;border-radius:8px;font-family:'DM Sans Variable',sans-serif;font-size:14px;color:#9fb7ad;text-align:left;border:0;background:none;cursor:pointer}.ds-nav-link:hover{background:#b8f4d609;color:#d8eee4}.ds-nav-link.ds-nav-active{background:#b8f4d610;color:var(--mint,#b8f4d6)}.ds-nav-dot{width:4px;height:4px;background:var(--mint,#b8f4d6);border-radius:50%;margin-left:auto}.ds-nav-link:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}"
+      "description": "Sidebar links with a glowing mint marker on the active page.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-link ds-active\" aria-current=\"page\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/></svg>Today</a><a class=\"ds-link\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m20 20-4-4\"/></svg>Explore</a></nav>",
+      "css": ".ds-nav{display:grid;gap:3px;width:224px;padding:12px 18px;background:linear-gradient(180deg,rgb(14 17 46 / 0.92),rgb(8 10 29 / 0.96))}.ds-link{position:relative;display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;font:14px var(--body,'DM Sans Variable',sans-serif);color:#9ea3d2;text-decoration:none;transition:color .2s,background .2s}.ds-link:hover{color:#eef0ff;background:rgb(160 170 255 / 0.06)}.ds-link::before{content:'';position:absolute;left:-18px;top:50%;width:3px;height:22px;border-radius:0 3px 3px 0;background:#7cf5c4;box-shadow:0 0 14px #7cf5c4;transform:translateY(-50%) scaleY(0);transition:transform .35s cubic-bezier(0.16,1,0.3,1)}.ds-active{color:#eef0ff;background:linear-gradient(90deg,rgb(124 245 196 / 0.14),rgb(124 245 196 / 0.02))}.ds-active svg{color:#7cf5c4}.ds-active::before{transform:translateY(-50%) scaleY(1)}.ds-link:focus-visible{outline:2px solid #7cf5c4;outline-offset:4px;}"
     },
     {
-      "name": "Metadata Pill",
-      "kind": "chip",
-      "refersTo": "pill",
-      "description": "A softly outlined metadata capsule at the shared compact size.",
-      "html": "<span class=\"ds-pill\">Fits your timetable</span>",
-      "css": ".ds-pill{display:inline-flex;align-items:center;gap:7px;font-family:'DM Sans Variable',sans-serif;font-size:11px;padding:6px 11px;border:1px solid var(--line,rgba(187,215,213,.13));border-radius:100px;line-height:1.5;color:var(--text,#eaf2ef)}"
-    },
-    {
-      "name": "Category Filters",
-      "kind": "chip",
-      "description": "Mint selection among quiet outlined operational filters.",
-      "html": "<div class=\"ds-filters\"><button class=\"ds-filter ds-filter-active\" aria-pressed=\"true\">All opportunities</button><button class=\"ds-filter\" aria-pressed=\"false\">Technology</button></div>",
-      "css": ".ds-filters{display:flex;gap:8px;flex-wrap:wrap}.ds-filter{padding:8px 17px;font-family:'DM Sans Variable',sans-serif;font-size:14px;border:1px solid var(--line,rgba(187,215,213,.13));border-radius:50px;color:#aac2b4;background:none;cursor:pointer}.ds-filter.ds-filter-active{background:var(--mint,#b8f4d6);color:#163125;border-color:var(--mint,#b8f4d6)}.ds-filter:hover:not(.ds-filter-active){background:#b8f4d60c}.ds-filter:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}"
-    },
-    {
-      "name": "Glass Opportunity Card",
+      "name": "Opportunity Card",
       "kind": "card",
       "refersTo": "glass-card",
-      "description": "A contained opportunity with a readable title and useful action.",
-      "html": "<article class=\"ds-card\"><span class=\"ds-card-host\">CODECRAFT · TODAY</span><h3 class=\"ds-card-title\"><button class=\"ds-card-title-button\">Build your first AI agent</button></h3><p class=\"ds-card-meta\">12:45 PM · Innovation Lab</p><div class=\"ds-card-bottom\"><span>Fits your timetable</span><button class=\"ds-card-action\">View event<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button></div></article>",
-      "css": ".ds-card{padding:20px;background:linear-gradient(135deg,rgba(32,52,59,.66),rgba(16,29,36,.72));border:1px solid var(--line,rgba(187,215,213,.13));backdrop-filter:blur(22px);border-radius:var(--radius,16px);color:var(--text,#eaf2ef);font-family:'DM Sans Variable',sans-serif;transition:background .25s;max-width:330px}.ds-card:hover{background:#24413c73}.ds-card-host{font-size:12px;color:#8da99a}.ds-card-title{font-family:var(--display,'Space Grotesk Variable',sans-serif);font-size:21px;font-weight:500;line-height:1.3;letter-spacing:-.035em;margin:10px 0 12px}.ds-card-title-button{padding:0;text-align:left;font:inherit;letter-spacing:inherit;border:0;background:none;color:inherit;cursor:pointer}.ds-card-title-button:hover{color:var(--mint,#b8f4d6)}.ds-card-meta{font-size:12px;color:#a4bcb0;line-height:1.7;margin:0}.ds-card-bottom{border-top:1px solid var(--line,rgba(187,215,213,.13));margin-top:18px;padding-top:15px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:12px}.ds-card-action{display:inline-flex;align-items:center;justify-content:center;gap:15px;padding:15px 23px;border-radius:8px;font-family:'DM Sans Variable',sans-serif;font-size:14px;font-weight:600;line-height:1.4;border:0;cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s;font-size:14px;padding:8px 10px;gap:5px;background:var(--mint,#b8f4d6);color:#102820}.ds-card-action:hover{background:#d3ffe8;transform:translateY(-2px);box-shadow:0 8px 22px #9ee8c018}.ds-card-title-button:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}.ds-card-action:focus-visible{outline:2px solid var(--mint,#b8f4d6);outline-offset:5px;border-radius:4px;}@media(prefers-reduced-motion:reduce){.ds-card,.ds-card-action{transition:none}.ds-card-action:hover{transform:none}}"
+      "description": "Glass card with authored orbit art; lifts and takes its tone on hover.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-art\"><i></i><i></i><b></b></div><div class=\"ds-body\"><small>Robotics Club · <em>Today</em></small><h3>Build night: line-follower sprint</h3><span class=\"ds-fit\">Fits your day</span></div></article>",
+      "css": ".ds-card{background:linear-gradient(145deg,rgb(40 44 104 / 0.5),rgb(14 17 46 / 0.66));border:1px solid rgb(150 160 255 / 0.13);backdrop-filter:blur(22px) saturate(1.3);border-radius:18px;width:300px;overflow:hidden;--tone:#7cf5c4;transition:transform .4s cubic-bezier(0.16,1,0.3,1),border-color .3s,box-shadow .4s}.ds-card:hover{transform:translateY(-4px);border-color:color-mix(in oklab,var(--tone) 45%,transparent);box-shadow:0 24px 50px rgb(2 2 14 / 0.45)}.ds-art{height:150px;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse 70% 80% at 50% 35%,#1d5a4f,#0b1d2b)}.ds-art i{position:absolute;width:46%;aspect-ratio:1;border-radius:50%;border:6px solid #8ff7cf;opacity:.8;transform:rotateX(64deg) rotateZ(-30deg)}.ds-art i+i{width:34%;border-color:#1b6e58;transform:rotateX(63deg) rotateZ(40deg)}.ds-art b{width:14%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff,#8ff7cf 22%,#1b6e58 78%);box-shadow:0 0 30px #8ff7cf}.ds-body{padding:18px 20px 20px;display:grid;gap:10px;font-family:var(--body,'DM Sans Variable',sans-serif)}.ds-body small{font-size:13px;color:#9ea3d2}.ds-body em{font-style:normal;color:#6fd6ff}.ds-body h3{margin:0;font:500 20px/1.25 var(--display,'Space Grotesk Variable',sans-serif);letter-spacing:-0.035em;color:#eef0ff;transition:color .2s}.ds-card:hover h3{color:var(--tone)}.ds-fit{width:fit-content;font-size:12px;padding:6px 12px;border-radius:100px;color:#7cf5c4;border:1px solid rgb(124 245 196 / 0.3);background:rgb(124 245 196 / 0.12)}"
+    },
+    {
+      "name": "Stat Tile and Bar Chart",
+      "kind": "custom",
+      "refersTo": "stat-tile",
+      "description": "Analytics: tabular figure tile and a directly labelled bar in the chart palette.",
+      "html": "<div class=\"ds-stats\"><div class=\"ds-tile\"><span>Registrations</span><strong>1,284</strong><small>+12% this week</small></div><ul class=\"ds-bars\"><li><span>Robotics</span><i style=\"--w:82%\"><b></b></i><em>82%</em></li><li><span>Design</span><i style=\"--w:61%\"><b></b></i><em>61%</em></li></ul></div>",
+      "css": ".ds-stats{display:grid;gap:16px;width:340px;font-family:var(--body,'DM Sans Variable',sans-serif)}.ds-tile{background:linear-gradient(145deg,rgb(40 44 104 / 0.5),rgb(14 17 46 / 0.66));border:1px solid rgb(150 160 255 / 0.13);backdrop-filter:blur(22px) saturate(1.3);border-radius:18px;padding:18px 20px;display:grid;gap:6px}.ds-tile span,.ds-tile small{font-size:13px;color:#9ea3d2}.ds-tile strong{font-size:32px;font-weight:600;letter-spacing:-0.02em;line-height:1.1;color:#eef0ff;font-variant-numeric:tabular-nums}.ds-bars{list-style:none;margin:0;padding:0;display:grid;gap:10px}.ds-bars li{display:grid;grid-template-columns:5em 1fr 3em;gap:12px;align-items:center;font-size:13px;color:#c4c8ec}.ds-bars i{display:block;height:14px;border-radius:0 4px 4px 0;background:rgb(53 147 204 / 0.16);overflow:hidden}.ds-bars b{display:block;height:100%;width:var(--w);background:#3593cc;border-radius:0 4px 4px 0;transform-origin:left;animation:ds-fill .9s cubic-bezier(0.16,1,0.3,1) both}.ds-bars em{font-style:normal;text-align:right;color:#eef0ff;font-variant-numeric:tabular-nums}@keyframes ds-fill{from{transform:scaleX(0)}}@media (prefers-reduced-motion:reduce){.ds-bars b{animation:none}}"
+    },
+    {
+      "name": "Registration Ticket",
+      "kind": "custom",
+      "description": "Dashed mint ticket whose stub stamps on when a seat is confirmed.",
+      "html": "<div class=\"ds-ticket\"><span class=\"ds-stub\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m5 12 5 5 9-10\"/></svg></span><div><strong>You're in</strong><small>Seat 18 of 40 · Wed 7 Oct, 17:30</small></div></div>",
+      "css": ".ds-ticket{display:flex;gap:16px;align-items:center;padding:18px;border-radius:16px;border:1px dashed rgb(124 245 196 / 0.45);background:linear-gradient(120deg,rgb(124 245 196 / 0.12),rgb(124 92 255 / 0.08));font-family:var(--body,'DM Sans Variable',sans-serif);width:320px}.ds-ticket strong{display:block;font-size:16px;color:#7cf5c4}.ds-ticket small{font-size:13px;color:#9ea3d2}.ds-stub{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;background:#7cf5c4;color:#03251a;animation:ds-stamp .55s .15s cubic-bezier(0.16,1,0.3,1) both}@keyframes ds-stamp{0%{transform:scale(2.2) rotate(-25deg);opacity:0}60%{transform:scale(.92) rotate(4deg);opacity:1}}@media (prefers-reduced-motion:reduce){.ds-stub{animation:none}}"
     }
   ],
   "narrative": {
-    "northStar": "Campus constellation",
-    "overview": "CampusConnect joins opportunities, free time and personal growth through a midnight glass world. Mint light gives actions and availability a clear signal; violet supports the sense of discovery and growth. Authored orbital geometry turns the idea of connection into a recognizable visual signature.\n\nThe landing page is expressive and spacious, with perspective ribbons, drifting particles and a floating opportunity card that responds to the pointer. The workspace retains the same materials while quieting the spectacle so students and coordinators can read, compare and act. The visual identity is techy and welcoming, with locally bundled typography and crisp, restrained controls.",
+    "northStar": "Aurora over the campus",
+    "overview": "CampusConnect lights an indigo-night canvas with a moving band of aurora: violet at the outer edge, cyan through the middle, mint at the core. The hue progression carries meaning. Violet is growth and intelligence, cyan is time, mint is the moment something fits your day and the action that claims it. The pointer is part of the light: Canvas ribbons lean toward it on the landing, and every glass surface catches a soft spotlight where the cursor rests.\n\nThere are two surfaces with one material. The landing (Persuade) is spacious and theatrical: a masked headline rises line by line, a perspective opportunity card tilts with the pointer, and authored orbital art floats around it. The workspace, sign-in and status screens (Operate) keep the same glass, palette and light, but the aurora becomes a slow drifting field and motion is reserved for state changes: seats counting down, a ticket stamping on, a waitlist moving, bars filling.\n\nThe product is a connected MERN app (Express and MongoDB API, JWT sessions, optional Claude AI). The interface says plainly which engine answered and where data is demonstrative.",
     "keyCharacteristics": [
-      "Midnight glass with mint and violet light.",
-      "Orbital geometry authored in CSS and Canvas.",
-      "Expressive discovery, quiet operational reading.",
-      "Visible focus, responsive layouts and user-controlled motion."
+      "Indigo-night glass lit by a violet, cyan and mint aurora.",
+      "Colour carries role: mint acts, violet grows, cyan tells time, coral warns.",
+      "Pointer-reactive light: Canvas ribbons on the landing, a cursor spotlight on glass everywhere.",
+      "Authored orbital, cube, step and wave art in CSS; no stock imagery.",
+      "Expressive Persuade surface, quiet Operate surface, one material.",
+      "Motion explains state; reduced motion keeps colour and opacity feedback and drops movement."
     ],
     "rules": [
       {
-        "name": "The Signal Rule",
-        "body": "Use mint for action and availability; keep written status information beside colored indicators.",
+        "name": "The Role Rule",
+        "body": "Mint means action or \"this fits\" and nothing else. Violet means growth, intelligence or waitlist. Cyan means time. Coral means conflict, error or destruction. Event tones (mint, violet, peach→coral, blue→cyan, pink) colour artwork and hover accents only.",
         "section": "colors"
       },
       {
-        "name": "The Operational Reading Rule",
-        "body": "Read final effective CSS before copying a type size: the overrides at the end of `frontend/src/styles/responsive.css` supersede the earlier compact workspace declarations.",
+        "name": "The Words-Too Rule",
+        "body": "Every coloured status carries a word or icon beside it: pills say what they mean, tickets say \"confirmed\" or show a queue position, charts carry direct value labels and a table view.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Numbers Rule",
+        "body": "Counts, seats, queues, chart values and tables use tabular numerals so animated values do not jitter.",
         "section": "typography"
       },
       {
+        "name": "The Spotlight Rule",
+        "body": "Every `.glass` or `.spot` surface paints a 420px violet-to-cyan radial light at the cursor (`--sx`/`--sy`, written by one delegated pointer listener for fine pointers only). It is screen-blended at 10% and fades in on hover; it never replaces a border or state colour.",
+        "section": "elevation"
+      },
+      {
         "name": "The Quiet Workspace Rule",
-        "body": "Retain the shared glass material in operational screens and reserve the large ribbon, particle field and tilting card composition for expressive discovery surfaces.",
+        "body": "The Canvas ribbons, tilting card and particle field belong to the landing. Operate screens get only the drifting aurora field (halved by `.quiet`) and the spotlight.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do use the midnight glass, mint action and violet growth relationship across new surfaces.",
-      "Do retain authored orbital geometry as the recognizable connection motif.",
-      "Do resolve operational type against the final responsive overrides before reusing a component.",
-      "Do keep visible focus, skip links, native dialog semantics and motion controls intact.",
-      "Do label local demonstration data and illustrative intelligence honestly."
+      "Do keep the role map strict: mint for action and \"fits your day\", violet for growth, AI and waitlist, cyan for time, coral for conflicts, errors and destructive actions.",
+      "Do build new panels from the shared glass (18px, Glass Line, 22px blur) so the cursor spotlight works on them.",
+      "Do use the chart palette (`#3593cc`, `#2ea57a`, `#8b7bff`; sentiment `#2ea57a` / `#6b7099` / `#d9604a`) for data, with direct labels and a table view, never the brighter signal colours.",
+      "Do cap staggered entrances at eight items and use the shared ease-out curve (`cubic-bezier(0.16, 1, 0.3, 1)`).",
+      "Do animate changes in numbers and state (counter, stamp, bar fill), and keep a colour or opacity cue for reduced motion.",
+      "Do label which engine produced AI output (\"Answered by Claude\" vs \"Rule-based answer\", \"Read by Claude\" vs \"Parsed from text\") and keep the campus-clock chip's \"fixed for the demo\" disclosure.",
+      "Do keep visible focus (2px mint outline), the skip link, native dialog semantics and the motion pause control."
     ],
     "donts": [
-      "Don't carry the landing's compact decorative labels into operational body copy or controls.",
-      "Don't make color or animation the only way to understand availability or status.",
-      "Don't replace authored geometry with unrelated imagery that changes the campus constellation world.",
-      "Don't imply a connected backend, external AI service or live authentication from this frontend demo."
+      "Don't use mint for decoration, progress or growth. If it is mint, it is clickable or it fits.",
+      "Don't make colour or animation the only signal for status, conflict or position.",
+      "Don't bring the landing's Canvas ribbons, tilting card or particles into Operate screens; they get the drifting aurora field only.",
+      "Don't replace authored orbital geometry with photos, stock illustration or icon fonts.",
+      "Don't present demo data, the fixed campus clock or rule-based answers as live or AI-generated.",
+      "Don't set operational copy below the 12px label size; the landing's 7–10px illustration captions are not a pattern."
     ]
   }
 }

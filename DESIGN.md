@@ -1,243 +1,355 @@
 ---
 name: CampusConnect
-description: A campus constellation of opportunities, time and growth.
+description: Campus opportunities, free time and growth under an indigo-night aurora.
 colors:
-  midnight: "#080f13"
-  surface: "#101c22"
-  text: "#eaf2ef"
-  muted: "#a6b9b8"
-  mint: "#b8f4d6"
-  violet: "#bcabf2"
-  peach: "#f1be9f"
-  line: "rgba(187, 215, 213, 0.13)"
-  workspace: "#0a1217"
-  action-ink: "#102820"
-  mint-hover: "#d3ffe8"
-  secondary-text: "#d7e9e4"
-  secondary-fill: "#b9dcd009"
-  field-fill: "#0f1c1d7a"
-  field-text: "#e2eee6"
+  bg: "#070918"
+  bg-deep: "#04050f"
+  workspace: "#080a1d"
+  surface-1: "#0f1230"
+  surface-2: "#171b42"
+  surface-3: "#1f2454"
+  field: "rgb(10 12 34 / 0.72)"
+  line: "rgb(150 160 255 / 0.13)"
+  line-strong: "rgb(160 170 255 / 0.26)"
+  text: "#eef0ff"
+  text-2: "#c4c8ec"
+  muted: "#9ea3d2"
+  faint: "#8186b9"
+  mint: "#7cf5c4"
+  mint-hi: "#b2ffe2"
+  mint-deep: "#1d6b55"
+  on-mint: "#03251a"
+  mint-soft: "rgb(124 245 196 / 0.12)"
+  violet: "#a594ff"
+  violet-deep: "#4b3cc2"
+  violet-soft: "rgb(157 140 255 / 0.14)"
+  cyan: "#6fd6ff"
+  cyan-deep: "#1b5d99"
+  cyan-soft: "rgb(95 208 255 / 0.13)"
+  coral: "#ff9a82"
+  coral-deep: "#9a3b28"
+  coral-soft: "rgb(255 138 112 / 0.13)"
+  on-coral: "#2b0800"
+  pink: "#ff8fd4"
+  chart-cyan: "#3593cc"
+  chart-mint: "#2ea57a"
+  chart-violet: "#8b7bff"
+  sentiment-neutral: "#6b7099"
+  sentiment-constructive: "#d9604a"
 typography:
   display:
-    fontFamily: '"Space Grotesk Variable", sans-serif'
+    fontFamily: '"Space Grotesk Variable", "Segoe UI", system-ui, sans-serif'
     fontSize: "clamp(60px, 6.45vw, 91px)"
     fontWeight: 500
     lineHeight: 1.045
     letterSpacing: "-0.04em"
   headline:
-    fontFamily: '"Space Grotesk Variable", sans-serif'
-    fontSize: "34px"
+    fontFamily: '"Space Grotesk Variable", "Segoe UI", system-ui, sans-serif'
+    fontSize: "clamp(30px, 3vw, 40px)"
     fontWeight: 500
-    lineHeight: 1.2
+    lineHeight: 1.12
+    letterSpacing: "-0.035em"
+  section:
+    fontFamily: '"Space Grotesk Variable", "Segoe UI", system-ui, sans-serif'
+    fontSize: "22px"
+    fontWeight: 500
     letterSpacing: "-0.035em"
   title:
-    fontFamily: '"Space Grotesk Variable", sans-serif'
-    fontSize: "21px"
+    fontFamily: '"Space Grotesk Variable", "Segoe UI", system-ui, sans-serif'
+    fontSize: "20px"
     fontWeight: 500
-    lineHeight: 1.3
+    lineHeight: 1.25
     letterSpacing: "-0.035em"
+  figure:
+    fontFamily: '"DM Sans Variable", "Segoe UI", system-ui, sans-serif'
+    fontSize: "32px"
+    fontWeight: 600
+    lineHeight: 1.1
+    letterSpacing: "-0.02em"
+    fontFeature: '"tnum"'
   body:
-    fontFamily: '"DM Sans Variable", sans-serif'
+    fontFamily: '"DM Sans Variable", "Segoe UI", system-ui, sans-serif'
     fontSize: "14px"
     fontWeight: 400
     lineHeight: 1.7
   label:
-    fontFamily: '"DM Sans Variable", sans-serif'
-    fontSize: "12px"
+    fontFamily: '"DM Sans Variable", "Segoe UI", system-ui, sans-serif'
+    fontSize: "13px"
+    fontWeight: 500
+    lineHeight: 1.5
   action:
-    fontFamily: '"DM Sans Variable", sans-serif'
+    fontFamily: '"DM Sans Variable", "Segoe UI", system-ui, sans-serif'
     fontSize: "14px"
     fontWeight: 600
     lineHeight: 1.4
 rounded:
-  focus: "4px"
-  compact: "6px"
-  field: "7px"
-  button: "8px"
-  surface: "16px"
+  focus: "6px"
+  sm: "10px"
+  button: "12px"
+  card-inner: "14px"
+  toast: "16px"
+  surface: "18px"
+  dialog: "22px"
   pill: "100px"
 spacing:
   xs: "8px"
   sm: "12px"
   md: "16px"
   card: "20px"
-  mobile: "24px"
+  panel: "22px"
   dialog: "28px"
-  panel: "30px"
   workspace: "40px"
   landing: "48px"
 components:
   button-primary:
     backgroundColor: "{colors.mint}"
-    textColor: "{colors.action-ink}"
+    textColor: "{colors.on-mint}"
     typography: "{typography.action}"
     rounded: "{rounded.button}"
-    padding: "15px 23px"
+    padding: "14px 22px"
   button-primary-hover:
-    backgroundColor: "{colors.mint-hover}"
+    backgroundColor: "{colors.mint-hi}"
   button-secondary:
-    backgroundColor: "{colors.secondary-fill}"
-    textColor: "{colors.secondary-text}"
+    textColor: "{colors.text}"
     typography: "{typography.action}"
     rounded: "{rounded.button}"
-    padding: "15px 23px"
-  text-button:
-    textColor: "{colors.text}"
-    padding: "0"
+    padding: "14px 22px"
+  button-danger:
+    backgroundColor: "{colors.coral}"
+    textColor: "{colors.on-coral}"
+    rounded: "{rounded.button}"
+    padding: "14px 22px"
+  button-small:
+    rounded: "{rounded.sm}"
+    padding: "9px 14px"
   form-field:
-    backgroundColor: "{colors.field-fill}"
-    textColor: "{colors.field-text}"
-    rounded: "{rounded.field}"
+    backgroundColor: "{colors.field}"
+    textColor: "{colors.text}"
+    rounded: "{rounded.sm}"
     padding: "11px 13px"
   pill:
+    textColor: "{colors.text-2}"
     rounded: "{rounded.pill}"
-    padding: "6px 11px"
+    padding: "6px 12px"
+  pill-mint:
+    backgroundColor: "{colors.mint-soft}"
+    textColor: "{colors.mint}"
+    rounded: "{rounded.pill}"
+  pill-violet:
+    backgroundColor: "{colors.violet-soft}"
+    textColor: "{colors.violet}"
+    rounded: "{rounded.pill}"
+  pill-coral:
+    backgroundColor: "{colors.coral-soft}"
+    textColor: "{colors.coral}"
+    rounded: "{rounded.pill}"
   workspace-navigation:
-    rounded: "{rounded.button}"
+    textColor: "{colors.muted}"
+    rounded: "11px"
     padding: "11px 12px"
   glass-card:
     rounded: "{rounded.surface}"
-    padding: "20px"
+    padding: "18px 20px 20px"
+  stat-tile:
+    typography: "{typography.figure}"
+    rounded: "{rounded.surface}"
+    padding: "18px 20px"
+  dialog:
+    textColor: "{colors.text}"
+    rounded: "{rounded.dialog}"
+    padding: "28px"
 ---
 
 # Design System: CampusConnect
 
 ## Overview
 
-**Creative North Star: "Campus constellation"**
+**Creative North Star: "Aurora over the campus"**
 
-CampusConnect joins opportunities, free time and personal growth through a midnight glass world. Mint light gives actions and availability a clear signal; violet supports the sense of discovery and growth. Authored orbital geometry turns the idea of connection into a recognizable visual signature.
+CampusConnect lights an indigo-night canvas with a moving band of aurora: violet at the outer edge, cyan through the middle, mint at the core. The hue progression carries meaning. Violet is growth and intelligence, cyan is time, mint is the moment something fits your day and the action that claims it. The pointer is part of the light: Canvas ribbons lean toward it on the landing, and every glass surface catches a soft spotlight where the cursor rests.
 
-The landing page is expressive and spacious, with perspective ribbons, drifting particles and a floating opportunity card that responds to the pointer. The workspace retains the same materials while quieting the spectacle so students and coordinators can read, compare and act. The visual identity is techy and welcoming, with locally bundled typography and crisp, restrained controls.
+There are two surfaces with one material. The landing (Persuade) is spacious and theatrical: a masked headline rises line by line, a perspective opportunity card tilts with the pointer, and authored orbital art floats around it. The workspace, sign-in and status screens (Operate) keep the same glass, palette and light, but the aurora becomes a slow drifting field and motion is reserved for state changes: seats counting down, a ticket stamping on, a waitlist moving, bars filling.
+
+The product is a connected MERN app (Express and MongoDB API, JWT sessions, optional Claude AI). The interface says plainly which engine answered and where data is demonstrative.
 
 **Key Characteristics:**
 
-- Midnight glass with mint and violet light.
-- Orbital geometry authored in CSS and Canvas.
-- Expressive discovery, quiet operational reading.
-- Visible focus, responsive layouts and user-controlled motion.
+- Indigo-night glass lit by a violet, cyan and mint aurora.
+- Colour carries role: mint acts, violet grows, cyan tells time, coral warns.
+- Pointer-reactive light: Canvas ribbons on the landing, a cursor spotlight on glass everywhere.
+- Authored orbital, cube, step and wave art in CSS; no stock imagery.
+- Expressive Persuade surface, quiet Operate surface, one material.
+- Motion explains state; reduced motion keeps colour and opacity feedback and drops movement.
 
 ## Colors
 
-The palette combines cool dark neutrals with luminous, soft accents; frontmatter values are normative and preserve the CSS source formats.
+A deep blue-violet night with four luminous signal colours and a separately tuned, darker chart palette. Frontmatter values are normative and match the `:root` custom properties in `frontend/src/index.css`; the chart palette lives in `frontend/src/styles/workspace.css`.
 
 ### Primary
 
-- **Possibility Mint** (`mint`): main actions, positive timetable fit, active navigation, focus and orbital highlights.
-- **Mint Light** (`mint-hover`): the shared primary button hover treatment.
-- **Action Ink** (`action-ink`): readable text on the mint action fill.
+- **Fit Mint** (`mint`): primary buttons, selected filter and day chips, active navigation marker, focus ring, caret, "fits your day" availability, confirmed tickets, the live dot.
+- **Mint Glow** (`mint-hi`): primary button hover and inline code text.
+- **Mint Ink** (`on-mint`): text and icons on any mint fill.
+- **Mint Wash** (`mint-soft`) and **Mint Depth** (`mint-deep`): tinted pill and focus-halo fills; avatar-stack and art shadows.
 
 ### Secondary
 
-- **Growth Violet** (`violet`): skill growth and secondary atmospheric color; use alongside mint in authored artwork.
+- **Growth Violet** (`violet`): skills and growth, the AI assistant and "Claude on" chip, waitlist tickets and queues, hover borders on chips and fields, selection highlight, empty-state icons. **Violet Depth** (`violet-deep`) and **Violet Wash** (`violet-soft`) are its shadow and tint.
 
 ### Tertiary
 
-- **Warm Peach** (`peach`): warnings, conflicts and warmer opportunity artwork. Pair status color with readable words or an icon.
+- **Time Cyan** (`cyan`): "today" tags, time windows, schedule information. **Cyan Depth** and **Cyan Wash** support it.
+- **Signal Coral** (`coral`): conflicts, form errors, the API-offline status icon, the destructive button, error toasts. Text on coral fills uses **Coral Ink** (`on-coral`). **Coral Depth** and **Coral Wash** support it.
+- **Event Pink** (`pink`): only an event and community tone for artwork variety; it never signals state.
 
 ### Neutral
 
-- **Midnight** (`midnight`): the base landing background.
-- **Workspace Night** (`workspace`): the quieter operational canvas.
-- **Deep Surface** (`surface`): the root surface token; translucent glass recipes provide the actual material variation.
-- **Frost Text** (`text`) and **Quiet Text** (`muted`): primary reading and supporting descriptions.
-- **Glass Line** (`line`): low-opacity separators and surface outlines.
-- **Secondary Text / Fill** (`secondary-text`, `secondary-fill`): outlined secondary actions.
-- **Field Text / Fill** (`field-text`, `field-fill`): form controls inside dialogs and operational panels.
+- **Night** (`bg`) and **Deep Night** (`bg-deep`): the landing, auth and status canvas; scrollbar track.
+- **Workspace Night** (`workspace`): the Operate shell canvas.
+- **Surface 1 / 2 / 3** (`surface-1`, `surface-2`, `surface-3`): ascending tonal layers for selects, code, active tabs and scrollbar thumbs.
+- **Field Night** (`field`): translucent form-control fill.
+- **Glass Line / Strong Line** (`line`, `line-strong`): resting outlines and dividers; outlines on interactive or raised elements.
+- **Starlight** (`text`), **Haze** (`text-2`), **Dusk** (`muted`), **Faint** (`faint`): primary reading, secondary reading, descriptions and metadata, placeholders and quiet chrome.
 
-**The Signal Rule.** Use mint for action and availability; keep written status information beside colored indicators.
+### Chart palette
+
+Bars and sentiment use darker, lower-chroma hues than the signal colours so long fills stay readable next to direct labels: **Chart Cyan** (`chart-cyan`), **Chart Mint** (`chart-mint`, also the positive sentiment), **Chart Violet** (`chart-violet`), plus **Neutral Sentiment** (`sentiment-neutral`) and **Constructive Sentiment** (`sentiment-constructive`). Each bar track is its hue at 16% opacity.
+
+Validated with the dataviz palette checker in dark mode against both ends of the chart-panel surface (`#0c0f28` and `#181b42`): the three bar hues pass every check (lightness band, chroma, CVD and normal-vision separation, contrast). The sentiment set passes everything except chroma on the neutral gray, which is intentional: it is the gray midpoint of a diverging positive → constructive scale, and every segment carries a legend label and count.
+
+**The Role Rule.** Mint means action or "this fits" and nothing else. Violet means growth, intelligence or waitlist. Cyan means time. Coral means conflict, error or destruction. Event tones (mint, violet, peach→coral, blue→cyan, pink) colour artwork and hover accents only.
+
+**The Words-Too Rule.** Every coloured status carries a word or icon beside it: pills say what they mean, tickets say "confirmed" or show a queue position, charts carry direct value labels and a table view.
 
 ## Typography
 
-**Display Font:** Space Grotesk Variable with a sans-serif fallback.
+**Display Font:** Space Grotesk Variable (with Segoe UI, system-ui, sans-serif)
+**Body Font:** DM Sans Variable (with Segoe UI, system-ui, sans-serif)
+**Code:** ui-monospace / Cascadia Code / Consolas, only for inline code.
 
-**Body Font:** DM Sans Variable with a sans-serif fallback.
-
-Both fonts are bundled through Fontsource packages. Space Grotesk supplies the technical character and compact headlines; DM Sans keeps everyday decisions approachable. There is no separate monospace family.
+**Character:** Space Grotesk gives headings a compact, technical edge with tight negative tracking; DM Sans keeps everyday decisions warm and readable. Both are bundled locally through Fontsource.
 
 ### Hierarchy
 
-- **Display:** the landing hero uses the frontmatter display role; its responsive sizes are described in Layout.
-- **Headline:** the default workspace page heading uses the headline role. Landing section headings are larger, and remain specific to those surfaces.
-- **Title:** the default opportunity card heading uses the title role. Mobile card titles grow to support a single-column layout.
-- **Body:** operational paragraphs use the body role. The landing hero uses a more open line-height (1.9) at desktop.
-- **Label:** most operational event metadata, timetable metadata and supporting text use the label role. Selected passport microcopy remains smaller (11px).
-- **Action:** workspace buttons, navigation and form controls retain a readable size (14px); text buttons use medium weight (500).
+- **Display** (500, clamp(60px, 6.45vw, 91px), 1.045): the landing hero only, set in masked lines. It steps to fixed sizes at each landing breakpoint and to clamp(42px, 13.5vw, 60px) on small phones.
+- **Headline** (500, clamp(30px, 3vw, 40px), 1.12): workspace page titles and status-screen titles. Landing section headings are larger (43px) and auth uses clamp(38px, 4.4vw, 60px) for its story line.
+- **Section** (500, 22px): section headings inside the workspace.
+- **Title** (500, 20px, 1.25): opportunity card titles; chart and proposal headings use 17px.
+- **Figure** (DM Sans 600, 32px, 1.1, tabular numerals): stat tiles; 26px under 520px. Free-time figures go much larger (clamp(54px, 6vw, 80px)).
+- **Body** (400, 14px, 1.7): operational paragraphs, wrapped with `text-wrap: pretty`. Page intros use 15px; status copy is capped at 52ch.
+- **Label** (500, 13px): form labels, stat labels, chips, metadata. Pills, tooltips and footers use 12px.
+- **Action** (600, 14px, 1.4): buttons; small buttons use 13px.
 
-**The Operational Reading Rule.** Read final effective CSS before copying a type size: the overrides at the end of `frontend/src/styles/responsive.css` supersede the earlier compact workspace declarations.
+**The Tabular Numbers Rule.** Counts, seats, queues, chart values and tables use tabular numerals so animated values do not jitter.
 
 ## Layout
 
-The landing is the **Persuade** surface. Its desktop hero is a two-column composition (1.05fr / 1fr), centered within a maximum width (1440px), with generous desktop padding (76px 72px 100px) and a minimum height (730px). The header has a separate maximum width (1360px). Subsequent landing sections share a centered container (1296px) and desktop horizontal padding (48px).
+The **Persuade** landing centres a two-column hero (1.05fr / 1fr) at a 1440px maximum, with 76px 72px 100px padding and a 730px minimum height. The nav caps at 1360px; later sections share a 1296px wrapper with 48px side padding.
 
-The workspace is the **Operate** surface. A fixed sidebar (248px) anchors navigation; content uses the matching left offset, a header height (75px), and a centered content maximum width (1500px). Default workspace padding is (36px 40px 55px). Opportunity grids, timetable panels and forecasts organize dense information without changing the shared glass material.
+The **Operate** workspace has a fixed glass sidebar (260px) and a sticky blurred header (72px). Content is centred at a 1480px maximum with 38px 40px 60px padding (56px side padding at 1600px and above). Opportunity grids auto-fill 290px-minimum columns with 20px gaps; stat rows are four columns; analytics panels are two columns. Auth centres a story column beside a 360–480px card within 1240px.
 
-Responsive rules occur at (1600px minimum) and (1180px, 960px, 760px, 520px, 360px maximum). At (1180px), the sidebar narrows to (225px), content padding contracts and the availability panel stacks. At (960px), landing navigation links hide. At (760px), the hero stacks and the workspace sidebar becomes a toggleable drawer; its closed state is hidden from navigation. At (520px), opportunity grids become a single column and timetable bands turn into vertical rows. The base document minimum width is (320px).
+Breakpoints are co-located with each stylesheet: 1600px (min), and 1280, 1180, 960, 760, 520 and 360px (max). At 1280px stat rows and Today picks go to two columns. At 1180px the sidebar narrows to 232px and multi-panel pages stack. At 960px analytics and admin layouts stack and landing links hide. At 760px the sidebar becomes an off-canvas drawer with a blurred scrim, the header drops to 62px and content padding falls to 24px 16px. At 520px grids go single-column, stat tiles go two-up, and bar charts move their track under the label. The document minimum width is 320px.
 
-The hero type scales from its desktop clamp to (72px) at 1180px, (61px) at 960px, (74px) in the stacked 760px layout, (66px) at 520px and (59px) at 360px. Workspace page headings adapt independently. Keep these surface-specific responsive treatments instead of imposing one global scale.
-
-Review reference viewports are desktop (1440px) and mobile (390px); source-defined responsiveness continues down to the minimum width. This document records implementation evidence, not an independent browser accessibility certification.
+Spacing follows an informal 4px rhythm: 8, 12, 16 and 20px inside components, 22px chart panels, 28px dialogs, 40px workspace gutters and 48px landing gutters. Section headings sit 48px below the previous block.
 
 ## Elevation & Depth
 
-Glass combines a translucent diagonal gradient, a thin Glass Line border and background blur (22px). Workspace depth comes primarily from tonal layers, spacing and contained artwork. The landing adds structural shadows and perspective to float an opportunity above its orbit; dialogs use stronger elevation above a blurred backdrop.
+Depth is mostly material and light rather than shadow. Glass is a 145° translucent indigo gradient, a Glass Line border and `backdrop-filter: blur(22px) saturate(1.3)`. Behind Operate screens, a fixed **aurora field** of three blurred radial glows (violet, cyan, mint) drifts over 26s. Shadows are soft, dark-indigo and diagonal, and appear on floating or raised objects and on hover.
 
 ### Shadow Vocabulary
 
-- **Floating opportunity** (`box-shadow: 12px 28px 70px #0006`): the hero's perspective card.
-- **Floating evidence** (`box-shadow: 5px 15px 35px #0003`): nearby time and growth chips.
-- **Primary action hover** (`box-shadow: 0 8px 22px #9ee8c018`): a small mint lift for the main button.
-- **Dialog** (`box-shadow: 10px 30px 90px #0006`): modal separation from the workspace.
+- **Card lift** (`box-shadow: 0 24px 50px rgb(2 2 14 / 0.45)`): opportunity card hover, with a 4px rise.
+- **Primary glow** (`box-shadow: 0 1px 0 rgb(255 255 255 / 0.4) inset, 0 10px 28px rgb(124 245 196 / 0.22)`): primary button hover. At rest it keeps only the inset highlight.
+- **Dialog** (`box-shadow: 10px 40px 100px rgb(0 0 0 / 0.6)`): modals above a blurred `rgb(3 4 14 / 0.62)` backdrop.
+- **Auth card** (`box-shadow: 0 40px 100px rgb(0 0 0 / 0.45)`): the sign-in card.
+- **Toast** (`box-shadow: 0 20px 60px rgb(0 0 0 / 0.5)`): top-layer notifications.
+- **Hero float** (`box-shadow: 0 1px 0 rgb(255 255 255 / 0.08) inset, 14px 34px 80px rgb(2 2 12 / 0.6)`): the landing's tilting opportunity card.
+- **Signal glow** (`box-shadow: 0 0 14px var(--mint)` and violet equivalents): the active navigation marker, live dot, assistant orb. Light, not elevation.
 
-**The Quiet Workspace Rule.** Retain the shared glass material in operational screens and reserve the large ribbon, particle field and tilting card composition for expressive discovery surfaces.
+**The Spotlight Rule.** Every `.glass` or `.spot` surface paints a 420px violet-to-cyan radial light at the cursor (`--sx`/`--sy`, written by one delegated pointer listener for fine pointers only). It is screen-blended at 10% and fades in on hover; it never replaces a border or state colour.
+
+**The Quiet Workspace Rule.** The Canvas ribbons, tilting card and particle field belong to the landing. Operate screens get only the drifting aurora field (halved by `.quiet`) and the spotlight.
 
 ## Shapes
 
-Surfaces have gently rounded corners using the surface radius; controls use the tighter button and field radii. Metadata pills and availability markers use rounded capsules, while avatars and orbital art use circles. Thin borders define the glass edges. Rings, crossing ellipses, cubes, waves and stepped geometry are authored visual assets rather than external image dependencies.
+Corners are soft and generous. Glass surfaces and stat tiles use 18px; dialogs 22px; toasts and tickets 16px; inner cards, tabs and demo-account rows 14px; buttons 12px; fields, small buttons and icon buttons 10px; focus outlines 6px. Pills, chips, tags and filters are full capsules. Avatars, the toast icon, ticket stub and orbs are circles. Bar tracks are square at the origin and rounded at the end (0 4px 4px 0). Tickets use a dashed border to read as a stub. Artwork is authored CSS geometry (orbit rings built from masked gradient borders, isometric cubes, skewed steps, ripple rings) tinted by per-tone `--art-*` variables.
 
 ## Components
 
 ### Buttons
 
-Mint actions feel clear and confident. Primary and secondary buttons share the action role and button radius. Primary hover adds Mint Light, a small upward shift (2px) and the action shadow. Secondary actions use a translucent fill and visible border. Small buttons change padding to (10px 15px); workspace overrides preserve their readable action size. Text buttons pair a medium-weight label with an arrow that moves slightly on hover.
+Confident and luminous.
+- **Shape:** gently rounded (12px); small buttons 10px.
+- **Primary:** mint fill with mint-ink text, 14px 22px padding, 600 weight, and a 1px inset top highlight.
+- **Hover / Focus:** Mint Glow fill, 2px rise, mint glow shadow, a white light sweep crossing the face over 0.7s, and the trailing icon nudging 3px. Active presses to scale 0.98. Focus is the global 2px mint outline at 4px offset.
+- **Secondary:** a faint indigo fill with a Strong Line border and a violet-tinted sweep; hover brightens the fill and turns the border violet.
+- **Danger:** coral fill with coral-ink text, hovering to a lighter coral with a coral glow.
+- **Text / Icon buttons:** text buttons turn mint on hover with a sliding arrow; 38px icon buttons gain a faint indigo fill and press to 0.92.
 
 ### Chips
 
-Neutral metadata pills use Glass Line borders and capsule corners, with a compact shared label (11px) and context-specific responsive overrides. Filter chips are outlined at rest and filled with mint when selected; selected state is communicated in the control behavior as well as color. Operational filter labels use (14px), and most event metadata uses the label role. Landing floating evidence chips are decorative demonstrations with their own compact scale.
+- **Style:** capsule, Strong Line border, Haze text (12–13px). Tone pills (mint, violet, coral) use the hue's text, a 30% hue border and its wash fill.
+- **State:** filter, day and interest chips turn the border violet on hover and fill solid mint with mint-ink 600 text when selected. The AI chip turns violet when Claude is on.
 
 ### Cards / Containers
 
-The shared glass gradient is `linear-gradient(135deg, rgba(32, 52, 59, 0.66), rgba(16, 29, 36, 0.72))`. Cards combine this material with the surface radius, Glass Line outline and contained artwork. Default event card content padding uses the card spacing token. Opportunity titles and their art provide interactive entry points; hover shifts the container's tonal fill and highlights the title.
+- **Corner Style:** 18px (glass).
+- **Background:** the shared glass gradient; feature panels layer mint and violet radial washes over it.
+- **Shadow Strategy:** none at rest; card lift on hover (see Elevation & Depth).
+- **Border:** Glass Line. On hover the border mixes toward the card's tone (45%) and the title takes the tone colour. Featured cards hold a 35% tone border.
+- **Internal Padding:** 18px 20px 20px for opportunity cards; 22px for chart panels; 32px for the Today window.
+- **Entrance:** cards and list rows rise in with a stagger capped at eight items (`min(var(--i), 8)` × 50–60ms).
 
 ### Inputs / Fields
 
-Fields use the field fill/text tokens, a mint-tinted thin outline, the field radius and padding from the frontmatter. Labels sit above form fields. Form controls use (14px) in the workspace and dialog. Search fields remove the individual filled box inside a shared panel. Native select controls remain recognizable; all fields retain the shared visible focus treatment.
+- **Style:** Field Night fill, Strong Line border, 10px radius, 11px 13px padding, 14px text, faint placeholder. Labels sit above in 13px Haze.
+- **Focus:** the border turns mint with a 4px mint halo at 12%, and the fill deepens. Icon fields colour their icon mint while focused. Hover turns the border violet.
+- **Error:** a coral-wash panel with a coral icon and light-coral text that shakes once on entry.
 
 ### Navigation
 
-The landing header pairs the orbital brand with quiet anchor links and a clear entry action. Workspace navigation is vertical, with icons, a short label and a mint selected state. Current navigation uses `aria-current`. Mobile navigation exposes expanded state, moves focus into the drawer and supports Escape to close and return focus to the trigger. A skip link reaches the main content.
+- **Workspace:** vertical sidebar links (14px, Dusk text, 11px radius) brighten on hover. The active link takes a mint-to-transparent gradient, a mint icon and a 3px glowing mint marker that scales in from the edge. Current page uses `aria-current`.
+- **Header:** a sticky blurred bar with breadcrumb, the fixed campus-clock chip and the AI-engine chip.
+- **Mobile:** at 760px the sidebar slides in as a drawer over a blurred scrim. A skip link reaches the main content.
+- **Landing:** a quiet 13px link row that turns mint on hover, plus the primary entry action.
 
-### Campus constellation
+### Dialogs and Toasts
 
-The signature combines CSS orbital art, a Canvas ribbon projected with perspective, nearby particles and a pointer-responsive glass opportunity card. The card scene uses perspective (1200px); pointer coordinates adjust translation and rotation. CSS animations use smooth easing and a slow floating rhythm. The pause control stops CSS animation and removes card transforms; Canvas draws a static frame. Reduced-motion preferences stop animation, transition and smooth scrolling, and suppress pointer tilt. Preserve the readable opportunity preview in every motion state.
+Native `<dialog>` modals (560px; wide 700px) use a 160° indigo gradient, Strong Line border and 22px radius, and enter with a short rise, scale and de-blur. Toasts live in the top layer (`popover="manual"`), slide up from the corner, pop their mint (or coral) icon, and show a 2px violet-to-mint timer bar that drains over 4.8s.
 
-### Dialogs
+### Tickets and queues
 
-Native dialogs provide event details, registration and guided campus interaction. A dark gradient surface, elevated shadow and blurred backdrop separate the task. Default dialog width caps at (540px), wide variants at (650px), while viewport-relative width and height keep content contained. Body copy and controls retain operational reading sizes. Preserve native dialog semantics and keyboard behavior.
+On registration a dashed mint ticket slides in and a circular stub stamps down (scale 2.2 and rotated, then settling). Waitlisted tickets use violet. Seat and queue numbers tween with an ease-out-quart counter (650ms) instead of swapping.
+
+### Analytics
+
+Stat tiles show a violet-iconed label, a 32px figure and a note, and rise in staggered. Horizontal bar charts use the chart palette, fill from the left with a 70ms stagger, carry direct right-aligned values, and show detail in a dark tooltip on hover (`[data-tip]`). Each chart has a collapsible table view. Sentiment is a stacked bar with a labelled legend.
+
+### Aurora signature
+
+The landing Canvas draws 34 perspective ribbon bands (16 in quiet mode) whose hue walks from 262° (violet) to about 160° (mint), plus 45 drifting particles. Both lean toward the pointer with eased lag. The hero headline lines rise out of clip masks, the highlighted word draws a violet underline, and the opportunity card tilts and catches a sheen with the pointer. A pause control and `prefers-reduced-motion` freeze the Canvas into a static frame, remove transforms, stop the aurora drift and cut animations to an instant, while colour, border, opacity and shadow transitions remain (0.15s).
+
+### Status screens
+
+The splash spins the brand mark's two orbit rings in opposite directions. The API-offline screen centres a coral icon, a headline and numbered recovery steps over the aurora field.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** use the midnight glass, mint action and violet growth relationship across new surfaces.
-- **Do** retain authored orbital geometry as the recognizable connection motif.
-- **Do** resolve operational type against the final responsive overrides before reusing a component.
-- **Do** keep visible focus, skip links, native dialog semantics and motion controls intact.
-- **Do** label local demonstration data and illustrative intelligence honestly.
+- **Do** keep the role map strict: mint for action and "fits your day", violet for growth, AI and waitlist, cyan for time, coral for conflicts, errors and destructive actions.
+- **Do** build new panels from the shared glass (18px, Glass Line, 22px blur) so the cursor spotlight works on them.
+- **Do** use the chart palette (`#3593cc`, `#2ea57a`, `#8b7bff`; sentiment `#2ea57a` / `#6b7099` / `#d9604a`) for data, with direct labels and a table view, never the brighter signal colours.
+- **Do** cap staggered entrances at eight items and use the shared ease-out curve (`cubic-bezier(0.16, 1, 0.3, 1)`).
+- **Do** animate changes in numbers and state (counter, stamp, bar fill), and keep a colour or opacity cue for reduced motion.
+- **Do** label which engine produced AI output ("Answered by Claude" vs "Rule-based answer", "Read by Claude" vs "Parsed from text") and keep the campus-clock chip's "fixed for the demo" disclosure.
+- **Do** keep visible focus (2px mint outline), the skip link, native dialog semantics and the motion pause control.
 
 ### Don't:
 
-- **Don't** carry the landing's compact decorative labels into operational body copy or controls.
-- **Don't** make color or animation the only way to understand availability or status.
-- **Don't** replace authored geometry with unrelated imagery that changes the campus constellation world.
-- **Don't** imply a connected backend, external AI service or live authentication from this frontend demo.
+- **Don't** use mint for decoration, progress or growth. If it is mint, it is clickable or it fits.
+- **Don't** make colour or animation the only signal for status, conflict or position.
+- **Don't** bring the landing's Canvas ribbons, tilting card or particles into Operate screens; they get the drifting aurora field only.
+- **Don't** replace authored orbital geometry with photos, stock illustration or icon fonts.
+- **Don't** present demo data, the fixed campus clock or rule-based answers as live or AI-generated.
+- **Don't** set operational copy below the 12px label size; the landing's 7–10px illustration captions are not a pattern.

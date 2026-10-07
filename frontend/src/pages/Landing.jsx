@@ -2,24 +2,11 @@ import { useRef, useState } from "react";
 import Icon from "../components/Icon";
 import Art from "../components/Art";
 import Atmosphere from "../components/Atmosphere";
+import { Brand } from "../components/Brand";
+import useSpotlight from "../hooks/useSpotlight";
 
-export function Brand({ onClick }) {
-  return (
-    <button className="brand" onClick={onClick} aria-label="CampusConnect home">
-      <span className="brand-mark">
-        <span />
-        <span />
-        <span />
-      </span>
-      <span>
-        campus<span className="brand-light">connect</span>
-        <small>MAKE ROOM FOR POSSIBILITY</small>
-      </span>
-    </button>
-  );
-}
-
-export default function Landing({ onEnter }) {
+export default function Landing({ onEnter, signedIn }) {
+  useSpotlight();
   const [paused, setPaused] = useState(false);
   const scene = useRef(null);
   const move = (e) => {
@@ -51,7 +38,7 @@ export default function Landing({ onEnter }) {
           </button>
         </nav>
         <button className="button small" onClick={() => onEnter("today")}>
-          Enter campus <Icon name="arrow" size={16} />
+          {signedIn ? "Open my campus" : "Sign in"} <Icon name="arrow" size={16} />
         </button>
       </header>
       <main id="landing-main">
@@ -66,13 +53,15 @@ export default function Landing({ onEnter }) {
           <Atmosphere paused={paused} />
           <div className="hero-light" aria-hidden="true" />
           <div className="hero-copy">
-            <h1>
-              Your next
-              <br />
-              big thing is
-              <br />
-              <span className="hero-word">
-                right here.
+            <h1 className="hero-title">
+              <span className="line">
+                <span>Your next</span>
+              </span>
+              <span className="line">
+                <span>big thing is</span>
+              </span>
+              <span className="line hero-word">
+                <span>right here.</span>
                 <svg viewBox="0 0 440 24" aria-hidden="true">
                   <path d="M3 16C110 0 315 3 432 13" />
                 </svg>
@@ -396,11 +385,11 @@ export default function Landing({ onEnter }) {
                 <span>Registrations</span>
                 <strong>Turnout, understood.</strong>
               </div>
-              <small>Illustrative attendance forecast · frontend demo</small>
+              <small>Illustrative attendance forecast</small>
             </div>
           </div>
         </section>
-        <section className="final-cta section-wrap">
+        <section className="final-cta section-wrap spot">
           <div className="cta-orbit" aria-hidden="true" />
           <h2>
             Make today
@@ -410,7 +399,11 @@ export default function Landing({ onEnter }) {
           <button className="button" onClick={() => onEnter("today")}>
             Your campus is waiting <Icon name="arrow" />
           </button>
-          <p>No account needed. Step into the interactive demo.</p>
+          <p>
+            {signedIn
+              ? "You’re signed in. Pick up where you left off."
+              : "Create a student account in seconds, or try a presentation account."}
+          </p>
         </section>
       </main>
       <footer className="landing-footer section-wrap">

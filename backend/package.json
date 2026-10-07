@@ -1,22 +1,34 @@
 {
   "name": "campusconnect-backend",
-  "version": "1.0.0",
-  "description": "Backend REST API for CampusConnect - College Club and Event Management System",
-  "main": "server.js",
+  "version": "2.0.0",
+  "description": "CampusConnect REST API: Express, MongoDB (Mongoose), JWT auth, scheduling engine and optional Claude-powered assistant",
+  "main": "src/server.js",
   "type": "commonjs",
+  "private": true,
+  "engines": {
+    "node": ">=20.19"
+  },
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
-  },
-  "dependencies": {
-    "express": "^4.19.2",
-    "mongoose": "^8.3.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.0"
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node src/seed/seed.js",
+    "test": "node --test --test-concurrency=1 tests/*.test.js"
   },
   "author": "CampusConnect Team",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.6",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.1",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.11.0",
+    "morgan": "^1.12.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.1"
+  }
 }

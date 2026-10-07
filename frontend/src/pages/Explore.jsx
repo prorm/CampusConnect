@@ -1,14 +1,9 @@
 import { useState } from "react";
 import Icon from "../components/Icon";
 import EventCard from "../components/EventCard";
-import {
-  DEMO_DATE,
-  DEMO_NOW,
-  feasibility,
-  currentFreeWindow,
-} from "../data/campus";
+import { DEMO_DATE, DEMO_NOW, fitFor, freeFor } from "../data/campus";
 export default function Explore({ state, onOpen, free = false }) {
-  const window = currentFreeWindow(state.events, state.registrations);
+  const window = freeFor(state);
   const [search, setSearch] = useState(""),
     [category, setCategory] = useState("All"),
     [fits, setFits] = useState(free),
@@ -26,8 +21,9 @@ export default function Explore({ state, onOpen, free = false }) {
           .includes(search.toLowerCase()) &&
         (category === "All" || e.category === category) &&
         (day === "all" || e.date === DEMO_DATE) &&
+        e.date >= DEMO_DATE &&
         (!fits ||
-          (feasibility(e, state.registrations, state.events).ok &&
+          (fitFor(state, e).ok &&
             (day !== "today" ||
               e.end + e.walk <= Math.min(DEMO_NOW + duration, window.until)) &&
             e.end - e.start + e.walk <= duration)),
@@ -42,7 +38,7 @@ export default function Explore({ state, onOpen, free = false }) {
       <div className="page-heading">
         <div>
           <h1>
-            Follow your curiosity<span className="mint-text">.</span>
+            Follow your curiosity<span className="accent-dot">.</span>
           </h1>
           <p className="muted">
             There’s something out there for the person you’re becoming.
@@ -132,13 +128,14 @@ export default function Explore({ state, onOpen, free = false }) {
         </span>
       </div>
       {filtered.length ? (
-        <div className="event-grid">
-          {filtered.map((event) => (
+        <div className="event-grid" key={`${category}-${day}-${fits}-${sort}`}>
+          {filtered.map((event, i) => (
             <EventCard
               event={event}
               state={state}
               onOpen={onOpen}
               key={event.id}
+              index={i}
             />
           ))}
         </div>

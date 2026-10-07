@@ -6,19 +6,19 @@
 web
 
 ## Users
-Students discovering worthwhile campus opportunities around their timetable, interests and goals. Coordinators filling events and tracking attendance. College administrators supporting campus communities.
+Students discovering worthwhile campus opportunities around their timetable, interests and goals. Coordinators filling events and tracking attendance. College administrators supporting campus communities and reading engagement.
 
 ## Product Purpose
 Answer “What should I do on campus today?” and connect discovery, feasibility, registration, verified participation and skill growth.
 
 ## Capabilities and Constraints
-React frontend only. Preserve the existing backend without developing or connecting it. Demonstrate poster intelligence, free-time discovery, timetable feasibility, smart waitlists, attendance forecasting, a skill passport and a grounded campus assistant with explicitly identified local demo data. Update documentation and push to main as requested.
+Full MERN application for an academic project: React (Vite) frontend, Express + MongoDB (Mongoose) API, JWT authentication with student, coordinator and admin roles. The API enforces timetable feasibility, atomic seats and ordered waitlists, attendance-backed skill passports, community proposals and engagement analytics. Claude powers the campus assistant, poster image reading and feedback digests when an ANTHROPIC_API_KEY is configured; a rule-based engine covers every AI feature without a key, and answers are labelled with their source. The campus clock is fixed (Wednesday 7 October 2026, 12:20 IST) for repeatable presentations. MONGO_URI and the API key are placeholders in backend/.env.example.
 
 ## Brand Commitments
-CampusConnect. User requests an aesthetic, techy glassmorphism identity and an exceptionally animated, mouse-interactive landing page. Figma reference supplied; direct access unavailable.
+CampusConnect. Techy glassmorphism identity with an exceptionally animated, mouse-interactive landing page. Aurora palette chosen by the user: indigo-night canvas with violet → cyan → mint light; mint reserved for action and “fits your day”.
 
 ## Evidence on Hand
-User's pasted product brief and existing academic project. Team: Sinchana Jeppu, Pranav R Mane, Prajwal N, Ramaiah Institute of Technology. All event data and model outputs are illustrative; no live AI or authentication claims.
+User's product brief and existing academic project. Team: Sinchana Jeppu, Pranav R Mane, Prajwal N, Ramaiah Institute of Technology. Seeded events, attendance forecasts and opportunity scores are illustrative; certificates record coordinator check-ins and are not institutional credentials.
 
 ## Product Principles
 Availability before volume. Explain every recommendation. Connect attendance to growth. Keep coordinator tools useful and student discovery central.

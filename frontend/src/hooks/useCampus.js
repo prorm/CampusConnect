@@ -1,44 +1,93 @@
-import { useEffect, useState } from "react";
-import { createDemoState } from "../data/createState";
-const KEY = "campusconnect-opportunities-v1";
-function initial() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(KEY));
-    if (
-      saved?.version === 1 &&
-      Array.isArray(saved.events) &&
-      Array.isArray(saved.registrations) &&
-      Array.isArray(saved.activities) &&
-      Array.isArray(saved.joined) &&
-      Array.isArray(saved.proposals) &&
-      saved.events.every(
-        (e) =>
-          typeof e.id === "string" &&
-          typeof e.title === "string" &&
-          Array.isArray(e.years) &&
-          Array.isArray(e.tags) &&
-          Number.isFinite(e.start) &&
-          Number.isFinite(e.end),
-      )
-    )
-      return saved;
-  } catch {
-    /* Recover from unavailable storage or malformed data. */
-  }
-  return createDemoState();
-}
+import { useCallback, useEffect, useState } from "react";
+import { api, setToken, tokenStore, ApiError } from "../api/client";
+
+/**
+ * Session and campus state backed by the API.
+ * status: "loading" | "signed-out" | "ready" | "offline"
+ */
 export default function useCampus() {
-  const [state, setState] = useState(initial),
-    [storageError, setStorageError] = useState(false);
-  useEffect(() => {
-    let error = false;
-    try {
-      localStorage.setItem(KEY, JSON.stringify(state));
-    } catch {
-      error = true;
+  const [state, setState] = useState(null),
+    [status, setStatus] = useState(() =>
+      tokenStore.get() ? "loading" : "signed-out",
+    ),
+    [error, setError] = useState("");
+
+  const load = useCallback(async () => {
+    if (!tokenStore.get()) {
+      setStatus("signed-out");
+      return;
     }
-    const task = setTimeout(() => setStorageError(error), 0);
-    return () => clearTimeout(task);
-  }, [state]);
-  return [state, setState, storageError];
+    setStatus("loading");
+    try {
+      setState(await api.state());
+      setStatus("ready");
+      setError("");
+    } catch (e) {
+      if (e instanceof ApiError && e.status === 401) {
+        setToken(null);
+        setStatus("signed-out");
+      } else {
+        setError(e.message);
+        setStatus("offline");
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!tokenStore.get()) return;
+    const controller = new AbortController();
+    api
+      .state()
+      .then((data) => {
+        if (controller.signal.aborted) return;
+        setState(data);
+        setStatus("ready");
+      })
+      .catch((e) => {
+        if (controller.signal.aborted) return;
+        if (e instanceof ApiError && e.status === 401) {
+          setToken(null);
+          setStatus("signed-out");
+        } else {
+          setError(e.message);
+          setStatus("offline");
+        }
+      });
+    return () => controller.abort();
+  }, []);
+
+  const startSession = useCallback(({ token, state: next }) => {
+    setToken(token);
+    setState(next);
+    setStatus("ready");
+    setError("");
+    return next;
+  }, []);
+
+  const signOut = useCallback(() => {
+    setToken(null);
+    setState(null);
+    setStatus("signed-out");
+  }, []);
+
+  /**
+   * Runs an API mutation that responds with { message, state } and applies
+   * the fresh snapshot. Returns the message; throws ApiError on failure.
+   */
+  const run = useCallback(
+    async (call) => {
+      try {
+        const result = await call();
+        if (result.token) setToken(result.token);
+        if (result.state) setState(result.state);
+        return result.message;
+      } catch (e) {
+        if (e instanceof ApiError && e.status === 401) signOut();
+        throw e;
+      }
+    },
+    [signOut],
+  );
+
+  return { state, status, error, load, startSession, signOut, run };
 }

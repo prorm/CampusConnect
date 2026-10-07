@@ -1,32 +1,30 @@
 # CampusConnect frontend
 
-A standalone React + Vite frontend for campus opportunity discovery. The animated glassmorphism landing leads into student, coordinator, and administrator demo workspaces.
+React 19 + Vite client for the CampusConnect MERN app. It talks to the Express API in `../backend` and renders the Aurora design system described in `../DESIGN.md`.
 
 ## Commands
 
 ```bash
-npm ci
-npm run dev
-npm run build
-npm run preview
-npm run lint
-npm test
+npm install
+npm run dev       # http://localhost:5173, proxies /api to http://localhost:5000
+npm run build     # production build in dist/
+npm run preview   # serve the build (also proxies /api)
+npm run lint      # oxlint
+npm test          # scheduling and calendar unit tests (node:test)
 ```
 
-No backend, database, API key, or environment file is required. See the root README for the complete feature map and presentation walkthrough.
+Start the API first (`npm run dev` in `../backend`), or run both from the repository root with `npm run dev`.
 
-## Implementation
+| Variable | Default | Purpose |
+|---|---|---|
+| `VITE_API_URL` | `/api` | API base URL when the API is hosted on another origin |
+| `VITE_API_PROXY` | `http://localhost:5000` | Where the dev/preview server forwards `/api` |
 
-- React manages navigation, forms, shared event records, registrations, and attendance.
-- Canvas draws perspective-projected ribbons and ambient particles; CSS builds the orbital artwork and glass surfaces.
-- Space Grotesk and DM Sans variable fonts are bundled through Fontsource.
-- `src/data/campus.js` contains fixtures, timetable checks, date formatting, and calendar export.
-- `src/hooks/useCampus.js` persists the local demo state and reports storage failures.
-- Each workspace page is a React component under `src/pages/`.
-- Routes use URL fragments (`#today`, `#explore`, `#schedule`, `#poster`, `#passport`, `#communities`, `#organizer`, `#admin`, `#home`) and work on static hosts without route rewrites.
+## How it works
 
-## Demo boundaries
+- `src/api/client.js` wraps every endpoint and keeps the JWT in `localStorage`.
+- `src/hooks/useCampus.js` holds the session. Every mutation returns `{ message, state }`, and the hook swaps in the fresh server snapshot, so screens render confirmed data.
+- `src/data/campus.js` mirrors the API's scheduling rules to explain a fit before the server confirms it. `src/data/nav.js` maps each role to its screens.
+- If the API can't be reached, the app shows a recovery screen with setup steps instead of failing silently.
 
-The clock is fixed at 7 October 2026, 12:20 IST. Opportunity scores and attendance forecasts are illustrative. Poster extraction parses labeled pasted text; uploaded images are previewed only. The assistant uses scripted local-data answers. Role switching is a presentation aid rather than authentication. Certificates and resume exports describe local demo participation.
-
-State is kept in the browser under `campusconnect-opportunities-v1`. Use **Reset local demo** in the sidebar, or remove that localStorage entry, to restore the initial fixtures. Uploaded images are never transmitted. The existing backend is unused and unchanged.
+See the root [README](../README.md) for features, demo accounts, and the presentation walkthrough.

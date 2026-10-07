@@ -1,30 +1,38 @@
 import Dialog from "./Dialog";
 import Art from "./Art";
 import Icon from "./Icon";
+import Counter from "./Counter";
 import {
   clock,
   dateLabel,
-  feasibility,
+  fitFor,
   recommendationReasons,
   calendarFile,
   downloadFile,
 } from "../data/campus";
+
 export default function EventDetails({
   event,
   state,
+  busy,
   onClose,
   onRegister,
   onCancel,
 }) {
   const registration = state.registrations.find((r) => r.eventId === event.id),
-    fit = feasibility(event, state.registrations, state.events);
+    fit = fitFor(state, event),
+    student = state.user.role === "student",
+    seats = Math.max(0, event.capacity - event.registered);
   return (
     <Dialog title="An opportunity in your orbit" onClose={onClose} wide>
       <div className={`detail-art ${event.color}`}>
         <Art kind={event.art} />
         <span>
-          {event.category} / {event.club}
+          {event.category} · {event.club}
         </span>
+        {event.source === "poster" && (
+          <span className="source-tag">From a poster</span>
+        )}
       </div>
       <h3 className="detail-title">{event.title}</h3>
       <p className="muted">{event.description}</p>
@@ -39,94 +47,123 @@ export default function EventDetails({
         </span>
         <span>
           <Icon name="users" />
-          {Math.max(0, event.capacity - event.registered)} seats left · Years{" "}
-          {event.years.join(", ")}
+          <span>
+            {seats ? (
+              <>
+                <Counter value={seats} /> seats left
+              </>
+            ) : (
+              <>
+                Full · <Counter value={event.waitlist} /> waiting
+              </>
+            )}{" "}
+            · Years {event.years.join(", ")}
+          </span>
         </span>
       </div>
-      <div className={`feasibility ${fit.ok ? "fits" : "conflict"}`}>
-        <Icon name={fit.ok ? "check" : "warning"} />
-        <div>
-          <strong>
-            {fit.ok ? "You can make it." : "A little overlap to consider."}
-          </strong>
-          <p>{fit.reason}</p>
-          {fit.ok && (
+      {student && (
+        <div className={`feasibility ${fit.ok || registration ? "fits" : "conflict"}`}>
+          <Icon name={fit.ok || registration ? "check" : "warning"} />
+          <div>
+            <strong>
+              {registration
+                ? "It’s in your plans."
+                : fit.ok
+                  ? "You can make it."
+                  : "A little overlap to consider."}
+            </strong>
             <p>
-              Session ends at {clock(event.end)}. Allow {event.walk} minutes to
-              walk to your next stop.
+              {registration
+                ? "Checked against your timetable when you registered."
+                : fit.reason}
             </p>
-          )}
-        </div>
-      </div>
-      <details className="why-match" open>
-        <summary>
-          <Icon name="spark" size={16} />
-          Why this is a {event.score}% match
-        </summary>
-        <ul>
-          {recommendationReasons(event).map((reason) => (
-            <li key={reason}>
-              <Icon name="check" size={14} />
-              {reason}
-            </li>
-          ))}
-        </ul>
-        <small className="muted">
-          Illustrative opportunity score; timetable checks use the local demo
-          schedule.
-        </small>
-      </details>
-      {registration ? (
-        <div className="ticket-status">
-          <strong className="mint-text">
-            {registration.status === "waitlisted"
-              ? `You’re on the waitlist · position #${registration.position}`
-              : registration.attended
-                ? "Attendance verified · passport updated"
-                : "You’re in. See you there."}
-          </strong>
-          <p className="muted">
-            {registration.status === "waitlisted"
-              ? "When a seat opens, the organizer can promote the next person in line."
-              : `Demo ticket CC-${event.id.toUpperCase()}-091. Manage your plan in My schedule.`}
-          </p>
-          <div className="action-row">
-            {registration.status === "registered" && (
-              <button
-                className="button secondary"
-                onClick={() =>
-                  downloadFile(
-                    `${event.id}.ics`,
-                    calendarFile(event),
-                    "text/calendar",
-                  )
-                }
-              >
-                Add to calendar <Icon name="download" size={16} />
-              </button>
+            {fit.ok && !registration && (
+              <p>
+                Ends at {clock(event.end)}. Allow {event.walk} minutes to walk
+                to your next stop.
+              </p>
             )}
-            <button
-              className="text-button peach-text"
-              disabled={registration.attended}
-              onClick={() => onCancel(event)}
-            >
-              Cancel{" "}
+          </div>
+        </div>
+      )}
+      {student && (
+        <details className="why-match" open>
+          <summary>
+            <Icon name="spark" size={16} />
+            Why this is a {event.score}% match
+          </summary>
+          <ul>
+            {recommendationReasons(event, state).map((reason) => (
+              <li key={reason}>
+                <Icon name="check" size={14} />
+                {reason}
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+      {!student ? (
+        <p className="small-text muted staff-note">
+          <Icon name="grid" size={15} />
+          You’re viewing as {state.user.role}. Manage seats and check-ins in the
+          event workspace.
+        </p>
+      ) : registration ? (
+        <div className={`ticket ${registration.status}`}>
+          <div className="ticket-stub" aria-hidden="true">
+            <Icon name={registration.attended ? "shield" : "check"} size={22} />
+          </div>
+          <div>
+            <strong>
               {registration.status === "waitlisted"
-                ? "waitlist spot"
-                : "registration"}
-            </button>
+                ? `You’re on the waitlist · position #${registration.position}`
+                : registration.attended
+                  ? "Attendance verified · passport updated"
+                  : "You’re in. See you there."}
+            </strong>
+            <p className="muted">
+              {registration.status === "waitlisted"
+                ? "When a seat opens, the queue moves up automatically and you’ll be confirmed in order."
+                : `Ticket CC-${event.id.slice(0, 8).toUpperCase()}-${state.user.usn.slice(-3) || state.user.initials}`}
+            </p>
+            <div className="action-row">
+              {registration.status === "registered" && (
+                <button
+                  className="button secondary small"
+                  onClick={() =>
+                    downloadFile(
+                      `${event.id}.ics`,
+                      calendarFile(event),
+                      "text/calendar",
+                    )
+                  }
+                >
+                  Add to calendar <Icon name="download" size={16} />
+                </button>
+              )}
+              {!registration.attended && (
+                <button
+                  className="text-button coral-text"
+                  disabled={busy}
+                  onClick={() => onCancel(event)}
+                >
+                  Cancel{" "}
+                  {registration.status === "waitlisted"
+                    ? "waitlist spot"
+                    : "registration"}
+                </button>
+              )}
+            </div>
           </div>
         </div>
       ) : (
         <div className="action-row">
           <button
             className="button"
-            disabled={!fit.ok}
+            disabled={!fit.ok || busy}
             onClick={() => onRegister(event)}
           >
-            {event.registered >= event.capacity
-              ? "Join the waitlist"
-              : "Save my seat"}
+            {busy ? "Saving…" : seats === 0 ? "Join the waitlist" : "Save my seat"}
             <Icon name="arrow" size={17} />
           </button>
           <span className="small-text muted">

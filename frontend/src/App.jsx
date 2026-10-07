@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Landing from "./pages/Landing";
+import AuthPage from "./pages/Auth";
 import AppShell from "./components/AppShell";
 import EventDetails from "./components/EventDetails";
 import Assistant from "./components/Assistant";
 import Notice from "./components/Notice";
 import Dialog from "./components/Dialog";
-import { createDemoState } from "./data/createState";
+import { Splash, Offline } from "./components/Status";
 import Today from "./pages/Today";
 import Explore from "./pages/Explore";
 import Schedule from "./pages/Schedule";
@@ -15,47 +16,34 @@ import Organizer from "./pages/Organizer";
 import Communities from "./pages/Communities";
 import CampusAdmin from "./pages/CampusAdmin";
 import useCampus from "./hooks/useCampus";
-import { feasibility } from "./data/campus";
+import { api } from "./api/client";
+import { NAV, HOME } from "./data/nav";
 import "./App.css";
 
-const validPages = [
-  "home",
-  "today",
-  "explore",
-  "schedule",
-  "passport",
-  "poster",
-  "organizer",
-  "communities",
-  "admin",
-];
+const pages = ["home", "auth", ...new Set(Object.values(NAV).flat())];
+
 function pageFromHash() {
   const page = location.hash.slice(1);
-  return validPages.includes(page) ? page : "home";
+  return pages.includes(page) ? page : "home";
 }
+
 function App() {
-  const [state, setState, storageError] = useCampus();
+  const campus = useCampus();
+  const { state, status } = campus;
   const [page, setPage] = useState(pageFromHash),
-    [role, setRole] = useState(() =>
-      pageFromHash() === "organizer"
-        ? "coordinator"
-        : pageFromHash() === "admin"
-          ? "admin"
-          : "student",
-    );
-  const [eventId, setEventId] = useState(null),
+    [eventId, setEventId] = useState(null),
     [assistant, setAssistant] = useState(false),
-    [message, setMessage] = useState(""),
+    [notice, setNotice] = useState(null),
     [resetOpen, setResetOpen] = useState(false),
-    [free, setFree] = useState(false);
-  const toastTimer = useRef(null);
+    [free, setFree] = useState(false),
+    [busy, setBusy] = useState(false),
+    [demoAccounts, setDemoAccounts] = useState([]);
+  const toastTimer = useRef(null),
+    afterAuth = useRef(null);
+
   useEffect(() => {
     const change = () => {
-      if (!validPages.includes(location.hash.slice(1))) return;
-      const target = pageFromHash();
-      setPage(target);
-      if (target === "organizer") setRole("coordinator");
-      if (target === "admin") setRole("admin");
+      setPage(pageFromHash());
       setEventId(null);
       setAssistant(false);
     };
@@ -65,320 +53,226 @@ function App() {
       clearTimeout(toastTimer.current);
     };
   }, []);
-  const notify = (text) => {
+
+  useEffect(() => {
+    api
+      .demoAccounts()
+      .then((d) => setDemoAccounts(d.accounts))
+      .catch(() => setDemoAccounts([]));
+  }, [status]);
+
+  const notify = useCallback((text, tone = "success") => {
     clearTimeout(toastTimer.current);
-    setMessage(text);
-    toastTimer.current = setTimeout(() => setMessage(""), 4500);
-  };
-  const navigate = (target, options = {}) => {
+    setNotice({ text, tone, id: Date.now() });
+    toastTimer.current = setTimeout(() => setNotice(null), 4800);
+  }, []);
+
+  const navigate = useCallback((target, options = {}) => {
     setFree(!!options.free);
     setPage(target);
-    location.hash = target;
+    if (location.hash.slice(1) !== target) location.hash = target;
     window.scrollTo({ top: 0, behavior: "instant" });
-  };
-  const changeRole = (value) => {
-    setRole(value);
-    navigate(
-      value === "student"
-        ? "today"
-        : value === "coordinator"
-          ? "organizer"
-          : "admin",
-    );
-  };
-  const enter = (target) => {
-    setRole(target === "organizer" ? "coordinator" : "student");
-    navigate(target);
-  };
-  const register = (event) => {
-    if (state.registrations.some((r) => r.eventId === event.id)) {
-      notify("This opportunity is already in your plans.");
-      return;
-    }
-    if (!feasibility(event, state.registrations, state.events).ok) {
-      notify("This opportunity does not fit your schedule. Try another time.");
-      return;
-    }
-    const full = event.registered >= event.capacity;
-    setState((s) => ({
-      ...s,
-      events: s.events.map((e) =>
-        e.id === event.id
-          ? {
-              ...e,
-              registered: e.registered + (full ? 0 : 1),
-              waitlist: e.waitlist + (full ? 1 : 0),
-            }
-          : e,
-      ),
-      registrations: [
-        ...s.registrations,
-        {
-          eventId: event.id,
-          status: full ? "waitlisted" : "registered",
-          position: full ? event.waitlist + 1 : null,
-          attended: false,
-        },
-      ],
-    }));
-    notify(
-      full
-        ? `You’re on the waitlist at position #${event.waitlist + 1}.`
-        : "Your seat is saved. Your schedule just got more interesting.",
-    );
-  };
-  // Existing waitlist positions represent seeded attendees. Release preserves queue order.
-  const releaseSeat = (event, removeOwn = false) => {
-    const own = state.registrations.find((r) => r.eventId === event.id);
-    const promoteOwn = own?.status === "waitlisted" && own.position === 1;
-    setState((s) => ({
-      ...s,
-      events: s.events.map((e) =>
-        e.id === event.id
-          ? {
-              ...e,
-              registered: Math.max(0, e.registered - (e.waitlist ? 0 : 1)),
-              waitlist: Math.max(0, e.waitlist - 1),
-            }
-          : e,
-      ),
-      registrations: s.registrations
-        .filter((r) => !(removeOwn && r.eventId === event.id))
-        .map((r) =>
-          r.eventId === event.id && r.status === "waitlisted"
-            ? {
-                ...r,
-                position: r.position === 1 ? null : r.position - 1,
-                status: r.position === 1 ? "registered" : "waitlisted",
-              }
-            : r,
-        ),
-    }));
-    notify(
-      promoteOwn
-        ? "A seat opened. Pranav is now registered!"
-        : event.waitlist
-          ? "One seat released; the next waitlisted attendee was promoted."
-          : "One demo seat released.",
-    );
-  };
-  const cancel = (event) => {
-    const r = state.registrations.find((r) => r.eventId === event.id);
-    if (!r || r.attended) return;
-    if (r.status === "registered") {
-      releaseSeat(event, true);
-      return;
-    }
-    setState((s) => ({
-      ...s,
-      registrations: s.registrations.filter((r) => r.eventId !== event.id),
-      events: s.events.map((e) =>
-        e.id === event.id ? { ...e, waitlist: Math.max(0, e.waitlist - 1) } : e,
-      ),
-    }));
-    notify("Your waitlist spot has been cancelled.");
-  };
-  const attendance = (event, person, present) => {
-    setState((s) => {
-      const registration = s.registrations.find(
-        (r) => r.eventId === event.id && r.status === "registered",
-      );
-      let activities = s.activities;
-      if (person === "pranav" && registration) {
-        activities = present
-          ? [
-              ...s.activities.filter((a) => a.id !== event.id),
-              {
-                id: event.id,
-                title: event.title,
-                club: event.club,
-                date: event.date,
-                skill: event.tags[0],
-                attended: true,
-                feedback: false,
-              },
-            ]
-          : s.activities.filter((a) => a.id !== event.id);
+  }, []);
+
+  /** Runs an API mutation, applies the returned state, and reports back. */
+  const act = useCallback(
+    async (call) => {
+      setBusy(true);
+      try {
+        const message = await campus.run(call);
+        if (message) notify(message);
+        return true;
+      } catch (e) {
+        notify(e.message, "error");
+        return false;
+      } finally {
+        setBusy(false);
       }
-      return {
-        ...s,
-        checkins: {
-          ...s.checkins,
-          [event.id]: { ...s.checkins?.[event.id], [person]: present },
-        },
-        registrations: s.registrations.map((r) =>
-          r.eventId === event.id && person === "pranav"
-            ? { ...r, attended: present }
-            : r,
-        ),
-        activities,
-      };
-    });
-    notify(
-      present
-        ? "Attendance recorded. Every experience counts."
-        : "Check-in undone; the participation record was updated.",
+    },
+    [campus, notify],
+  );
+
+  const enter = (target) => {
+    if (status === "ready") {
+      navigate(NAV[state.user.role].includes(target) ? target : HOME[state.user.role]);
+    } else {
+      afterAuth.current = target;
+      navigate("auth");
+    }
+  };
+
+  const onSession = (session) => {
+    const next = campus.startSession(session);
+    const role = next.user.role;
+    const wanted = afterAuth.current;
+    afterAuth.current = null;
+    navigate(wanted && NAV[role].includes(wanted) ? wanted : HOME[role]);
+    notify(`Welcome, ${next.user.firstName}. Your campus is ready.`);
+  };
+
+  const switchAccount = async (email) => {
+    setBusy(true);
+    try {
+      onSession(await api.demoLogin(email));
+    } catch (e) {
+      notify(e.message, "error");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const signOut = () => {
+    campus.signOut();
+    setEventId(null);
+    setAssistant(false);
+    navigate("home");
+  };
+
+  if (page === "home")
+    return (
+      <>
+        <Landing onEnter={enter} signedIn={status === "ready"} />
+        <Notice notice={notice} onClose={() => setNotice(null)} />
+      </>
     );
-  };
-  const publish = (event) => {
-    setState((s) => ({ ...s, events: [event, ...s.events] }));
-    notify("A new opportunity is now discoverable in this demo.");
-  };
-  const feedback = (id, rating, comment) => {
-    setState((s) => ({
-      ...s,
-      activities: s.activities.map((a) =>
-        a.id === id ? { ...a, feedback: true } : a,
-      ),
-      feedbacks: [...(s.feedbacks || []), { id, rating, comment }],
-    }));
-    notify("Reflection saved. Thanks for making the next experience better.");
-  };
-  const join = (id) => {
-    setState((s) => ({
-      ...s,
-      joined: s.joined.includes(id)
-        ? s.joined.filter((c) => c !== id)
-        : [...s.joined, id],
-    }));
-    notify(
-      state.joined.includes(id)
-        ? "You’ve left this community."
-        : "Welcome to your people.",
+  if (status === "loading") return <Splash />;
+  if (status === "offline")
+    return <Offline message={campus.error} onRetry={campus.load} onHome={() => navigate("home")} />;
+  if (status !== "ready" || page === "auth")
+    return (
+      <>
+        <AuthPage
+          demoAccounts={demoAccounts}
+          onSession={onSession}
+          onHome={() => navigate("home")}
+          signedIn={status === "ready"}
+          onContinue={() => navigate(HOME[state.user.role])}
+        />
+        <Notice notice={notice} onClose={() => setNotice(null)} />
+      </>
     );
-  };
-  const propose = (proposal) => {
-    setState((s) => ({ ...s, proposals: [...s.proposals, proposal] }));
-    notify("Your proposal is ready for review in the admin workspace.");
-  };
-  const decision = (proposal, approved) => {
-    setState((s) => ({
-      ...s,
-      proposals: s.proposals.filter((p) => p.id !== proposal.id),
-      approvedCommunities: approved
-        ? [
-            ...(s.approvedCommunities || []),
-            {
-              ...proposal,
-              category: "Community",
-              members: 0,
-              color: "blue",
-              art: "orbit",
-              tags: ["Community"],
-            },
-          ]
-        : s.approvedCommunities,
-    }));
-    notify(
-      approved
-        ? "A new community is now open to campus."
-        : "Community proposal declined in this demo.",
-    );
-  };
+
+  const role = state.user.role;
+  const current = NAV[role].includes(page) ? page : HOME[role];
   const open = (event) => event && setEventId(event.id);
   const selectedEvent = state.events.find((e) => e.id === eventId);
+  const isRegistered = (id) => state.registrations.some((r) => r.eventId === id);
+
   return (
     <>
-      {page === "home" ? (
-        <Landing onEnter={enter} />
-      ) : (
-        <AppShell
-          page={page}
-          navigate={navigate}
-          role={role}
-          setRole={changeRole}
-          onHome={() => navigate("home")}
-          onAssistant={() => setAssistant(true)}
-          onReset={() => setResetOpen(true)}
-          storageError={storageError}
-        >
-          {page === "today" && (
-            <Today state={state} navigate={navigate} onOpen={open} />
-          )}
-          {page === "explore" && (
-            <Explore
-              key={String(free)}
-              state={state}
-              onOpen={open}
-              free={free}
-            />
-          )}
-          {page === "schedule" && (
-            <Schedule state={state} onOpen={open} navigate={navigate} />
-          )}
-          {page === "passport" && (
-            <Passport state={state} onFeedback={feedback} />
-          )}
-          {page === "poster" && <Poster state={state} onPublish={publish} />}
-          {page === "organizer" && (
-            <Organizer
-              state={state}
-              onCreate={publish}
-              onAttendance={attendance}
-              onReleaseSeat={releaseSeat}
-              navigate={navigate}
-            />
-          )}
-          {page === "communities" && (
-            <Communities state={state} onJoin={join} onPropose={propose} />
-          )}
-          {page === "admin" && (
-            <CampusAdmin
-              state={state}
-              onDecision={decision}
-              onBroadcast={(text) => {
-                setState((s) => ({ ...s, announcement: text }));
-                notify("Your note is now on My campus today.");
-              }}
-            />
-          )}
-        </AppShell>
-      )}
+      <AppShell
+        page={current}
+        navigate={navigate}
+        user={state.user}
+        demoAccounts={demoAccounts}
+        onSwitchAccount={switchAccount}
+        onHome={() => navigate("home")}
+        onSignOut={signOut}
+        onAssistant={() => setAssistant(true)}
+        onReset={demoAccounts.length ? () => setResetOpen(true) : null}
+        ai={state.ai}
+        busy={busy}
+      >
+        {current === "today" && <Today state={state} navigate={navigate} onOpen={open} />}
+        {current === "explore" && (
+          <Explore key={String(free)} state={state} onOpen={open} free={free} />
+        )}
+        {current === "schedule" && (
+          <Schedule
+            state={state}
+            onOpen={open}
+            navigate={navigate}
+            busy={busy}
+            onAddClass={(fields) => act(() => api.addClass(fields))}
+            onRemoveClass={(id) => act(() => api.removeClass(id))}
+          />
+        )}
+        {current === "passport" && (
+          <Passport
+            state={state}
+            onFeedback={(id, rating, comment) => act(() => api.feedback(id, rating, comment))}
+          />
+        )}
+        {current === "poster" && (
+          <Poster
+            state={state}
+            busy={busy}
+            onPublish={(draft) => act(() => api.createEvent({ ...draft, source: "poster" }))}
+          />
+        )}
+        {current === "organizer" && (
+          <Organizer
+            state={state}
+            busy={busy}
+            navigate={navigate}
+            onCreate={(fields) => act(() => api.createEvent(fields))}
+            onDelete={(event) => act(() => api.deleteEvent(event.id))}
+            onAttendance={(event, userId, present) =>
+              act(() => api.attendance(event.id, userId, present))
+            }
+            onReleaseSeat={(event) => act(() => api.releaseSeat(event.id))}
+          />
+        )}
+        {current === "communities" && (
+          <Communities
+            state={state}
+            busy={busy}
+            onJoin={(id) =>
+              act(() => (state.joined.includes(id) ? api.leave(id) : api.join(id)))
+            }
+            onPropose={(fields) => act(() => api.propose(fields))}
+          />
+        )}
+        {current === "admin" && (
+          <CampusAdmin
+            state={state}
+            busy={busy}
+            onDecision={(proposal, approved) => act(() => api.decide(proposal.id, approved))}
+            onBroadcast={(text) => act(() => api.announce(text))}
+          />
+        )}
+      </AppShell>
       {selectedEvent && (
         <EventDetails
           event={selectedEvent}
           state={state}
+          busy={busy}
           onClose={() => setEventId(null)}
-          onRegister={register}
-          onCancel={cancel}
-        />
-      )}{" "}
-      {assistant && (
-        <Assistant
-          state={state}
-          onClose={() => setAssistant(false)}
-          onOpen={open}
+          onRegister={(event) =>
+            isRegistered(event.id)
+              ? notify("This opportunity is already in your plans.")
+              : act(() => api.registerFor(event.id))
+          }
+          onCancel={(event) => act(() => api.cancel(event.id))}
         />
       )}
-      <Notice message={message} onClose={() => setMessage("")} />
+      {assistant && (
+        <Assistant state={state} onClose={() => setAssistant(false)} onOpen={open} />
+      )}
+      <Notice notice={notice} onClose={() => setNotice(null)} />
       {resetOpen && (
-        <Dialog
-          title="Start a fresh campus day?"
-          onClose={() => setResetOpen(false)}
-        >
+        <Dialog title="Start a fresh campus day?" onClose={() => setResetOpen(false)}>
           <p className="muted">
-            This restores the original demo events and passport. Created events,
-            registrations, check-ins, proposals, and reflections in this browser
-            will be cleared.
+            This restores the seeded demo campus in the database for every account:
+            events, registrations, check-ins, proposals, and reflections go back to
+            the presentation scenario. Accounts created through sign-up are removed.
           </p>
           <div className="action-row reset-actions">
             <button
-              className="button"
-              onClick={() => {
-                setState(createDemoState());
-                setResetOpen(false);
-                setEventId(null);
-                setAssistant(false);
-                changeRole("student");
-                notify("A fresh campus day. The demo is ready to explore.");
+              className="button danger"
+              disabled={busy}
+              onClick={async () => {
+                if (await act(() => api.reset())) {
+                  setResetOpen(false);
+                  setEventId(null);
+                  setAssistant(false);
+                  navigate(HOME[role]);
+                }
               }}
             >
-              Reset local demo
+              {busy ? "Resetting…" : "Reset demo campus"}
             </button>
-            <button
-              className="button secondary"
-              onClick={() => setResetOpen(false)}
-            >
+            <button className="button secondary" onClick={() => setResetOpen(false)}>
               Keep my changes
             </button>
           </div>

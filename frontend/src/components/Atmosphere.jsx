@@ -57,7 +57,8 @@ export default function Atmosphere({ quiet = false, paused = false }) {
           if (s === 0) ctx.moveTo(px, py);
           else ctx.lineTo(px, py);
         }
-        ctx.strokeStyle = `hsla(${158 + band * 3.8}, 75%, ${65 + band * 0.3}%, ${quiet ? 0.06 : 0.16 + band * 0.004})`;
+        // Aurora: violet on the outer bands through cyan to mint at the core.
+        ctx.strokeStyle = `hsla(${262 - band * 3}, 90%, ${66 + band * 0.25}%, ${quiet ? 0.07 : 0.15 + band * 0.005})`;
         ctx.lineWidth = 0.7;
         ctx.stroke();
       }
@@ -69,7 +70,7 @@ export default function Atmosphere({ quiet = false, paused = false }) {
             width,
           y =
             (Math.cos(i * 71.7) * 0.5 + 0.5) * height + Math.sin(time + i) * 8;
-        ctx.fillStyle = `rgba(191,224,223,${0.13 + (Math.sin(time + i) + 1) * 0.13})`;
+        ctx.fillStyle = `rgba(206,212,255,${0.13 + (Math.sin(time + i) + 1) * 0.14})`;
         ctx.beginPath();
         ctx.arc(x, y, i % 7 === 0 ? 1.7 : 0.8, 0, Math.PI * 2);
         ctx.fill();

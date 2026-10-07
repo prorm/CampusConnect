@@ -1,24 +1,35 @@
 import { useState } from "react";
 import Icon from "../components/Icon";
 import Dialog from "../components/Dialog";
-import { student, dateLabel, downloadFile } from "../data/campus";
+import { dateLabel, downloadFile } from "../data/campus";
 export default function Passport({ state, onFeedback }) {
   const [certificate, setCertificate] = useState(null),
     [feedback, setFeedback] = useState(null);
-  const skills = ["AI / ML", "Web development", "Leadership", "Hackathons"];
+  const student = state.user;
+  const counts = state.activities.reduce(
+    (acc, a) => ({ ...acc, [a.skill]: (acc[a.skill] || 0) + 1 }),
+    {},
+  );
+  const skills = [
+    ...new Set([
+      ...Object.keys(counts).sort((a, b) => counts[b] - counts[a]),
+      ...student.interests,
+    ]),
+  ].slice(0, 5);
+  const top = Math.max(1, ...Object.values(counts));
   const exportResume = () =>
     downloadFile(
-      "Pranav-Campus-Activity-Resume.txt",
+      `${student.name.replace(/\s+/g, "-")}-Campus-Activity-Resume.txt`,
       [
         student.name,
-        student.department,
+        `${student.department} · Year ${student.year}${student.usn ? ` · ${student.usn}` : ""}`,
         "Ramaiah Institute of Technology",
-        "CAMPUS ACTIVITY RESUME — FRONTEND DEMO",
+        "CAMPUS ACTIVITY RESUME",
         "",
         ...state.activities.map(
           (a) => `${a.title}\n${a.club} · ${a.date}\nSkill: ${a.skill}\n`,
         ),
-        "Participation recorded in this browser-local demo; not an institutional credential.",
+        "Participation verified by coordinator check-in on CampusConnect; not an institutional credential.",
       ].join("\n"),
     );
   return (
@@ -26,7 +37,7 @@ export default function Passport({ state, onFeedback }) {
       <div className="page-heading">
         <div>
           <h1>
-            Your curiosity, on record<span className="mint-text">.</span>
+            Your curiosity, on record<span className="accent-dot">.</span>
           </h1>
           <p className="muted">
             Every experience adds a little more to your story.
@@ -45,30 +56,31 @@ export default function Passport({ state, onFeedback }) {
           </div>
           <div className="passport-orbit" aria-hidden="true" />
           <div className="passport-owner">
-            <span className="avatar large-avatar">PM</span>
+            <span className="avatar large-avatar">{student.initials}</span>
             <h2>{student.name}</h2>
-            <p>Computer Science · Year 3</p>
+            <p>{student.department} · Year {student.year}</p>
           </div>
           <div className="passport-card-bottom">
             <div>
               <span>CAMPUS SKILL PASSPORT</span>
               <strong>
-                {state.activities.length} verified demo activities
+                {state.activities.length} verified{" "}
+                {state.activities.length === 1 ? "activity" : "activities"}
               </strong>
             </div>
             <span className="passport-seal">
               <Icon name="shield" size={26} />
             </span>
           </div>
-          <small>Ramaiah Institute of Technology / {student.usn}</small>
+          <small>
+            Ramaiah Institute of Technology{student.usn ? ` / ${student.usn}` : ""}
+          </small>
         </section>
         <section className="glass skill-panel">
           <h2>Skills you’re putting into practice</h2>
           <p className="muted">Derived from your recorded participation.</p>
           {skills.map((skill, i) => {
-            const count = state.activities.filter(
-              (a) => a.skill === skill,
-            ).length;
+            const count = counts[skill] || 0;
             return (
               <div className="skill-row" key={skill}>
                 <div>
@@ -77,8 +89,8 @@ export default function Passport({ state, onFeedback }) {
                     {count} {count === 1 ? "experience" : "experiences"}
                   </span>
                 </div>
-                <div className={`skill-bar skill-${i}`}>
-                  <span style={{ width: `${Math.min(count * 25, 100)}%` }} />
+                <div className={`skill-bar skill-${i % 5}`} style={{ "--i": i }}>
+                  <span style={{ "--fill": `${(count / top) * 100}%` }} />
                 </div>
               </div>
             );
@@ -101,6 +113,15 @@ export default function Passport({ state, onFeedback }) {
         </span>
       </div>
       <div className="activity-list glass">
+        {!state.activities.length && (
+          <div className="empty-state compact">
+            <Icon name="shield" size={28} />
+            <p>
+              Your first verified activity appears here after a coordinator
+              checks you in at an event.
+            </p>
+          </div>
+        )}
         {state.activities.map((activity) => (
           <article className="activity-row" key={activity.id}>
             <span className="activity-stamp">
@@ -138,7 +159,7 @@ export default function Passport({ state, onFeedback }) {
         >
           <div className="certificate-frame">
             <Icon name="shield" size={40} />
-            <p>CAMPUSCONNECT · DEMONSTRATION CERTIFICATE</p>
+            <p>CAMPUSCONNECT · RAMAIAH INSTITUTE OF TECHNOLOGY</p>
             <h3>Certificate of participation</h3>
             <span>Presented to</span>
             <h2>{student.name}</h2>
@@ -148,9 +169,10 @@ export default function Passport({ state, onFeedback }) {
               {certificate.club} · {dateLabel(certificate.date)} 2026
             </p>
             <small>
-              Record CC-{certificate.id.toUpperCase()}-091
+              Record CC-{certificate.id.slice(0, 10).toUpperCase()}-
+              {student.usn.slice(-3) || student.initials}
               <br />
-              Local frontend demo. Not issued by the institution.
+              Verified by coordinator check-in. Not an institutional credential.
             </small>
           </div>
           <button className="button" onClick={() => window.print()}>
@@ -166,15 +188,17 @@ export default function Passport({ state, onFeedback }) {
         >
           <form
             className="form-stack"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
               const data = new FormData(e.currentTarget);
-              onFeedback(
-                feedback.id,
-                Number(data.get("rating")),
-                data.get("comment"),
-              );
-              setFeedback(null);
+              if (
+                await onFeedback(
+                  feedback.id,
+                  Number(data.get("rating")),
+                  data.get("comment"),
+                )
+              )
+                setFeedback(null);
             }}
           >
             <p className="muted">How was {feedback.title}?</p>
