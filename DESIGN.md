@@ -170,7 +170,7 @@ CampusConnect lights an indigo-night canvas with a moving band of aurora: violet
 
 There are two surfaces with one material. The landing (Persuade) is spacious and theatrical: a masked headline rises line by line, a perspective opportunity card tilts with the pointer, and authored orbital art floats around it. The workspace, sign-in and status screens (Operate) keep the same glass, palette and light, but the aurora becomes a slow drifting field and motion is reserved for state changes: seats counting down, a ticket stamping on, a waitlist moving, bars filling.
 
-The product is a connected MERN app (Express and MongoDB API, JWT sessions, optional Claude AI). The interface says plainly which engine answered and where data is demonstrative.
+The product is a connected MERN app (Express and MongoDB API, JWT sessions, optional Groq AI). The interface says plainly which engine answered and where data is demonstrative.
 
 **Key Characteristics:**
 
@@ -194,7 +194,7 @@ A deep blue-violet night with four luminous signal colours and a separately tune
 
 ### Secondary
 
-- **Growth Violet** (`violet`): skills and growth, the AI assistant and "Claude on" chip, waitlist tickets and queues, hover borders on chips and fields, selection highlight, empty-state icons. **Violet Depth** (`violet-deep`) and **Violet Wash** (`violet-soft`) are its shadow and tint.
+- **Growth Violet** (`violet`): skills and growth, the AI assistant and "Groq AI on" chip, waitlist tickets and queues, hover borders on chips and fields, selection highlight, empty-state icons. **Violet Depth** (`violet-deep`) and **Violet Wash** (`violet-soft`) are its shadow and tint.
 
 ### Tertiary
 
@@ -289,7 +289,7 @@ Confident and luminous.
 ### Chips
 
 - **Style:** capsule, Strong Line border, Haze text (12–13px). Tone pills (mint, violet, coral) use the hue's text, a 30% hue border and its wash fill.
-- **State:** filter, day and interest chips turn the border violet on hover and fill solid mint with mint-ink 600 text when selected. The AI chip turns violet when Claude is on.
+- **State:** filter, day and interest chips turn the border violet on hover and fill solid mint with mint-ink 600 text when selected. The AI chip turns violet when Groq AI is on.
 
 ### Cards / Containers
 
@@ -342,7 +342,7 @@ The splash spins the brand mark's two orbit rings in opposite directions. The AP
 - **Do** use the chart palette (`#3593cc`, `#2ea57a`, `#8b7bff`; sentiment `#2ea57a` / `#6b7099` / `#d9604a`) for data, with direct labels and a table view, never the brighter signal colours.
 - **Do** cap staggered entrances at eight items and use the shared ease-out curve (`cubic-bezier(0.16, 1, 0.3, 1)`).
 - **Do** animate changes in numbers and state (counter, stamp, bar fill), and keep a colour or opacity cue for reduced motion.
-- **Do** label which engine produced AI output ("Answered by Claude" vs "Rule-based answer", "Read by Claude" vs "Parsed from text") and keep the campus-clock chip's "fixed for the demo" disclosure.
+- **Do** label which engine produced AI output ("Answered by Groq AI" vs "Rule-based answer", "Read by Groq AI" vs "Parsed from text") and keep the campus-clock chip's "fixed for the demo" disclosure.
 - **Do** keep visible focus (2px mint outline), the skip link, native dialog semantics and the motion pause control.
 
 ### Don't:

@@ -16,7 +16,7 @@ const env = {
   mongoUri: isTest
     ? process.env.MONGO_URI_TEST ||
       "mongodb://127.0.0.1:27017/campusconnect_test"
-    : process.env.MONGO_URI,
+    : process.env.MONGO_URI || "mongodb://127.0.0.1:27017/campusconnect",
   jwtSecret: process.env.JWT_SECRET || "",
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || "7d",
   clientUrl: (process.env.CLIENT_URL || "http://localhost:5173")
@@ -24,9 +24,13 @@ const env = {
     .map((url) => url.trim())
     .filter(Boolean),
   // Optional. When empty, the assistant, poster reader, and feedback summaries
-  // use the built-in rule-based engine instead of Claude.
-  anthropicApiKey: process.env.ANTHROPIC_API_KEY || "",
-  aiModel: process.env.AI_MODEL || "claude-opus-5-5",
+  // use the built-in rule-based engine instead of Groq.
+  groqApiKey: (process.env.GROQ_API_KEY || "").trim().startsWith("<")
+    ? ""
+    : (process.env.GROQ_API_KEY || "").trim(),
+  groqModel: process.env.GROQ_MODEL || "llama-3.3-70b-versatile",
+  groqVisionModel:
+    process.env.GROQ_VISION_MODEL || "meta-llama/llama-4-scout-17b-16e-instruct",
   // The campus clock is fixed so presentations are repeatable.
   demoDate: /^\d{4}-\d{2}-\d{2}$/.test(process.env.DEMO_DATE || "")
     ? process.env.DEMO_DATE

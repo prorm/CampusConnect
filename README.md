@@ -10,26 +10,33 @@ CampusConnect is a full **MERN** application (MongoDB, Express, React, Node.js) 
 
 ## Quick start
 
-You need **Node.js 20.19+** and **MongoDB** (local or Atlas).
+You need **Node.js 20.19+** (`node -v`) and a **MongoDB** database: either MongoDB Community running locally, or a free MongoDB Atlas cluster.
 
 ```bash
-# 1. Install both apps
+# 1. Get the code
+git clone https://github.com/prorm/campusconnect.git
+cd campusconnect
+
+# 2. Install both apps and create backend/.env (generates JWT_SECRET for you)
 npm run setup
 
-# 2. Configure the API
-cp backend/.env.example backend/.env
-#    then open backend/.env and set:
-#      MONGO_URI          ← your MongoDB connection string (required)
-#      JWT_SECRET         ← any long random string (required)
-#      ANTHROPIC_API_KEY  ← optional, enables Claude (see "AI features")
+# 3. Open backend/.env and fill in MONGO_URI and GROQ_API_KEY (see below)
 
-# 3. Run the API and the React app together
+# 4. Run the API and the React app together
 npm run dev
 ```
 
-Open **http://localhost:5173**. The API runs on **http://localhost:5000** and Vite proxies `/api` to it.
+Open **http://localhost:5173**. The API runs on **http://localhost:5000** and Vite proxies `/api` to it. When the terminal shows `[api] Connected to MongoDB` the app is ready; on first start the API seeds an empty database with the demo campus (`npm run seed` restores it any time).
 
-On first start the API seeds an empty database with the demo campus. Use `npm run seed` at any time to restore it.
+### What to put in `backend/.env`
+
+| Variable | What to put | Where to get it |
+|---|---|---|
+| `MONGO_URI` | Your MongoDB connection string | **Local:** `mongodb://127.0.0.1:27017/campusconnect` (default). **Atlas:** cluster → *Connect* → *Drivers*, e.g. `mongodb+srv://<user>:<password>@<cluster>.mongodb.net/campusconnect?retryWrites=true&w=majority`. In Atlas also add your IP under *Network Access* and URL-encode special characters in the password. |
+| `GROQ_API_KEY` | Your Groq key (starts with `gsk_`) | Free at https://console.groq.com/keys. Optional: leave it empty and the app still works with its rule-based engine. |
+| `JWT_SECRET` | Any long random string | Filled in automatically by `npm run setup`. |
+
+Everything else has a working default. Check the setup at **http://localhost:5000/api/health**: it should show `"database": "connected"` and `"ai": {"enabled": true, ...}`.
 
 ### Demo accounts
 
@@ -63,10 +70,11 @@ The API tests use a separate database (`campusconnect_test` by default, or `MONG
 
 | Variable | Required | Purpose |
 |---|---|---|
-| `MONGO_URI` | **Yes** | MongoDB connection string, e.g. `mongodb://127.0.0.1:27017/campusconnect` or an Atlas `mongodb+srv://…` URL |
+| `MONGO_URI` | **Yes** (defaults to local MongoDB) | MongoDB connection string, e.g. `mongodb://127.0.0.1:27017/campusconnect` or an Atlas `mongodb+srv://…` URL |
 | `JWT_SECRET` | **Yes** | Secret for signing login tokens |
-| `ANTHROPIC_API_KEY` | No | Enables Claude for the assistant, poster images, and feedback summaries |
-| `AI_MODEL` | No | Claude model ID (default `claude-opus-5-5`) |
+| `GROQ_API_KEY` | No | Enables Groq AI for the assistant, poster images, and feedback summaries |
+| `GROQ_MODEL` | No | Text model (default `llama-3.3-70b-versatile`) |
+| `GROQ_VISION_MODEL` | No | Poster-image model (default `meta-llama/llama-4-scout-17b-16e-instruct`) |
 | `PORT` | No | API port (default `5000`) |
 | `CLIENT_URL` | No | Allowed browser origin(s) for CORS, comma-separated |
 | `JWT_EXPIRES_IN` | No | Session length (default `7d`) |
@@ -78,15 +86,15 @@ The API tests use a separate database (`campusconnect_test` by default, or `MONG
 
 ## AI features
 
-The **campus assistant**, **poster intelligence**, and **feedback digest** call **Claude** when `ANTHROPIC_API_KEY` is set. Without a key, every feature still works through a built-in rule-based engine:
+The **campus assistant**, **poster intelligence**, and **feedback digest** call **Groq** when `GROQ_API_KEY` is set. Without a key, every feature still works through a built-in rule-based engine:
 
 | Feature | With an API key | Without a key |
 |---|---|---|
-| Campus assistant | Claude answers from your live timetable, registrations, events, and fit checks | Rule-based answers from the same data |
-| Poster intelligence | Claude reads poster **images** into an editable event draft | Parses labelled poster **text** (samples included) |
-| Feedback digest | Claude summarises strengths and improvements | Average, sentiment share, and representative quotes |
+| Campus assistant | Groq answers from your live timetable, registrations, events, and fit checks | Rule-based answers from the same data |
+| Poster intelligence | Groq reads poster **images** into an editable event draft | Parses labelled poster **text** (samples included) |
+| Feedback digest | Groq summarises strengths and improvements | Average, sentiment share, and representative quotes |
 
-The header shows **Claude on** or **Rule-based AI**, and every answer is labelled with its source. If Claude is unavailable (for example, a rejected key or a rate limit), the assistant falls back to the rule-based reply and says why.
+The header shows **Groq AI on** or **Rule-based AI**, and every answer is labelled with its source. If Groq is unavailable (for example, a rejected key or a rate limit), the assistant falls back to the rule-based reply and says why.
 
 ## What the app does
 
@@ -124,7 +132,7 @@ React (Vite) ──fetch /api──▶ Express API ──Mongoose──▶ Mongo
    │ JWT in localStorage        ├─ JWT auth + role guards (student · coordinator · admin)
    │ one state snapshot         ├─ scheduling engine (fit checks, free windows)
    │ per mutation               ├─ seat / waitlist / attendance transitions
-   │                            └─ AI service → Claude (optional) or rule-based engine
+   │                            └─ AI service → Groq (optional) or rule-based engine
 ```
 
 Every mutating endpoint responds with `{ message, state }`, a fresh role-aware snapshot, so the UI always renders confirmed server state.
@@ -137,7 +145,7 @@ backend/
     models/       User, Event, Registration, Activity, Feedback, Community, Announcement
     routes/       auth, me (state, timetable, reflections), events, communities, admin, ai
     services/     schedule (fit checks), registrations (seats/waitlist/attendance),
-                  state (role-aware snapshot), ai (Claude + rule-based)
+                  state (role-aware snapshot), ai (Groq + rule-based)
     seed/         demo campus data and seeding
     app.js        Express app (also serves frontend/dist in production)
     server.js     entry point

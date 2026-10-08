@@ -79,8 +79,8 @@ export default function Assistant({ state, onClose, onOpen }) {
       <p className="small-text muted assistant-disclaimer">
         <Icon name="spark" size={15} />
         {state.ai.enabled
-          ? `Claude answers from your timetable and live campus data.`
-          : "Rule-based answers from your timetable and live campus data. Add an API key on the server to enable Claude."}
+          ? `Groq AI answers from your timetable and live campus data.`
+          : "Rule-based answers from your timetable and live campus data. Add an API key on the server to enable Groq AI."}
       </p>
       <div
         className="chat-log"
@@ -114,7 +114,7 @@ export default function Assistant({ state, onClose, onOpen }) {
               )}
               {m.source && (
                 <small className="muted">
-                  {m.source === "claude" ? "Answered by Claude" : "Rule-based answer"}
+                  {m.source === "groq" ? "Answered by Groq AI" : "Rule-based answer"}
                   {m.notice ? ` · ${m.notice}` : ""}
                 </small>
               )}

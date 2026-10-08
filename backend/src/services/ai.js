@@ -1,52 +1,77 @@
-// Campus intelligence. Uses Claude when ANTHROPIC_API_KEY is configured and
-// falls back to deterministic, rule-based logic otherwise, so every feature
-// works without a key.
-const { Anthropic } = require("@anthropic-ai/sdk");
+// Campus intelligence. Uses Groq (OpenAI-compatible chat completions) when
+// GROQ_API_KEY is configured and falls back to deterministic, rule-based logic
+// otherwise, so every feature works without a key.
 const env = require("../config/env");
 const { clock, feasibility, freeWindow } = require("./schedule");
 const { HttpError } = require("../utils/http");
 
-let client = null;
-function claude() {
-  if (!env.anthropicApiKey) return null;
-  client ??= new Anthropic({ apiKey: env.anthropicApiKey, maxRetries: 1 });
-  return client;
+const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
+
+class GroqError extends Error {
+  constructor(message, status) {
+    super(message);
+    this.name = "GroqError";
+    this.status = status;
+  }
 }
 
+const groqEnabled = () => Boolean(env.groqApiKey);
+
 const aiStatus = () => ({
-  enabled: Boolean(env.anthropicApiKey),
-  model: env.anthropicApiKey ? env.aiModel : null,
+  enabled: Boolean(env.groqApiKey),
+  model: env.groqApiKey ? env.groqModel : null,
 });
 
-/** One structured-output call; returns parsed JSON matching `schema`. */
-async function structured({ system, messages, schema, effort = "low" }) {
-  const response = await claude().beta.messages.create({
-    model: env.aiModel,
-    max_tokens: 4000,
-    betas: ["server-side-fallback-2026-07-01"],
-    fallbacks: "default",
-    system,
-    messages,
-    output_config: { effort, format: { type: "json_schema", schema } },
-  });
-  if (response.stop_reason === "refusal")
-    throw new HttpError(422, "The assistant declined this request.");
-  if (response.stop_reason === "max_tokens")
+/** One JSON-mode call; returns the parsed object. */
+async function structured({ system, messages, schema, vision = false }) {
+  const instruction = `Respond with a single JSON object only, no markdown. It must match this JSON schema:\n${JSON.stringify(schema)}`;
+  let response;
+  try {
+    response = await fetch(GROQ_URL, {
+      method: "POST",
+      signal: AbortSignal.timeout(30000),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${env.groqApiKey}`,
+      },
+      body: JSON.stringify({
+        model: vision ? env.groqVisionModel : env.groqModel,
+        temperature: 0.3,
+        max_tokens: 2000,
+        response_format: { type: "json_object" },
+        messages: [
+          {
+            role: "system",
+            content: system ? `${system}\n\n${instruction}` : instruction,
+          },
+          ...messages,
+        ],
+      }),
+    });
+  } catch {
+    throw new GroqError("The AI service could not be reached.", 0);
+  }
+  if (!response.ok) throw new GroqError("", response.status);
+  const data = await response.json().catch(() => ({}));
+  const choice = data.choices?.[0];
+  if (choice?.finish_reason === "length")
     throw new HttpError(502, "The assistant's answer was cut off. Try again.");
-  const block = response.content.find((b) => b.type === "text");
-  return JSON.parse(block.text);
+  try {
+    return JSON.parse(choice.message.content);
+  } catch {
+    throw new GroqError("The AI service returned an unreadable answer.", 502);
+  }
 }
 
 function describeApiError(error) {
-  if (error instanceof Anthropic.AuthenticationError)
-    return "The configured ANTHROPIC_API_KEY was rejected.";
-  if (error instanceof Anthropic.RateLimitError)
+  if (!(error instanceof GroqError)) return null;
+  if (error.status === 401 || error.status === 403)
+    return "The configured GROQ_API_KEY was rejected.";
+  if (error.status === 429)
     return "The AI service is busy. Try again in a moment.";
-  if (error instanceof Anthropic.APIConnectionError)
-    return "The AI service could not be reached.";
-  if (error instanceof Anthropic.APIError)
-    return `The AI service returned an error (${error.status}).`;
-  return null;
+  if (error.status === 0) return error.message;
+  if (error.status === 502) return error.message;
+  return `The AI service returned an error (${error.status}).`;
 }
 
 // ---------------------------------------------------------------- assistant
@@ -187,7 +212,7 @@ const ASSISTANT_SCHEMA = {
 };
 
 async function assistantReply(question, history, ctx) {
-  if (!claude()) return { ...ruleBasedReply(question, ctx), source: "rules" };
+  if (!groqEnabled()) return { ...ruleBasedReply(question, ctx), source: "rules" };
   const context = assistantContext(ctx);
   const system = `You are the CampusConnect campus assistant for students at ${context.campus}. Help the student decide what to do on campus using only the JSON context below: their timetable, free time, events with precomputed fit checks, registrations, and skill passport. The fit checks already include class clashes, walking time, eligibility and deadlines, so rely on them rather than recomputing.
 
@@ -203,11 +228,13 @@ ${JSON.stringify(context)}
       messages,
       schema: ASSISTANT_SCHEMA,
     });
+    if (typeof result.reply !== "string" || !result.reply.trim())
+      throw new GroqError("The AI service returned an unreadable answer.", 502);
     const known = ctx.state.events.some((e) => e.id === result.eventId);
     return {
       reply: result.reply,
       eventId: known ? result.eventId : "",
-      source: "claude",
+      source: "groq",
     };
   } catch (error) {
     const reason = describeApiError(error);
@@ -338,15 +365,15 @@ const POSTER_SCHEMA = {
 
 async function readPoster({ text, image }) {
   if (!image) return { draft: parsePosterText(text || ""), source: "rules" };
-  if (!claude())
+  if (!groqEnabled())
     throw new HttpError(
       422,
-      "Reading poster images needs an ANTHROPIC_API_KEY on the server. Paste the poster text instead.",
+      "Reading poster images needs a GROQ_API_KEY on the server. Paste the poster text instead.",
     );
   const content = [
     {
-      type: "image",
-      source: { type: "base64", media_type: image.mediaType, data: image.data },
+      type: "image_url",
+      image_url: { url: `data:${image.mediaType};base64,${image.data}` },
     },
     {
       type: "text",
@@ -357,9 +384,9 @@ async function readPoster({ text, image }) {
     const fields = await structured({
       messages: [{ role: "user", content }],
       schema: POSTER_SCHEMA,
-      effort: "medium",
+      vision: true,
     });
-    return { draft: draftFromFields(fields), source: "claude" };
+    return { draft: draftFromFields(fields), source: "groq" };
   } catch (error) {
     const reason = describeApiError(error);
     if (reason) throw new HttpError(502, reason);
@@ -406,7 +433,7 @@ async function summarizeFeedback(feedbacks) {
       improvements: [],
       source: "rules",
     };
-  if (!claude()) return { ...ruleBasedSummary(feedbacks), source: "rules" };
+  if (!groqEnabled()) return { ...ruleBasedSummary(feedbacks), source: "rules" };
   const lines = feedbacks
     .map((f) => `- [${f.rating}/5] ${f.title}: ${f.comment}`)
     .join("\n");
@@ -420,7 +447,7 @@ async function summarizeFeedback(feedbacks) {
       ],
       schema: SUMMARY_SCHEMA,
     });
-    return { ...result, source: "claude" };
+    return { ...result, source: "groq" };
   } catch (error) {
     if (!describeApiError(error)) throw error;
     return { ...ruleBasedSummary(feedbacks), source: "rules" };

@@ -86,7 +86,7 @@ export default function Poster({ state, busy: publishing, onPublish }) {
         </div>
         <span className={`ai-chip ${state.ai.enabled ? "on" : ""}`}>
           <Icon name="spark" size={14} />
-          {state.ai.enabled ? "Claude reads poster images" : "Text parsing · add an API key for images"}
+          {state.ai.enabled ? "Groq AI reads poster images" : "Text parsing · add an API key for images"}
         </span>
       </div>
       <div className="poster-workspace">
@@ -94,7 +94,7 @@ export default function Poster({ state, busy: publishing, onPublish }) {
           <h2>Bring the details into focus</h2>
           <p className="muted">
             {state.ai.enabled
-              ? "Drop a poster image and Claude will read it, or paste the text."
+              ? "Drop a poster image and Groq AI will read it, or paste the text."
               : "Paste the poster’s text in labeled lines, or try a sample."}
           </p>
           <div className="sample-controls">
@@ -137,7 +137,7 @@ export default function Poster({ state, busy: publishing, onPublish }) {
                 <img src={image.url} alt={`Preview of ${image.name}`} />
                 <span>
                   {image.name} ·{" "}
-                  {state.ai.enabled ? "Claude will read this" : "preview only"} ·
+                  {state.ai.enabled ? "Groq AI will read this" : "preview only"} ·
                   click to replace
                 </span>
               </>
@@ -179,7 +179,7 @@ export default function Poster({ state, busy: publishing, onPublish }) {
             {reading ? (
               <>
                 <span className="spinner" />
-                {image && state.ai.enabled ? "Claude is reading…" : "Finding the details…"}
+                {image && state.ai.enabled ? "Groq AI is reading…" : "Finding the details…"}
               </>
             ) : (
               <>
@@ -194,7 +194,7 @@ export default function Poster({ state, busy: publishing, onPublish }) {
             <div className="draft-reveal">
               <span className="pill mint">
                 <Icon name="check" size={15} />
-                {source === "claude" ? "Read by Claude" : "Parsed from text"} · review
+                {source === "groq" ? "Read by Groq AI" : "Parsed from text"} · review
                 before adding
               </span>
               <form

@@ -1,12 +1,12 @@
 # CampusConnect API
 
-Express 5 + Mongoose 9 REST API for CampusConnect. It owns authentication, the scheduling rules, seats and waitlists, attendance, the skill passport, communities, analytics, and the optional Claude integration.
+Express 5 + Mongoose 9 REST API for CampusConnect. It owns authentication, the scheduling rules, seats and waitlists, attendance, the skill passport, communities, analytics, and the optional Groq integration.
 
 ## Setup
 
 ```bash
 npm install
-cp .env.example .env     # set MONGO_URI and JWT_SECRET; ANTHROPIC_API_KEY is optional
+cp .env.example .env     # set MONGO_URI and JWT_SECRET; GROQ_API_KEY is optional
 npm run dev              # http://localhost:5000, restarts on file changes
 ```
 
@@ -90,7 +90,7 @@ Sign-in routes are rate limited to 50 requests per 15 minutes per IP.
 
 ### AI — `/api/ai`
 
-Rate limited to 20 requests per minute. Each response includes `source: "claude" | "rules"`.
+Rate limited to 20 requests per minute. Each response includes `source: "groq" | "rules"`.
 
 | Method | Path | Auth | Description |
 |---|---|---|---|
@@ -112,6 +112,6 @@ Rate limited to 20 requests per minute. Each response includes `source: "claude"
 
 `Event.registered` and `Event.waitlist` count everyone, including attendees registered at the desk; `Registration` documents track app users. Seats are claimed with an atomic conditional update (`registered < capacity`). Cancelling or releasing a seat while people are queued decrements the queue, confirms whoever holds position 1, and moves everyone else up one place.
 
-## Claude integration
+## Groq integration
 
-`services/ai.js` uses the official `@anthropic-ai/sdk` with structured JSON outputs, adaptive thinking, and server-side refusal fallbacks (`fallbacks: "default"`). The model defaults to `claude-opus-5-5` (`AI_MODEL` overrides it). The assistant receives the student's timetable, free window, events with precomputed fit checks, registrations, and passport, and is told to say when it lacks information. API failures (bad key, rate limits, network) fall back to the rule-based engine rather than failing the request.
+`services/ai.js` calls Groq's OpenAI-compatible chat completions endpoint with JSON mode. Text features use `GROQ_MODEL` (default `llama-3.3-70b-versatile`); poster images use `GROQ_VISION_MODEL` (default `meta-llama/llama-4-scout-17b-16e-instruct`). The assistant receives the student's timetable, free window, events with precomputed fit checks, registrations, and passport, and is told to say when it lacks information. API failures (bad key, rate limits, network) fall back to the rule-based engine rather than failing the request.

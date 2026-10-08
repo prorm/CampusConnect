@@ -1,5 +1,5 @@
 process.env.NODE_ENV = "test";
-process.env.ANTHROPIC_API_KEY = "";
+process.env.GROQ_API_KEY = "";
 
 const { test, before, after, beforeEach } = require("node:test");
 const assert = require("node:assert/strict");
@@ -315,7 +315,7 @@ test("poster text parsing and the rule-based assistant", async () => {
     .set(auth(token))
     .send({ image: { data: "aGVsbG8=", mediaType: "image/png" } });
   assert.equal(image.status, 422);
-  assert.match(image.body.error, /ANTHROPIC_API_KEY/);
+  assert.match(image.body.error, /GROQ_API_KEY/);
 
   const reply = await api()
     .post("/api/ai/assistant")

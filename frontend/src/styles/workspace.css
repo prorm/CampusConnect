@@ -1986,7 +1986,7 @@
   background: var(--surface-3);
   color: var(--text-2);
 }
-.source-badge.claude {
+.source-badge.groq {
   background: var(--violet);
   color: #120a40;
 }

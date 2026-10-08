@@ -17,7 +17,7 @@ async function start() {
   const server = createApp().listen(env.port, () => {
     console.log(`[api] CampusConnect API on http://localhost:${env.port}`);
     console.log(
-      `[api] AI: ${env.anthropicApiKey ? `Claude (${env.aiModel})` : "rule-based (no ANTHROPIC_API_KEY)"}`,
+      `[api] AI: ${env.groqApiKey ? `Groq (${env.groqModel})` : "rule-based (no GROQ_API_KEY)"}`,
     );
   });
 
@@ -33,5 +33,9 @@ async function start() {
 
 start().catch((error) => {
   console.error(`[api] Failed to start: ${error.message}`);
+  if (/ECONNREFUSED|ENOTFOUND|selection|querySrv|Authentication|auth/i.test(error.message))
+    console.error(
+      "[api] Could not reach MongoDB. Check MONGO_URI in backend/.env: start your local mongod, or for Atlas allow your IP under Network Access and verify the username/password.",
+    );
   process.exit(1);
 });

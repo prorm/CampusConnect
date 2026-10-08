@@ -95,7 +95,7 @@ export default function AppShell({
             </span>
             <span>
               Ask your campus
-              <small>{ai.enabled ? "Claude-powered assistant" : "Campus assistant"}</small>
+              <small>{ai.enabled ? "Groq-powered assistant" : "Campus assistant"}</small>
             </span>
             <Icon name="arrow" size={16} />
           </button>
@@ -177,7 +177,7 @@ export default function AppShell({
             </span>
             <span className={`ai-chip ${ai.enabled ? "on" : ""}`}>
               <Icon name="spark" size={13} />
-              {ai.enabled ? "Claude on" : "Rule-based AI"}
+              {ai.enabled ? "Groq AI on" : "Rule-based AI"}
             </span>
             <button
               className="icon-button"

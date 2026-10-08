@@ -73,7 +73,7 @@ function FeedbackDigest({ state, event }) {
         <div className="digest">
           <p className="digest-summary">
             <span className={`source-badge ${summary.source}`}>
-              {summary.source === "claude" ? "Claude" : "Rule-based"}
+              {summary.source === "groq" ? "Groq AI" : "Rule-based"}
             </span>
             {summary.summary}
           </p>
