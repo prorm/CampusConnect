@@ -8,6 +8,15 @@ CampusConnect is a full **MERN** application (MongoDB, Express, React, Node.js) 
 - **Coordinators** publish events (by hand or from a poster), watch turnout forecasts, manage waitlists, check attendees in, and read feedback digests.
 - **Administrators** approve new communities, publish campus announcements, and read engagement analytics.
 
+## Latest feature update
+
+CampusConnect now makes event discovery more practical for a student's real day:
+
+- Event recommendations can be ordered by timetable fit, including walking time and existing plans.
+- Registration checks conflicts, eligibility, deadlines, and seat availability before a student commits.
+- Full events use an ordered waitlist and automatically confirm the next student when a seat opens.
+- Coordinator check-ins create verified activity entries that feed the student's skill passport.
+
 ## Quick start
 
 You need **Node.js 20.19+** (`node -v`) and a **MongoDB** database: either MongoDB Community running locally, or a free MongoDB Atlas cluster.
